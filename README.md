@@ -7,7 +7,7 @@ Web app sederhana: tekan **Mulai**, dan aplikasi memilihkan satu ayat Alkitab se
 - **Tata Cara** di layar awal: berdoa dulu, tekan Mulai, lalu renungkan ayatnya
 - Tombol **Mulai** dengan animasi "mengocok" sebelum ayat muncul
 - **Doa Penguatan** singkat di bawah setiap ayat, sesuai tema ayatnya (lihat `prayers.js`)
-- Pilihan bagian: Semua, Perjanjian Lama, atau Perjanjian Baru
+- Ayat dipilih secara acak dari seluruh Alkitab
 - **Ayat lain**: 50 ayat yang terakhir keluar tidak akan diulang dulu
 - **Salin** dan **Bagikan** ayat beserta doanya (menu bagikan bawaan HP, atau WhatsApp di desktop)
 - Tampilan untuk HP, mode gelap otomatis, tanpa perlu instalasi atau build

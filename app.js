@@ -10,7 +10,6 @@
   const againBtn = $("again");
 
   let data = null;
-  let filter = loadPref("filter", "semua");
   let current = null;
   const recent = [];
 
@@ -32,12 +31,6 @@
       toast("Data ayat gagal dimuat. Coba muat ulang halaman.");
     });
 
-  function pool() {
-    if (filter === "semua") return data.ayat;
-    const wantOT = filter === "pl";
-    return (pool.cache ??= {})[filter] ??= data.ayat.filter((v) => data.kitab[v[0]].pl === wantOT);
-  }
-
   function randomIndex(n) {
     if (window.crypto?.getRandomValues) {
       // tolak sampel di ujung supaya distribusinya benar-benar merata
@@ -50,7 +43,7 @@
   }
 
   function pickVerse() {
-    const list = pool();
+    const list = data.ayat;
     let v;
     for (let i = 0; i < 20; i++) {
       v = list[randomIndex(list.length)];
@@ -80,7 +73,7 @@
 
     const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
     const ref = $("shuffle-ref");
-    const list = pool();
+    const list = data.ayat;
     let timer = null;
     if (!reduceMotion) {
       // nama-nama ayat berputar cepat lalu melambat, seperti mengocok
@@ -121,17 +114,6 @@
     show("intro");
     startBtn.focus({ preventScroll: true });
   });
-
-  // ---------- pilihan bagian ----------
-
-  const filterButtons = document.querySelectorAll(".filter button");
-  function setFilter(value) {
-    filter = value;
-    filterButtons.forEach((b) => b.setAttribute("aria-checked", String(b.dataset.filter === value)));
-    savePref("filter", value);
-  }
-  filterButtons.forEach((b) => b.addEventListener("click", () => setFilter(b.dataset.filter)));
-  setFilter(["semua", "pl", "pb"].includes(filter) ? filter : "semua");
 
   // ---------- salin & bagikan ----------
 
@@ -175,19 +157,4 @@
     toastTimer = setTimeout(() => (el.hidden = true), 2200);
   }
 
-  function loadPref(key, fallback) {
-    try {
-      return localStorage.getItem("ayat:" + key) ?? fallback;
-    } catch {
-      return fallback;
-    }
-  }
-
-  function savePref(key, value) {
-    try {
-      localStorage.setItem("ayat:" + key, value);
-    } catch {
-      /* penyimpanan tidak tersedia */
-    }
-  }
 })();
