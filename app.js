@@ -23,6 +23,7 @@
     })
     .then((json) => {
       data = json;
+      $("version").textContent = json.singkatan;
       startBtn.disabled = false;
       startBtn.querySelector(".label").textContent = "Mulai";
     })
@@ -69,6 +70,7 @@
 
   function show(name) {
     for (const [key, el] of Object.entries(screens)) el.hidden = key !== name;
+    window.scrollTo(0, 0);
   }
 
   function reveal() {
@@ -103,6 +105,7 @@
     text.textContent = v[4];
     text.classList.toggle("long", v[4].length > 280);
     $("verse-ref").textContent = reference(v);
+    $("prayer-text").textContent = window.Doa.prayerFor(v[4], reference(v));
     show("result");
     // ulangi animasi kartu setiap kali ayat baru muncul
     const card = screens.result.querySelector(".card");
@@ -133,7 +136,8 @@
   // ---------- salin & bagikan ----------
 
   function shareText(v) {
-    return `“${v[4]}”\n— ${reference(v)} (${data.singkatan})`;
+    const prayer = window.Doa.prayerFor(v[4], reference(v));
+    return `“${v[4]}”\n— ${reference(v)} (${data.singkatan})\n\nDoa Penguatan:\n${prayer}`;
   }
 
   $("copy").addEventListener("click", async () => {

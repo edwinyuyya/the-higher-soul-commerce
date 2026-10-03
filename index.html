@@ -22,7 +22,27 @@
 
     <!-- Layar awal -->
     <section id="intro" class="intro">
-      <p class="lead">Tenangkan hati sejenak.<br>Tekan <strong>Mulai</strong>, dan biarkan satu ayat dipilihkan untukmu.</p>
+      <div class="guide">
+        <h2>Tata Cara</h2>
+        <ol>
+          <li>
+            <strong>Berdoalah terlebih dahulu</strong> dengan sungguh-sungguh kepada Tuhan Yesus.
+            Ceritakan keluh kesahmu, pertanyaanmu, atau hal yang membuatmu butuh penguatan,
+            dan mintalah petunjuk-Nya.
+          </li>
+          <li>
+            Setelah berdoa, <strong>tekan tombol Mulai</strong>. Percayalah bahwa kamu akan dituntun
+            dan diberikan penguatan yang pas dengan apa yang kamu doakan.
+          </li>
+          <li>
+            <strong>Baca dan renungkan</strong> ayat yang muncul, lalu naikkan doa penguatan di bawahnya.
+          </li>
+        </ol>
+        <p class="blessing">
+          Semoga aplikasi ini menjadi berkat bagi banyak orang. Bagi kamu yang sedang gundah,
+          khawatir, atau takut, kiranya kamu tidak salah jalan, tetapi dikuatkan melalui firman Tuhan.
+        </p>
+      </div>
 
       <div class="filter" role="radiogroup" aria-label="Pilih bagian Alkitab">
         <button type="button" role="radio" aria-checked="true" data-filter="semua">Semua</button>
@@ -46,8 +66,13 @@
       <article class="card" aria-live="polite">
         <span class="quote-mark" aria-hidden="true">“</span>
         <blockquote id="verse-text" class="verse-text"></blockquote>
-        <p class="verse-ref"><span id="verse-ref"></span> <span class="version">TSI</span></p>
+        <p class="verse-ref"><span id="verse-ref"></span> <span class="version" id="version">AYT</span></p>
       </article>
+
+      <aside class="prayer" aria-label="Doa penguatan">
+        <h2><span aria-hidden="true">🙏</span> Doa Penguatan</h2>
+        <p id="prayer-text"></p>
+      </aside>
 
       <div class="actions">
         <button id="copy" class="ghost" type="button">Salin</button>
@@ -62,11 +87,12 @@
   </main>
 
   <footer class="credit">
-    Teks Alkitab: <em>Alkitab Terjemahan Sederhana Indonesia</em> (TSI), Edisi Ketiga,
-    dengan lisensi <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.id" rel="noopener">CC BY-SA 4.0</a>.
-    Data melalui <a href="https://github.com/wldeh/bible-api" rel="noopener">wldeh/bible-api</a>.
+    Teks Alkitab: <em>Alkitab Yang Terbuka</em> (AYT) © 2011–2024 Yayasan Lembaga SABDA,
+    dengan lisensi <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.id" rel="noopener">CC BY-SA 4.0</a>,
+    melalui <a href="https://ebible.org/indayt/" rel="noopener">eBible.org</a>.
   </footer>
 
+  <script src="prayers.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

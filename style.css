@@ -79,22 +79,72 @@ section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: safe center;
   text-align: center;
   gap: 28px;
   padding: 32px 0;
   animation: fade-in 0.45s ease both;
 }
 
-.lead {
+/* Tata cara */
+.guide {
+  width: 100%;
+  text-align: left;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 22px 22px 20px;
+  box-shadow: var(--shadow);
+}
+.guide h2,
+.prayer h2 {
+  margin: 0 0 12px;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.guide ol {
+  margin: 0;
+  padding-left: 1.3em;
+  display: grid;
+  gap: 10px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+.guide li::marker { color: var(--accent); font-weight: 600; }
+.guide strong { font-weight: 600; }
+.blessing {
+  margin: 16px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* Doa */
+.prayer {
+  width: 100%;
+  text-align: left;
+  background: color-mix(in srgb, var(--accent) 8%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--accent) 25%, var(--line));
+  border-radius: 20px;
+  padding: 20px 22px;
+  margin-top: -12px;
+  animation: rise 0.6s 0.25s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.prayer p {
   margin: 0;
   font-family: var(--serif);
-  font-size: 1.3rem;
-  line-height: 1.6;
-  color: var(--text);
-  text-wrap: balance;
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1.7;
 }
-.lead strong { color: var(--accent); font-weight: 500; }
 
 /* Pilihan bagian */
 .filter {

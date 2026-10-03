@@ -4,10 +4,12 @@ Web app sederhana: tekan **Mulai**, dan aplikasi memilihkan satu ayat Alkitab se
 
 ## Fitur
 
+- **Tata Cara** di layar awal: berdoa dulu, tekan Mulai, lalu renungkan ayatnya
 - Tombol **Mulai** dengan animasi "mengocok" sebelum ayat muncul
+- **Doa Penguatan** singkat di bawah setiap ayat, sesuai tema ayatnya (lihat `prayers.js`)
 - Pilihan bagian: Semua, Perjanjian Lama, atau Perjanjian Baru
 - **Ayat lain**: 50 ayat yang terakhir keluar tidak akan diulang dulu
-- **Salin** dan **Bagikan** (menu bagikan bawaan HP, atau WhatsApp di desktop)
+- **Salin** dan **Bagikan** ayat beserta doanya (menu bagikan bawaan HP, atau WhatsApp di desktop)
 - Tampilan untuk HP, mode gelap otomatis, tanpa perlu instalasi atau build
 
 ## Menjalankan
@@ -23,28 +25,29 @@ Untuk online, unggah isi folder ini ke hosting statis apa saja (GitHub Pages, Ne
 
 ## Data ayat
 
-`data/ayat.json` dibuat oleh `scripts/build_data.py` dari
-**Alkitab Terjemahan Sederhana Indonesia (TSI), Edisi Ketiga**, melalui
-[wldeh/bible-api](https://github.com/wldeh/bible-api).
+`data/ayat.json` dibuat oleh `scripts/build_data.py` dari **Alkitab Yang Terbuka (AYT)**,
+diambil dari korpus eBible.org di [BibleNLP/ebible](https://github.com/BibleNLP/ebible).
+AYT adalah terjemahan harfiah (mirip gaya KJV) dan lengkap 66 kitab, termasuk Mazmur dan Amsal.
 
-- Isi: Perjanjian Baru lengkap ditambah Kejadian, Keluaran, Ulangan, Rut, 1–2 Samuel, Ezra,
-  Nehemia, Ester, Pengkhotbah, dan Yunus. Kitab PL lainnya belum tersedia di sumber TSI.
-- Ayat yang kalimatnya berlanjut digabung (mis. *Kejadian 1:1–2*) agar yang tampil selalu kalimat utuh.
-- Sumber data menyisipkan catatan kaki ke dalam teks dan menghilangkan baris puisi. Skrip build
-  membersihkan catatan kaki dan membuang ayat yang terlihat terpotong. Karena itu Amsal tidak
-  dipakai, dan sekitar 11 ribu unit ayat yang lolos.
+- Judul Mazmur, kata "Sela", dan penanda nomor ayat Ibrani dibuang.
+- Ayat yang kalimatnya berlanjut digabung (mis. *Matius 5:2–3*) agar yang tampil selalu kalimat utuh.
+- Sekitar 27.800 unit ayat.
 
 Membangun ulang data:
 
 ```bash
-python3 scripts/build_data.py [--ref tb.json]
+python3 scripts/build_data.py
 ```
 
-`--ref` opsional: teks TB yang hanya dipakai sebagai pembanding panjang untuk mendeteksi ayat
-terpotong. Teks TB tidak ikut ditulis ke output.
+## Doa penguatan
+
+`prayers.js` mengenali tema ayat dari kata-katanya (takut, khawatir, kekuatan, pengampunan,
+hikmat, pengharapan, dan lain-lain), lalu memilih salah satu doa untuk tema itu. Ayat yang sama
+selalu mendapat doa yang sama. Ayat tanpa tema yang jelas (misalnya kisah atau silsilah) mendapat
+doa umum. Doa bisa ditambah atau diubah langsung di file tersebut.
 
 ## Lisensi teks
 
-Teks TSI dicantumkan dengan atribusi di footer aplikasi. Sebelum aplikasi dipublikasikan,
-pastikan ketentuan lisensi TSI terbaru di halaman resmi penerbitnya (eBible.org / Yayasan Alkitab
-Terjemahan Sederhana Indonesia).
+Teks AYT © Yayasan Lembaga SABDA, ditandai dapat disebarluaskan di eBible.org dan dicantumkan
+dengan atribusi di footer aplikasi. Sebelum dipublikasikan, pastikan ketentuan lisensi terbaru
+di https://ebible.org/indayt/ atau situs SABDA.
