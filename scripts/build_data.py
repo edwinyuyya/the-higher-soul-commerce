@@ -46,8 +46,68 @@ BOOKS = [
     ("2JN", "2 Yohanes"), ("3JN", "3 Yohanes"), ("JUD", "Yudas"), ("REV", "Wahyu"),
 ]
 
-# Kitab yang dipakai aplikasi: hanya Mazmur dan Amsal.
-SELECTED_BOOKS = ["PSA", "PRO"]
+# Kitab yang dipakai seluruhnya.
+FULL_BOOKS = {"PSA", "PRO"}
+
+# Ayat pilihan yang populer dan menguatkan dari kitab lain.
+POPULAR = """
+GEN 1:1 GEN 1:27 GEN 28:15 GEN 50:20
+EXO 14:14 EXO 15:2 EXO 33:14
+NUM 6:24-26
+DEU 6:5 DEU 31:6 DEU 31:8
+JOS 1:9 JOS 24:15
+1SA 16:7
+1CH 16:11 1CH 16:34
+2CH 7:14
+NEH 8:10
+JOB 19:25 JOB 42:2
+ECC 3:1 ECC 3:11
+ISA 9:6 ISA 26:3 ISA 30:15 ISA 40:8 ISA 40:29 ISA 40:31 ISA 41:10 ISA 41:13 ISA 43:2
+ISA 43:18-19 ISA 53:5 ISA 54:10 ISA 55:8-9 ISA 58:11
+JER 17:7 JER 29:11 JER 29:12-13 JER 31:3 JER 32:17 JER 33:3
+LAM 3:22-23 LAM 3:25
+EZK 36:26
+MIC 6:8 MIC 7:7
+NAM 1:7
+HAB 3:17-18
+ZEP 3:17
+ZEC 4:6
+MAL 3:10
+MAT 5:3-10 MAT 5:14 MAT 5:16 MAT 6:26 MAT 6:33 MAT 6:34 MAT 7:7 MAT 11:28-30 MAT 17:20
+MAT 18:20 MAT 19:26 MAT 22:37-39 MAT 28:20
+MRK 9:23 MRK 10:27 MRK 11:24 MRK 12:30-31
+LUK 1:37 LUK 6:31 LUK 6:38
+JHN 1:12 JHN 3:16 JHN 8:12 JHN 8:32 JHN 10:10 JHN 10:11 JHN 11:25 JHN 13:34-35 JHN 14:1
+JHN 14:6 JHN 14:27 JHN 15:5 JHN 15:13 JHN 16:33
+ACT 1:8 ACT 16:31
+ROM 5:8 ROM 6:23 ROM 8:1 ROM 8:18 ROM 8:28 ROM 8:31 ROM 8:38-39 ROM 10:9 ROM 12:2 ROM 12:12
+ROM 15:13
+1CO 10:13 1CO 13:4-7 1CO 13:13 1CO 15:58 1CO 16:14
+2CO 4:16-18 2CO 5:7 2CO 5:17 2CO 12:9
+GAL 2:20 GAL 5:22-23 GAL 6:9
+EPH 2:8-10 EPH 3:20 EPH 4:32 EPH 6:10
+PHP 1:6 PHP 3:13-14 PHP 4:6-7 PHP 4:8 PHP 4:13 PHP 4:19
+COL 3:2 COL 3:23
+1TH 5:16-18
+2TI 1:7 2TI 3:16
+HEB 4:16 HEB 11:1 HEB 12:1-2 HEB 13:5 HEB 13:8
+JAS 1:2-3 JAS 1:5 JAS 1:12 JAS 4:8
+1PE 2:9 1PE 5:7
+1JN 1:9 1JN 4:16 1JN 4:18 1JN 4:19
+REV 3:20 REV 21:4
+"""
+
+
+def parse_popular():
+    refs = []
+    for item in POPULAR.split():
+        if ":" not in item:
+            book = item
+            continue
+        chapter, verses = item.split(":")
+        first, _, last = verses.partition("-")
+        refs.append((book, int(chapter), int(first), int(last or first)))
+    return refs
 
 MAX_VERSES_PER_UNIT = 4
 MAX_UNIT_CHARS = 600
@@ -117,7 +177,13 @@ def main():
     os.makedirs(args.cache, exist_ok=True)
     texts, vrefs = download(args.cache, "text"), download(args.cache, "vref")
     names = dict(BOOKS)
-    index = {code: i for i, code in enumerate(SELECTED_BOOKS)}
+    popular = parse_popular()
+    wanted = FULL_BOOKS | {b for b, *_ in popular}
+    used = [code for code, _ in BOOKS if code in wanted]  # urutan kanon
+    index = {code: i for i, code in enumerate(used)}
+
+    def is_popular(book, chapter, first, last):
+        return any(b == book and c == chapter and f <= last and first <= l for b, c, f, l in popular)
 
     # kelompokkan ayat per (kitab, pasal), sesuai urutan
     chapters = {}
@@ -147,17 +213,22 @@ def main():
                 and len(joined) <= MAX_UNIT_CHARS
                 and (joined[0].isupper() or joined[0] in "“‘")
             )
-            if ok:
+            if ok and (book in FULL_BOOKS or is_popular(book, chapter, pending[0][0], pending[-1][0])):
                 units.append([index[book], chapter, pending[0][0], pending[-1][0], joined])
                 kept += 1
-            else:
+            elif not ok and (book in FULL_BOOKS or is_popular(book, chapter, pending[0][0], pending[-1][0])):
                 dropped += 1
             pending = []
+
+    # pastikan setiap ayat pilihan benar-benar masuk
+    for b, c, f, l in popular:
+        if not any(used[u[0]] == b and u[1] == c and u[2] <= l and f <= u[3] for u in units):
+            print(f"PERINGATAN: {b} {c}:{f}-{l} tidak masuk")
 
     out = {
         "terjemahan": "Alkitab Yang Terbuka (AYT)",
         "singkatan": "AYT",
-        "kitab": [{"nama": names[code]} for code in SELECTED_BOOKS],
+        "kitab": [{"nama": names[code]} for code in used],
         "ayat": units,
     }
     os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
