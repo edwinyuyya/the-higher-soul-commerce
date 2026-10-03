@@ -7,7 +7,7 @@ Web app sederhana: tekan **Mulai**, dan aplikasi memilihkan satu ayat Alkitab se
 - **Tata Cara** di layar awal: berdoa dulu, tekan Mulai, lalu renungkan ayatnya
 - Tombol **Mulai** dengan animasi "mengocok" sebelum ayat muncul
 - **Doa Penguatan** singkat di bawah setiap ayat, sesuai tema ayatnya (lihat `prayers.js`)
-- Ayat dipilih secara acak dari seluruh Alkitab
+- Ayat dipilih secara acak dari kitab **Mazmur** dan **Amsal**
 - **Ayat lain**: 50 ayat yang terakhir keluar tidak akan diulang dulu
 - **Salin** dan **Bagikan** ayat beserta doanya (menu bagikan bawaan HP, atau WhatsApp di desktop)
 - Tampilan untuk HP, mode gelap otomatis, tanpa perlu instalasi atau build
@@ -27,11 +27,12 @@ Untuk online, unggah isi folder ini ke hosting statis apa saja (GitHub Pages, Ne
 
 `data/ayat.json` dibuat oleh `scripts/build_data.py` dari **Alkitab Yang Terbuka (AYT)**,
 diambil dari korpus eBible.org di [BibleNLP/ebible](https://github.com/BibleNLP/ebible).
-AYT adalah terjemahan harfiah (mirip gaya KJV) dan lengkap 66 kitab, termasuk Mazmur dan Amsal.
+AYT adalah terjemahan harfiah (mirip gaya KJV). Aplikasi hanya memakai kitab Mazmur dan Amsal
+(diatur lewat `SELECTED_BOOKS` di skrip build).
 
 - Judul Mazmur, kata "Sela", dan penanda nomor ayat Ibrani dibuang.
 - Ayat yang kalimatnya berlanjut digabung (mis. *Matius 5:2–3*) agar yang tampil selalu kalimat utuh.
-- Sekitar 27.800 unit ayat.
+- Sekitar 3.150 unit ayat (Mazmur 2.320, Amsal 839).
 
 Membangun ulang data:
 

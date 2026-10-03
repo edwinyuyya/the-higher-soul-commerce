@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Bangun data/ayat.json dari Alkitab Yang Terbuka (AYT).
+"""Bangun data/ayat.json dari Alkitab Yang Terbuka (AYT), khusus Mazmur dan Amsal.
 
 Sumber: korpus eBible.org di https://github.com/BibleNLP/ebible
 (corpus/ind-indayt.txt, satu ayat per baris, sejajar dengan metadata/vref.txt).
@@ -45,7 +45,9 @@ BOOKS = [
     ("JAS", "Yakobus"), ("1PE", "1 Petrus"), ("2PE", "2 Petrus"), ("1JN", "1 Yohanes"),
     ("2JN", "2 Yohanes"), ("3JN", "3 Yohanes"), ("JUD", "Yudas"), ("REV", "Wahyu"),
 ]
-NEW_TESTAMENT_START = 39
+
+# Kitab yang dipakai aplikasi: hanya Mazmur dan Amsal.
+SELECTED_BOOKS = ["PSA", "PRO"]
 
 MAX_VERSES_PER_UNIT = 4
 MAX_UNIT_CHARS = 600
@@ -114,7 +116,8 @@ def main():
 
     os.makedirs(args.cache, exist_ok=True)
     texts, vrefs = download(args.cache, "text"), download(args.cache, "vref")
-    index = {code: i for i, (code, _) in enumerate(BOOKS)}
+    names = dict(BOOKS)
+    index = {code: i for i, code in enumerate(SELECTED_BOOKS)}
 
     # kelompokkan ayat per (kitab, pasal), sesuai urutan
     chapters = {}
@@ -123,7 +126,7 @@ def main():
             continue
         book, loc = ref.split(" ")
         if book not in index:
-            continue  # deuterokanonika tidak ada di AYT
+            continue  # kitab lain (dan deuterokanonika) tidak dipakai
         chapter, verse = map(int, loc.split(":"))
         chapters.setdefault((book, chapter), []).append((verse, clean(book, verse, text.strip())))
 
@@ -154,7 +157,7 @@ def main():
     out = {
         "terjemahan": "Alkitab Yang Terbuka (AYT)",
         "singkatan": "AYT",
-        "kitab": [{"nama": name, "pl": i < NEW_TESTAMENT_START} for i, (_, name) in enumerate(BOOKS)],
+        "kitab": [{"nama": names[code]} for code in SELECTED_BOOKS],
         "ayat": units,
     }
     os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
