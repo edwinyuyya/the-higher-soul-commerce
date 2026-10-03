@@ -220,6 +220,20 @@ def main():
                 dropped += 1
             pending = []
 
+    # tempelkan penjelasan ayat pilihan (scripts/penjelasan.json) sebagai elemen ke-6
+    with open(os.path.join(here, "penjelasan.json"), encoding="utf-8") as f:
+        notes = json.load(f)
+    used_notes = set()
+    for u in units:
+        key = f"{names[used[u[0]]]} {u[1]}:{u[2]}" + (f"-{u[3]}" if u[3] != u[2] else "")
+        if key in notes:
+            u.append(notes[key])
+            used_notes.add(key)
+        elif used[u[0]] not in FULL_BOOKS:
+            print(f"PERINGATAN: belum ada penjelasan untuk {key}")
+    for key in sorted(set(notes) - used_notes):
+        print(f"PERINGATAN: penjelasan {key} tidak cocok dengan ayat mana pun")
+
     # pastikan setiap ayat pilihan benar-benar masuk
     for b, c, f, l in popular:
         if not any(used[u[0]] == b and u[1] == c and u[2] <= l and f <= u[3] for u in units):

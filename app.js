@@ -98,6 +98,8 @@
     text.textContent = v[4];
     text.classList.toggle("long", v[4].length > 280);
     $("verse-ref").textContent = reference(v);
+    $("meaning").hidden = !v[5];
+    $("meaning-text").textContent = v[5] || "";
     $("prayer-text").textContent = window.Doa.prayerFor(v[4], reference(v));
     $("share").href = `https://wa.me/?text=${encodeURIComponent(shareText(v))}`;
     show("result");
@@ -120,7 +122,8 @@
 
   function shareText(v) {
     const prayer = window.Doa.prayerFor(v[4], reference(v));
-    return `“${v[4]}”\n— ${reference(v)} (${data.singkatan})\n\nDoa Penguatan:\n${prayer}`;
+    const meaning = v[5] ? `\n\nPengertian Ayat:\n${v[5]}` : "";
+    return `“${v[4]}”\n— ${reference(v)} (${data.singkatan})${meaning}\n\nDoa Penguatan:\n${prayer}`;
   }
 
   $("copy").addEventListener("click", async () => {
