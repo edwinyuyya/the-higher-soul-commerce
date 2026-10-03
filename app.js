@@ -99,6 +99,7 @@
     text.classList.toggle("long", v[4].length > 280);
     $("verse-ref").textContent = reference(v);
     $("prayer-text").textContent = window.Doa.prayerFor(v[4], reference(v));
+    $("share").href = `https://wa.me/?text=${encodeURIComponent(shareText(v))}`;
     show("result");
     // ulangi animasi kartu setiap kali ayat baru muncul
     const card = screens.result.querySelector(".card");
@@ -128,22 +129,24 @@
       await navigator.clipboard.writeText(shareText(current));
       toast("Ayat disalin");
     } catch {
-      toast("Tidak bisa menyalin di peramban ini");
+      // salin otomatis ditolak: pilihkan teksnya supaya bisa disalin manual
+      const range = document.createRange();
+      range.selectNodeContents(screens.result);
+      getSelection().removeAllRanges();
+      getSelection().addRange(range);
+      toast("Teks sudah dipilih, silakan salin secara manual");
     }
   });
 
-  $("share").addEventListener("click", async () => {
-    if (!current) return;
-    const text = shareText(current);
-    if (navigator.share) {
-      try {
-        await navigator.share({ text });
-      } catch {
-        /* dibatalkan pengguna */
-      }
-      return;
+  // Bagikan: menu bagikan bawaan HP kalau ada, selain itu tautan WhatsApp biasa
+  $("share").addEventListener("click", async (e) => {
+    if (!current || !navigator.share) return;
+    e.preventDefault();
+    try {
+      await navigator.share({ text: shareText(current) });
+    } catch {
+      /* dibatalkan pengguna atau tidak diizinkan */
     }
-    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank", "noopener");
   });
 
   // ---------- utilitas ----------
