@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Ayat Untukmu</title>
+  <meta name="description" content="Tekan Mulai dan terima satu ayat Alkitab yang dipilihkan secara acak untukmu.">
+  <meta name="theme-color" content="#f6f1e7" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#14120f" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <header class="brand">
+      <span class="brand-mark" aria-hidden="true">✦</span>
+      <h1>Ayat Untukmu</h1>
+    </header>
+
+    <!-- Layar awal -->
+    <section id="intro" class="intro">
+      <p class="lead">Tenangkan hati sejenak.<br>Tekan <strong>Mulai</strong>, dan biarkan satu ayat dipilihkan untukmu.</p>
+
+      <div class="filter" role="radiogroup" aria-label="Pilih bagian Alkitab">
+        <button type="button" role="radio" aria-checked="true" data-filter="semua">Semua</button>
+        <button type="button" role="radio" aria-checked="false" data-filter="pl">Perjanjian Lama</button>
+        <button type="button" role="radio" aria-checked="false" data-filter="pb">Perjanjian Baru</button>
+      </div>
+
+      <button id="start" class="primary" type="button" disabled>
+        <span class="label">Memuat…</span>
+      </button>
+    </section>
+
+    <!-- Animasi memilih -->
+    <section id="shuffle" class="shuffle" hidden aria-live="polite">
+      <p class="shuffle-ref" id="shuffle-ref">&nbsp;</p>
+      <p class="shuffle-note">Memilihkan ayat untukmu…</p>
+    </section>
+
+    <!-- Hasil -->
+    <section id="result" class="result" hidden>
+      <article class="card" aria-live="polite">
+        <span class="quote-mark" aria-hidden="true">“</span>
+        <blockquote id="verse-text" class="verse-text"></blockquote>
+        <p class="verse-ref"><span id="verse-ref"></span> <span class="version">TSI</span></p>
+      </article>
+
+      <div class="actions">
+        <button id="copy" class="ghost" type="button">Salin</button>
+        <button id="share" class="ghost" type="button">Bagikan</button>
+      </div>
+
+      <button id="again" class="primary" type="button"><span class="label">Ayat lain</span></button>
+      <button id="home" class="link" type="button">Kembali</button>
+    </section>
+
+    <p id="toast" class="toast" role="status" hidden></p>
+  </main>
+
+  <footer class="credit">
+    Teks Alkitab: <em>Alkitab Terjemahan Sederhana Indonesia</em> (TSI), Edisi Ketiga,
+    dengan lisensi <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.id" rel="noopener">CC BY-SA 4.0</a>.
+    Data melalui <a href="https://github.com/wldeh/bible-api" rel="noopener">wldeh/bible-api</a>.
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
