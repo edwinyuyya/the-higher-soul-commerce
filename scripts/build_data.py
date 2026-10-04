@@ -167,6 +167,29 @@ def clean(book, verse, text):
     return text or None
 
 
+def load_notes(folder):
+    """Penjelasan ayat: pilihan.json ({"Kitab p:a": "..."}) dan file .txt per kitab.
+
+    File .txt bernama <kitab>[-bagian].txt (mis. amsal.txt, mazmur-1.txt), satu baris
+    per ayat: "pasal:ayat | penjelasan" atau "pasal:ayat-ayat | penjelasan".
+    """
+    book_names = {"amsal": "Amsal", "mazmur": "Mazmur"}
+    notes = {}
+    for name in sorted(os.listdir(folder)):
+        path = os.path.join(folder, name)
+        if name.endswith(".json"):
+            with open(path, encoding="utf-8") as f:
+                notes.update(json.load(f))
+        elif name.endswith(".txt"):
+            book = book_names[name[:-4].split("-")[0]]
+            with open(path, encoding="utf-8") as f:
+                for line in f:
+                    if line.strip():
+                        ref, text = line.split("|", 1)
+                        notes[f"{book} {ref.strip()}"] = text.strip()
+    return notes
+
+
 def main():
     here = os.path.dirname(os.path.abspath(__file__))
     ap = argparse.ArgumentParser()
@@ -220,17 +243,18 @@ def main():
                 dropped += 1
             pending = []
 
-    # tempelkan penjelasan ayat pilihan (scripts/penjelasan.json) sebagai elemen ke-6
-    with open(os.path.join(here, "penjelasan.json"), encoding="utf-8") as f:
-        notes = json.load(f)
-    used_notes = set()
+    # tempelkan penjelasan (scripts/penjelasan/) sebagai elemen ke-6
+    notes = load_notes(os.path.join(here, "penjelasan"))
+    used_notes, missing = set(), {}
     for u in units:
         key = f"{names[used[u[0]]]} {u[1]}:{u[2]}" + (f"-{u[3]}" if u[3] != u[2] else "")
         if key in notes:
             u.append(notes[key])
             used_notes.add(key)
-        elif used[u[0]] not in FULL_BOOKS:
-            print(f"PERINGATAN: belum ada penjelasan untuk {key}")
+        else:
+            missing[names[used[u[0]]]] = missing.get(names[used[u[0]]], 0) + 1
+    for book, n in missing.items():
+        print(f"belum ada penjelasan: {book} ({n} ayat)")
     for key in sorted(set(notes) - used_notes):
         print(f"PERINGATAN: penjelasan {key} tidak cocok dengan ayat mana pun")
 
