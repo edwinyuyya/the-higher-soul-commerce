@@ -100,7 +100,7 @@
     $("verse-ref").textContent = reference(v);
     $("meaning").hidden = !v[5];
     $("meaning-text").textContent = v[5] || "";
-    $("prayer-text").textContent = window.Doa.prayerFor(v[4], reference(v));
+    $("prayer-text").textContent = window.Doa.prayerFor(`${v[4]} ${v[5] || ""}`, reference(v));
     $("share").href = `https://wa.me/?text=${encodeURIComponent(shareText(v))}`;
     show("result");
     // ulangi animasi kartu setiap kali ayat baru muncul
@@ -121,7 +121,7 @@
   // ---------- salin & bagikan ----------
 
   function shareText(v) {
-    const prayer = window.Doa.prayerFor(v[4], reference(v));
+    const prayer = window.Doa.prayerFor(`${v[4]} ${v[5] || ""}`, reference(v));
     const meaning = v[5] ? `\n\nPengertian Ayat:\n${v[5]}` : "";
     return `“${v[4]}”\n— ${reference(v)} (${data.singkatan})${meaning}\n\nDoa Penguatan:\n${prayer}`;
   }

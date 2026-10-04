@@ -6,7 +6,8 @@ Web app sederhana: tekan **Mulai**, dan aplikasi memilihkan satu ayat Alkitab se
 
 - **Tata Cara** di layar awal: berdoa dulu, tekan Mulai, lalu renungkan ayatnya
 - Tombol **Mulai** dengan animasi "mengocok" sebelum ayat muncul
-- **Pengertian Ayat**: konteks dan makna ayat, untuk ayat pilihan dan Amsal (Mazmur menyusul) — `scripts/penjelasan/`
+- **Pengertian Ayat** untuk setiap ayat (Mazmur, Amsal, dan ayat pilihan): konteks dan maknanya — `scripts/penjelasan/`
+- **Gambar latar** tangan yang terulur (`latar.webp`), dengan warna hijau toska yang menyatu di tema terang dan gelap
 - **Doa Penguatan** singkat di bawah setiap ayat, sesuai tema ayatnya (lihat `prayers.js`)
 - Ayat dipilih secara acak dari kitab **Mazmur** dan **Amsal**, ditambah ayat-ayat pilihan yang
   populer dari kitab lain (mis. Yesaya 41:10, Yeremia 29:11, Yohanes 3:16, Filipi 4:13)
@@ -32,9 +33,11 @@ diambil dari korpus eBible.org di [BibleNLP/ebible](https://github.com/BibleNLP/
 AYT adalah terjemahan harfiah (mirip gaya KJV). Aplikasi memakai seluruh Mazmur dan Amsal
 (`FULL_BOOKS`) ditambah daftar ayat populer dari kitab lain (`POPULAR`) di skrip build.
 
-- Judul Mazmur, kata "Sela", dan penanda nomor ayat Ibrani dibuang.
+- Judul Mazmur, kata "Sela"/"Higayon", dan penanda nomor ayat Ibrani dibuang.
 - Ayat yang kalimatnya berlanjut digabung (mis. *Matius 5:2–3*) agar yang tampil selalu kalimat utuh.
-- Sekitar 3.330 unit ayat: Mazmur 2.320, Amsal 839, dan 171 ayat pilihan dari 40 kitab lain.
+- Sekitar 3.330 unit ayat: Mazmur 2.321, Amsal 839, dan 171 ayat pilihan dari 40 kitab lain.
+- Penjelasan ayat ada di `scripts/penjelasan/`: `pilihan.json` dan file `.txt` per kitab
+  dengan format `pasal:ayat | penjelasan`.
 
 Membangun ulang data:
 
@@ -44,7 +47,7 @@ python3 scripts/build_data.py
 
 ## Doa penguatan
 
-`prayers.js` mengenali tema ayat dari kata-katanya (takut, khawatir, kekuatan, pengampunan,
+`prayers.js` mengenali tema ayat dari kata-kata ayat dan penjelasannya (takut, khawatir, kekuatan, pengampunan,
 hikmat, pengharapan, dan lain-lain), lalu memilih salah satu doa untuk tema itu. Ayat yang sama
 selalu mendapat doa yang sama. Ayat tanpa tema yang jelas (misalnya kisah atau silsilah) mendapat
 doa umum. Doa bisa ditambah atau diubah langsung di file tersebut.

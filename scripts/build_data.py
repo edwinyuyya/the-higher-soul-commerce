@@ -114,9 +114,16 @@ MAX_UNIT_CHARS = 600
 
 HEBREW_NUMBER = re.compile(r"\(\d+-\d+\)\s*")
 PSALM_TITLE = re.compile(
-    r"^(?:(?:Kepada pemimpin pujian|Untuk pemimpin pujian|Nyanyian|Mazmur|Doa|Pengajaran|"
-    r"Miktam|Maskil|Syair|Ratapan|Pujian|Untuk peringatan|Dengan )[^.:]*[.:]\s*)+"
+    r"^(?:(?:"
+    r"Kepada pemimpin pujian[.:]|Untuk pemimpin pujian[.:]|Dari [A-Z]\w+\.|Sebuah Nyanyian\."
+    r"|Nyanyian Pengajaran(?=\s)|Nyanyian Ziarah(?: Daud| Salomo)?(?:\.|(?=\s))"
+    r"|(?:Nyanyian|Mazmur|Doa|Pengajaran|Miktam|Maskil|Syair|Pujian|Dengan|Untuk peringatan)[^.:]{0,50}[.:]"
+    r")\s*)+"
 )
+# Penanda musik/liturgi di Mazmur yang bukan bagian dari kalimat
+PSALM_MARKS = re.compile(r"\s*\((?:Sela|Higayon)\)|\s+(?:Sela|Higayon)\b(?=\s|$|\.)\.?")
+# Catatan penutup kumpulan doa, bukan ayat
+SKIP_VERSES = {("PSA", 72, 20)}
 SENTENCE_END = re.compile(r"[.!?][”’)\"]*$")
 QUOTE_PAIRS = {"“": "”", "‘": "’"}
 
@@ -153,8 +160,8 @@ def balance_quotes(text):
     return text
 
 
-def clean(book, verse, text):
-    if not text or "[" in text or "]" in text:
+def clean(book, chapter, verse, text):
+    if not text or "[" in text or "]" in text or (book, chapter, verse) in SKIP_VERSES:
         return None
     if book == "PSA" and verse == 1:
         parts = HEBREW_NUMBER.split(text)
@@ -162,7 +169,7 @@ def clean(book, verse, text):
         text = PSALM_TITLE.sub("", text)
     text = HEBREW_NUMBER.sub("", text)
     if book == "PSA":
-        text = re.sub(r"\s+Sela\.?$", "", text)
+        text = PSALM_MARKS.sub("", text)
     text = re.sub(r"\s+", " ", text).strip()
     return text or None
 
@@ -217,7 +224,7 @@ def main():
         if book not in index:
             continue  # kitab lain (dan deuterokanonika) tidak dipakai
         chapter, verse = map(int, loc.split(":"))
-        chapters.setdefault((book, chapter), []).append((verse, clean(book, verse, text.strip())))
+        chapters.setdefault((book, chapter), []).append((verse, clean(book, chapter, verse, text.strip())))
 
     units, kept, dropped = [], 0, 0
     for (book, chapter), verses in chapters.items():
