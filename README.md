@@ -6,7 +6,7 @@ Web app sederhana: tekan **Mulai**, dan aplikasi memilihkan satu ayat Alkitab se
 
 - **Tata Cara** di layar awal: berdoa dulu, tekan Mulai, lalu renungkan ayatnya
 - Tombol **Mulai** dengan animasi "mengocok" sebelum ayat muncul
-- **Pengertian Ayat** untuk setiap ayat pilihan populer: konteks dan maknanya (`scripts/penjelasan.json`)
+- **Pengertian Ayat**: konteks dan makna ayat, untuk ayat pilihan dan Amsal (Mazmur menyusul) — `scripts/penjelasan/`
 - **Doa Penguatan** singkat di bawah setiap ayat, sesuai tema ayatnya (lihat `prayers.js`)
 - Ayat dipilih secara acak dari kitab **Mazmur** dan **Amsal**, ditambah ayat-ayat pilihan yang
   populer dari kitab lain (mis. Yesaya 41:10, Yeremia 29:11, Yohanes 3:16, Filipi 4:13)
