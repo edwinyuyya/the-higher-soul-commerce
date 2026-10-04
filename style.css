@@ -9,7 +9,7 @@
   --accent-text: #f3fbf9;
   --line: #d6e3df;
   --shadow: 0 1px 2px rgba(10, 60, 52, 0.06), 0 12px 32px -12px rgba(10, 60, 52, 0.2);
-  --art-opacity: 0.22;
+  --art-opacity: 0.3;
   --serif: "Lora", Georgia, "Times New Roman", serif;
   --sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   color-scheme: light;
@@ -27,7 +27,7 @@
     --accent-text: #052520;
     --line: #24342f;
     --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 32px -12px rgba(0, 0, 0, 0.6);
-    --art-opacity: 0.24;
+    --art-opacity: 0.32;
     color-scheme: dark;
   }
 }
@@ -43,7 +43,7 @@
   --accent-text: #052520;
   --line: #24342f;
   --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 32px -12px rgba(0, 0, 0, 0.6);
-  --art-opacity: 0.24;
+  --art-opacity: 0.32;
   color-scheme: dark;
 }
 
@@ -118,14 +118,29 @@ section {
   animation: fade-in 0.45s ease both;
 }
 
+/* Gambar tangan terulur di layar awal, tepinya memudar ke latar */
+.hero-art {
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  height: 260px;
+  object-fit: cover;
+  object-position: 50% 52%;
+  margin: -12px auto -36px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, #000 55%, transparent 100%);
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, #000 55%, transparent 100%);
+  pointer-events: none;
+  user-select: none;
+}
+
 /* Tata cara */
 .guide {
   width: 100%;
   text-align: left;
   /* sedikit tembus pandang supaya gambar latar tetap terasa */
-  background: color-mix(in srgb, var(--surface) 84%, transparent);
-  -webkit-backdrop-filter: blur(3px);
-  backdrop-filter: blur(3px);
+  background: color-mix(in srgb, var(--surface) 62%, transparent);
+  -webkit-backdrop-filter: blur(1.5px);
+  backdrop-filter: blur(1.5px);
   border: 1px solid var(--line);
   border-radius: 20px;
   padding: 22px 22px 20px;
@@ -192,7 +207,9 @@ section {
 .prayer {
   width: 100%;
   text-align: left;
-  background: color-mix(in srgb, var(--accent) 8%, var(--surface));
+  background: color-mix(in srgb, var(--accent) 8%, color-mix(in srgb, var(--surface) 62%, transparent));
+  -webkit-backdrop-filter: blur(1.5px);
+  backdrop-filter: blur(1.5px);
   border: 1px solid color-mix(in srgb, var(--accent) 25%, var(--line));
   border-radius: 20px;
   padding: 20px 22px;
@@ -291,9 +308,9 @@ button:focus-visible {
   position: relative;
   width: 100%;
   /* sedikit tembus pandang supaya gambar latar tetap terasa */
-  background: color-mix(in srgb, var(--surface) 84%, transparent);
-  -webkit-backdrop-filter: blur(3px);
-  backdrop-filter: blur(3px);
+  background: color-mix(in srgb, var(--surface) 62%, transparent);
+  -webkit-backdrop-filter: blur(1.5px);
+  backdrop-filter: blur(1.5px);
   border: 1px solid var(--line);
   border-radius: 20px;
   padding: 44px 28px 28px;
@@ -365,6 +382,27 @@ button:focus-visible {
   color: var(--muted);
 }
 .credit a { color: inherit; }
+
+/* Watermark pembuat aplikasi */
+.watermark {
+  display: block;
+  margin: 10px auto 0;
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--accent);
+  opacity: 0.75;
+}
+.watermark small {
+  display: block;
+  font-weight: 400;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: none;
+  color: var(--muted);
+}
 
 @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
 @keyframes rise {
