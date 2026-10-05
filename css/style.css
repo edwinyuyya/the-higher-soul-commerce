@@ -340,7 +340,7 @@ textarea::placeholder { color: #8f86b3; }
 .chip label .auto { margin-left: auto; font-size: 11px; color: var(--gold); border: 1px solid var(--gold); padding: 0 6px; border-radius: 6px; }
 .dialog-actions { display: flex; justify-content: flex-end; gap: 10px; flex-wrap: wrap; }
 
-/* ---------- loading otak inti ---------- */
+/* ---------- loading Master Tarot ---------- */
 .brain { text-align: center; padding: 50px 10px; }
 .brain-orbit { position: relative; width: 120px; height: 120px; margin: 0 auto 18px; }
 .brain-orbit::before {
@@ -377,6 +377,17 @@ textarea::placeholder { color: #8f86b3; }
 .tone-berat .r-tone { color: var(--bad); }
 .r-tone { font-family: var(--font-title); font-size: 20px; }
 
+.answer { border-color: var(--gold); background: linear-gradient(160deg, rgba(230, 196, 122, 0.14), rgba(30, 22, 70, 0.85)); }
+.q-quote { font-style: italic; color: var(--muted); margin: 0 0 8px; font-size: 16px; }
+.master { border-color: rgba(201, 181, 255, 0.6); background: linear-gradient(160deg, rgba(123, 79, 208, 0.28), rgba(30, 22, 70, 0.85)); }
+.master h3 { color: #d9c8ff; }
+.master-text p { margin: 0 0 12px; }
+.master-note { font-size: 14px; color: var(--muted); margin: 6px 0 0; }
+.master-wait { color: #d9c8ff; font-style: italic; }
+.master-wait .dots { display: inline-block; width: 10px; height: 10px; margin-right: 10px; border-radius: 50%; background: #d9c8ff; box-shadow: 0 0 10px #b99cff; animation: breathe2 1s ease-in-out infinite; vertical-align: middle; }
+.link { margin: 2px 0 12px; padding: 12px 14px; border-radius: 12px; background: rgba(230, 196, 122, 0.1); border: 1px solid rgba(230, 196, 122, 0.35); }
+.link-tag { display: block; font-family: var(--font-title); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
+.r-pos .muted { color: var(--muted); font-size: 15.5px; }
 .r-pos { display: grid; grid-template-columns: 110px 1fr; gap: 20px; }
 .r-pos .mini-card { cursor: pointer; }
 .r-pos .pos-tag { margin-bottom: 2px; }

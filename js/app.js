@@ -383,7 +383,7 @@
   function renderDetails() {
     const wrap = $('#details');
     wrap.innerHTML = '<h2 class="sec-title">Makna Kartu-kartumu</h2>' +
-      '<p class="sec-sub">Inilah arti setiap kartu secara umum. Setelah ini, otak inti akan menyambungkannya dengan pertanyaanmu.</p>' +
+      '<p class="sec-sub">Inilah arti setiap kartu secara umum. Setelah ini, Master Tarot akan membacanya khusus untuk pertanyaanmu.</p>' +
       state.picks.map((d, i) => detailHTML(d, E.POSITIONS[i])).join('') +
       '<div class="ask-inline"><div class="ask-orb" aria-hidden="true"></div><h3>Pertanyaanmu tadi apa?</h3>' +
       '<p>Tentang cinta, karier, keuangan, atau yang lain? Ceritakan, agar kartu-kartu ini bisa dibaca khusus untukmu.</p>' +
@@ -429,7 +429,7 @@
     const hint = $('#detectHint');
     const det = E.detectTopic(text);
     if (det.topic) {
-      hint.textContent = '✦ Otak inti mendeteksi topik: ' + E.TOPICS[det.topic].label;
+      hint.textContent = '✦ Master Tarot mendeteksi topik: ' + E.TOPICS[det.topic].label;
       if (!state.topicManual) selectTopic(det.topic, true);
     } else {
       hint.textContent = text.trim().length > 6 ? 'Pilih topik di bawah agar bacaan lebih tepat.' : '';
@@ -452,7 +452,7 @@
   }
 
   /* ---------------- BACAAN TERSAMBUNG ---------------- */
-  const BRAIN_STEPS = ['Membaca energi kartu…', 'Mengenali topik pertanyaanmu…', 'Mencari pola & kombinasi…', 'Menyambungkan benang merah…'];
+  const BRAIN_STEPS = ['Master Tarot membaca energi kartu…', 'Memahami pertanyaanmu…', 'Mencari pola & kombinasi…', 'Menyambungkan kartu dengan pertanyaanmu…'];
 
   async function connect() {
     const run = state.run;
@@ -482,14 +482,21 @@
       '<div><div class="pos-tag">' + p.label + ' · ' + p.sub + '</div>' +
       '<div class="frame">' + p.frame + '</div>' +
       '<span class="rel ' + p.relevance.level + '">' + p.relevance.label + '</span>' +
-      '<p>' + p.opening + '</p><p>' + p.text + '</p>' +
+      '<div class="link"><span class="link-tag">Untuk pertanyaanmu</span>' + p.link + '</div>' +
+      '<p>' + p.opening + '</p><p class="muted">' + p.text + '</p>' +
       (p.note ? '<div class="note">' + p.note + '</div>' : '') +
       '</div></div>'
     ).join('');
 
     box.innerHTML =
       '<div class="r-head"><span class="r-topic">' + r.topicIcon + ' ' + r.topicLabel + '</span>' +
-      '<h2>Bacaan yang Tersambung</h2><p class="r-intro">' + r.intro + '</p></div>' +
+      '<h2>Bacaan Master Tarot</h2><p class="r-intro">' + r.intro + '</p></div>' +
+
+      (r.answer.text ? '<div class="panel answer">' + (r.answer.quote ? '<p class="q-quote">“' + E.escapeHtml(r.answer.quote) + '”</p>' : '') +
+        '<h3>' + r.answer.title + '</h3><p class="big">' + r.answer.text + '</p></div>' : '') +
+
+      '<div class="panel master" id="masterPanel" hidden><h3>✦ Pesan Pribadi Master Tarot</h3>' +
+      '<div class="master-text" id="masterText"></div><p class="master-note" id="masterNote"></p></div>' +
 
       '<div class="panel essence tone-' + r.verdict.tone + '">' +
       '<h3>Jawaban Singkat</h3>' +
@@ -500,10 +507,8 @@
       '<p>' + r.essence + '</p>' +
       '</div>' +
 
-      (r.answer.text ? '<div class="panel"><h3>' + r.answer.title + '</h3><p>' + r.answer.text + '</p></div>' : '') +
-
       '<h2 class="sec-title">Kartu × Pertanyaanmu</h2>' +
-      '<p class="sec-sub">Setiap kartu dibaca ulang khusus dalam ranah ' + r.topicLabel.toLowerCase() + '.</p>' +
+      '<p class="sec-sub">Setiap kartu dibaca untuk menjawab: ' + r.focus + '.</p>' +
       posHTML +
 
       '<div class="panel"><h3>Benang Merah</h3><p>' + r.flow + '</p></div>' +
@@ -526,6 +531,8 @@
       '<button class="btn btn-primary" type="button" data-act="new">✦ Bacaan baru</button>' +
       '</div>';
 
+    askMaster(r);
+
     requestAnimationFrame(() => requestAnimationFrame(() => {
       const dot = $('.meter-dot', box);
       if (dot) dot.style.left = Math.max(3, Math.min(97, r.verdict.meter)) + '%';
@@ -540,6 +547,88 @@
     box.querySelector('[data-act="copy"]').addEventListener('click', () => copyReading(r));
   }
 
+  /* ---------------- MASTER TAROT (AI, bila tersedia di viewer) ---------------- */
+  let samplePromise = null;
+  let masterCtl = null;
+  function getSample() {
+    if (!window.claude || typeof window.claude.use !== 'function') return Promise.resolve(null);
+    if (!samplePromise) samplePromise = window.claude.use('sample').catch(() => null);
+    return samplePromise;
+  }
+
+  function masterPrompt(r) {
+    const cards = state.picks.map((d, i) => {
+      const c = d.card;
+      const p = E.POSITIONS[i];
+      return (i + 1) + '. ' + p.label + ' (' + p.sub + ') — ' + c.nameId + ' / ' + c.name + ', ' + (d.reversed ? 'TERBALIK' : 'tegak') +
+        '. Kata kunci: ' + (d.reversed ? c.kwRev : c.kwUp).join(', ') + '. Makna umum: ' + (d.reversed ? c.rev : c.up);
+    }).join('\n');
+    return [
+      'Kamu adalah Master Tarot berpengalaman yang membaca dengan hangat, jujur, dan membumi.',
+      'Seorang penanya memikirkan pertanyaan, lalu memilih 4 kartu tarot (dek Rider–Waite–Smith) dalam susunan: Masa Lalu, Masa Kini, Masa Depan, dan +1 Kartu Kunci (pesan penuntun).',
+      '',
+      'Pertanyaan penanya: ' + (r.question ? '"' + r.question + '"' : '(tidak ditulis; bacalah untuk topik di bawah)'),
+      'Topik yang dipilih: ' + r.topicLabel,
+      'Inti pertanyaan menurut sistem: ' + r.focus,
+      'Kecenderungan energi kartu (hitungan sistem): ' + r.verdict.label,
+      '',
+      'Kartu yang keluar:',
+      cards,
+      '',
+      'Tugasmu: jawab PERTANYAAN ITU secara langsung dan spesifik lewat kartu-kartu tersebut, supaya penanya merasa jawabannya benar-benar nyambung dengan pertanyaannya.',
+      'Aturan:',
+      '- Paragraf pertama: jawaban langsung atas pertanyaannya dalam 2–3 kalimat (misalnya kecenderungan ya/tidak, kapan, apa yang sedang terjadi, atau apa yang sebaiknya dilakukan), memakai kata-kata dan situasi dari pertanyaannya.',
+      '- Lalu satu paragraf pendek untuk tiap kartu, diawali dengan **Masa Lalu – Nama Kartu:** (dst.), yang menjelaskan arti kartu itu KHUSUS untuk situasi dalam pertanyaan. Jangan sekadar mengulang makna umum.',
+      '- Perhatikan kartu terbalik dan hubungan antar-kartu (mis. masa kini → masa depan).',
+      '- Paragraf penutup: 2–3 saran konkret yang bisa dilakukan dalam minggu ini.',
+      '- Bahasa Indonesia yang hangat dan santai, sapa penanya dengan "kamu". Panjang 250–380 kata. Hanya paragraf dan **tebal**; tanpa judul (#) dan tanpa daftar berpoin.',
+      '- Jangan menjanjikan kepastian; tarot adalah cermin untuk refleksi. Untuk soal kesehatan, keuangan, atau hukum, tambahkan satu kalimat singkat agar tetap berkonsultasi dengan profesional.'
+    ].join('\n');
+  }
+
+  function renderMasterText(text) {
+    const esc = E.escapeHtml(text.trim());
+    return esc.split(/\n{2,}/).map((para) => '<p>' + para.replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/\n/g, '<br>') + '</p>').join('');
+  }
+
+  async function askMaster(r) {
+    const run = state.run;
+    if (masterCtl) masterCtl.abort();
+    const sample = await getSample();
+    const panel = document.getElementById('masterPanel');
+    if (!sample || !panel || run !== state.run) return;
+    const out = document.getElementById('masterText');
+    const note = document.getElementById('masterNote');
+    panel.hidden = false;
+    out.innerHTML = '<p class="master-wait"><span class="dots"></span>Master Tarot sedang merenungkan pertanyaanmu…</p>';
+    note.textContent = '';
+    const ctl = new AbortController();
+    masterCtl = ctl;
+    try {
+      const res = await sample(masterPrompt(r), {
+        signal: ctl.signal,
+        onText: ({ text }) => { if (panel.isConnected) out.innerHTML = renderMasterText(text); }
+      });
+      if (!panel.isConnected) return;
+      out.innerHTML = renderMasterText(res.text);
+      if (res.truncated) note.textContent = 'Pesan terpotong karena terlalu panjang.';
+    } catch (e) {
+      if (!panel.isConnected) return;
+      const code = e && e.code;
+      if (code === 'cancelled') return;
+      if (['not_granted', 'sampling_disabled', 'not_declared', 'capability_disabled', 'capability_removed'].indexOf(code) !== -1) {
+        panel.hidden = true;
+        return;
+      }
+      if (e && e.text) out.innerHTML = renderMasterText(e.text);
+      else out.innerHTML = '';
+      note.textContent = code === 'rate_limited'
+        ? 'Master Tarot sedang kewalahan. Coba lagi beberapa saat lagi lewat tombol "Tanya topik lain".'
+        : 'Pesan pribadi Master Tarot belum bisa dimuat. Bacaan di bawah tetap berlaku.';
+      if (!e || !e.text) panel.hidden = !note.textContent;
+    }
+  }
+
   function copyReading(r) {
     const strip = (h) => { const d = document.createElement('div'); d.innerHTML = h; return d.textContent; };
     const lines = [];
@@ -547,9 +636,11 @@
     if (r.question) lines.push('Pertanyaan: ' + r.question);
     lines.push('');
     state.picks.forEach((d, i) => lines.push(E.POSITIONS[i].label + ': ' + d.card.nameId + ' (' + d.card.name + ')' + (d.reversed ? ' — terbalik' : '')));
+    const mt = document.getElementById('masterText');
+    if (mt && !document.getElementById('masterPanel').hidden && mt.textContent.trim()) lines.push('', 'Pesan Master Tarot:', mt.innerText.trim());
     lines.push('', 'Jawaban singkat: ' + r.verdict.label, strip(r.verdict.text));
     if (r.answer.text) lines.push('', r.answer.title + ': ' + strip(r.answer.text));
-    r.positions.forEach((p) => lines.push('', '— ' + p.label + ' —', strip(p.opening), strip(p.text)));
+    r.positions.forEach((p) => lines.push('', '— ' + p.label + ' —', strip(p.link), strip(p.opening), strip(p.text)));
     lines.push('', 'Benang merah: ' + strip(r.flow));
     lines.push('', 'Langkah:', ...r.steps.map((s, i) => (i + 1) + '. ' + strip(s)));
     const text = lines.join('\n');
@@ -581,6 +672,7 @@
   /* ---------------- ALUR UTAMA ---------------- */
   async function startReading() {
     state.run++;
+    if (masterCtl) masterCtl.abort();
     const run = state.run;
     state.deck = newDeck();
     state.picks = [];

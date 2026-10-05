@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Higher Soul Tarot</title>
-  <meta name="description" content="Aplikasi tarot reader: kocok kartu, pilih 3 + 1 kartu, baca maknanya, lalu otak inti menyambungkan kartu dengan topik pertanyaanmu.">
+  <meta name="description" content="Aplikasi tarot reader: kocok kartu, pilih 3 + 1 kartu, baca maknanya, lalu Master Tarot menjawab pertanyaanmu berdasarkan kartu yang keluar.">
   <meta name="theme-color" content="#0b0820">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='14' y='4' width='36' height='56' rx='5' fill='%231a1240' stroke='%23e6c47a' stroke-width='3'/%3E%3Cpath d='M32 18l4 10 10 1-8 7 3 10-9-6-9 6 3-10-8-7 10-1z' fill='%23e6c47a'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,7 +34,7 @@
         <li><span>1</span>Kartu dikocok</li>
         <li><span>2</span>Pilih 3 kartu + 1 Kartu Kunci</li>
         <li><span>3</span>Kartu terbuka &amp; maknanya dijelaskan</li>
-        <li><span>4</span>Otak inti menyambungkan kartu dengan pertanyaanmu</li>
+        <li><span>4</span>Master Tarot menjawab pertanyaanmu lewat kartu-kartu itu</li>
       </ol>
 
       <button id="startBtn" class="btn btn-primary btn-big" type="button">✦ Mulai</button>
@@ -70,9 +70,9 @@
     <form method="dialog" id="askForm">
       <div class="ask-orb" aria-hidden="true"></div>
       <h2 id="askTitle">Pertanyaanmu tadi apa?</h2>
-      <p class="ask-sub">Ceritakan pertanyaan yang kamu pikirkan saat memilih kartu. Otak inti akan menyambungkannya dengan kartu-kartu yang keluar.</p>
+      <p class="ask-sub">Ceritakan pertanyaan yang kamu pikirkan saat memilih kartu. Master Tarot akan membaca kartu-kartumu khusus untuk pertanyaan itu.</p>
 
-      <label class="field-label" for="questionInput">Tulis pertanyaanmu <span class="opt">(opsional, tapi membuat bacaan lebih tajam)</span></label>
+      <label class="field-label" for="questionInput">Tulis pertanyaanmu <span class="opt">(semakin spesifik, semakin nyambung jawabannya)</span></label>
       <textarea id="questionInput" rows="3" maxlength="300" placeholder="Contoh: Apakah hubunganku dengan dia akan berlanjut ke jenjang serius?"></textarea>
       <div id="detectHint" class="detect-hint" aria-live="polite"></div>
 
@@ -91,6 +91,7 @@
   <div id="toast" class="toast" role="status" hidden></div>
 
   <script src="js/cards.js"></script>
+  <script src="js/scenarios.js"></script>
   <script src="js/engine.js"></script>
   <script src="js/app.js"></script>
 </body>

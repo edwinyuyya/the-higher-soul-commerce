@@ -263,6 +263,8 @@
     return 'Kartu Masa Depan (' + shortName(d) + ') mengisyaratkan waktunya ' + t;
   }
 
+  const band = (p) => (p >= 1 ? 'pos' : p <= -1 ? 'neg' : 'mid');
+
   /* ---------------- MESIN UTAMA ---------------- */
   function interpret(opts) {
     const draws = opts.draws; // [{card, reversed}] urut: lalu, kini, depan, kunci
@@ -275,12 +277,40 @@
     const all = POSITIONS.map((p) => D[p.key]);
     const ids = all.map((d) => d.card.id);
 
+    /* --- skenario: apa yang sebenarnya ditanyakan --- */
+    const SC = window.TarotScenarios;
+    const sc = SC ? SC.detectScenario(question, topic) : null;
+    const who = sc ? sc.who : 'dia';
+    const focus = sc ? sc.focus.replace('{who}', who) : (SC ? SC.DEFAULT_FOCUS[topic] : T.noun);
+    const fill = (tpl, d) => tpl.replace(/\{card\}/g, '<b>' + shortName(d) + '</b>').replace(/\{kw\}/g, kwText(d)).replace(/\{who\}/g, who);
+
     /* --- pembuka --- */
     let intro = '';
     if (question) {
-      intro = 'Kamu bertanya: <q>' + escapeHtml(question) + '</q>. Otak inti membaca pertanyaan ini dalam ranah <b>' + T.label + '</b>, lalu menyambungkan setiap kartu yang kamu pilih dengan ' + T.noun + '.';
+      intro = 'Kamu bertanya: <q>' + escapeHtml(question) + '</q>. Master Tarot menangkap inti pertanyaanmu: <b>' + focus + '</b>' +
+        (sc ? '' : ' (dalam ranah ' + T.label + ')') + '. Setiap kartu di bawah dibaca untuk menjawab hal itu.';
     } else {
-      intro = 'Pertanyaanmu berada di ranah <b>' + T.label + '</b>. Otak inti menyambungkan setiap kartu yang kamu pilih dengan ' + T.noun + '.';
+      intro = 'Pertanyaanmu berada di ranah <b>' + T.label + '</b>. Master Tarot menyambungkan setiap kartu yang kamu pilih dengan ' + T.noun + '. Tulis pertanyaanmu untuk jawaban yang lebih spesifik.';
+    }
+
+    /* --- kalimat penghubung kartu ↔ pertanyaan --- */
+    function linkFor(d) {
+      const b = band(pol(d));
+      const k = d.pos.key;
+      if (sc && (k === 'kini' || k === 'depan')) return fill(sc[k][b], d);
+      if (k === 'lalu') {
+        return 'Akar dari ' + focus + ' ada pada <b>' + kwText(d) + '</b> (' + shortName(d) + '). ' +
+          (b === 'neg' ? 'Pengalaman ini meninggalkan bekas dan masih memengaruhi caramu melihat situasi sekarang.'
+            : b === 'pos' ? 'Ini fondasi yang baik, modal yang bisa kamu andalkan.'
+              : 'Pola inilah yang membentuk situasimu sekarang.');
+      }
+      if (k === 'kunci') {
+        return 'Untuk ' + focus + ', kuncinya: “' + keyAdvice(d) + '”' + (sc ? ' ' + sc.tip : '');
+      }
+      // tanpa skenario: kini/depan
+      return (k === 'kini' ? 'Untuk ' + focus + ' saat ini, ' : 'Ke depan, ' + focus + ' ') +
+        (k === 'kini' ? 'yang paling menonjol adalah <b>' + kwText(d) + '</b>.' : 'bergerak menuju <b>' + kwText(d) + '</b>.') +
+        (b === 'pos' ? ' Ini pertanda yang mendukung.' : b === 'neg' ? ' Ini area yang perlu kamu waspadai dan benahi.' : ' Hasilnya masih bisa kamu bentuk.');
     }
 
     /* --- per posisi --- */
@@ -296,7 +326,8 @@
         relevance: rel,
         opening: positionOpening(d, d.pos.key, T),
         text: cardTopicText(d, topic),
-        note: lowRelevanceNote(d, topic)
+        note: lowRelevanceNote(d, topic),
+        link: linkFor(d)
       };
     });
 
@@ -375,31 +406,42 @@
     COMBOS.forEach((c) => { if (c.test(ids)) patterns.push({ title: 'Kombinasi khusus', text: c.text }); });
 
     /* --- benang merah --- */
-    const flow = 'Dari ' + kwText(D.lalu) + ' di masa lalu, kini kamu berada pada ' + kwText(D.kini) + '. Bila energi ini terus berjalan, ' + T.noun +
+    const flow = 'Untuk ' + focus + ': dari ' + kwText(D.lalu) + ' di masa lalu, kini kamu berada pada ' + kwText(D.kini) + '. Bila energi ini terus berjalan, semuanya' +
       ' bergerak menuju ' + kwText(D.depan) + '. ' + trajectory + ' Kartu Kunci <b>' + shortName(D.kunci) + '</b> menjadi jembatannya: “' + keyAdvice(D.kunci) + '”';
 
     /* --- jawaban sesuai jenis pertanyaan --- */
     const answer = { type: qType, text: '' };
+    const vBand = score >= 0.4 ? 'pos' : score >= -0.3 ? 'mid' : 'neg';
+    const scAnswer = sc ? fill(sc.answer[vBand], D.depan) : '';
     if (qType === 'yesno') {
-      answer.title = 'Jawaban untuk pertanyaan “ya/tidak”-mu';
-      answer.text = '<b>' + verdict.yes + '</b> ' + (pol(D.depan) >= 1 && score < 0.4 ? 'Meski begitu, kartu Masa Depan menunjukkan arah yang membaik — jangan menyerah terlalu cepat. ' : '') +
+      answer.title = 'Jawaban untuk pertanyaanmu';
+      const isChoice = /\batau\b/i.test(question);
+      const lead = isChoice ? '' : !scAnswer ? verdict.yes
+        : /^ya\b/i.test(scAnswer) ? '' : ({ pos: score >= 1.1 ? 'Ya.' : 'Cenderung ya.', mid: 'Belum pasti.', neg: 'Untuk saat ini, cenderung belum.' })[vBand];
+      answer.text = (lead ? '<b>' + lead + '</b> ' : '') + (scAnswer ? scAnswer + ' ' : '') + (pol(D.depan) >= 1 && score < 0.4 ? 'Meski begitu, kartu Masa Depan menunjukkan arah yang membaik — jangan menyerah terlalu cepat. ' : '') +
         (pol(D.depan) <= -1 && score >= 0.4 ? 'Namun kartu Masa Depan mengingatkan untuk tetap waspada pada ' + kwText(D.depan, 1) + '. ' : '') +
         'Tarot tidak menetapkan nasib; ia menunjukkan arah energi saat ini.';
     } else if (qType === 'kapan') {
       answer.title = 'Soal waktu';
-      answer.text = timingFor(D.depan) + ' Waktu dalam tarot selalu lentur — tindakanmu bisa mempercepat atau memperlambatnya.';
+      answer.text = (scAnswer ? scAnswer + ' ' : '') + timingFor(D.depan) + ' Waktu dalam tarot selalu lentur — tindakanmu bisa mempercepat atau memperlambatnya.';
     } else if (qType === 'siapa') {
       answer.title = 'Soal “siapa”';
-      answer.text = courts.length
+      answer.text = (scAnswer ? scAnswer + ' ' : '') + (courts.length
         ? 'Sosok yang dimaksud kemungkinan tercermin dalam ' + courts.map((d) => '<b>' + d.card.nameId + '</b>: ' + RANKS[d.card.rank].person).join('; ') + '.'
-        : 'Tidak ada kartu istana yang muncul, jadi kartu tidak menunjuk sosok tertentu. Fokus bacaan ini ada pada situasi dan pilihanmu sendiri, bukan pada orang lain.';
+        : 'Tidak ada kartu istana yang muncul, jadi kartu tidak menunjuk sosok tertentu. Fokus bacaan ini ada pada situasi dan pilihanmu sendiri, bukan pada orang lain.');
     } else if (qType === 'kenapa') {
       answer.title = 'Soal “mengapa”';
-      answer.text = 'Akar persoalannya terlihat pada kartu Masa Lalu (<b>' + shortName(D.lalu) + '</b>: ' + kwText(D.lalu) + ') yang kini terwujud sebagai ' + kwText(D.kini) + ' (<b>' + shortName(D.kini) + '</b>). Dengan kata lain, apa yang kamu alami sekarang adalah kelanjutan dari pola itu — dan bisa diubah mulai dari sekarang.';
+      answer.text = (scAnswer ? scAnswer + ' ' : '') + 'Akar persoalannya terlihat pada kartu Masa Lalu (<b>' + shortName(D.lalu) + '</b>: ' + kwText(D.lalu) + ') yang kini terwujud sebagai ' + kwText(D.kini) + ' (<b>' + shortName(D.kini) + '</b>). Dengan kata lain, apa yang kamu alami sekarang adalah kelanjutan dari pola itu — dan bisa diubah mulai dari sekarang.';
     } else if (qType === 'bagaimana') {
       answer.title = 'Soal “bagaimana”';
-      answer.text = 'Jalan yang ditunjukkan kartu: mulai dari menyadari ' + kwText(D.kini, 1) + ' (Masa Kini), lalu jalankan pesan Kartu Kunci — “' + keyAdvice(D.kunci) + '” — sambil menyiapkan diri untuk ' + kwText(D.depan, 1) + '.';
+      answer.text = (scAnswer ? scAnswer + ' ' : '') + 'Jalan yang ditunjukkan kartu: mulai dari menyadari ' + kwText(D.kini, 1) + ' (Masa Kini), lalu jalankan pesan Kartu Kunci — “' + keyAdvice(D.kunci) + '” — sambil menyiapkan diri untuk ' + kwText(D.depan, 1) + '.';
     }
+
+    if (!answer.text && question) {
+      answer.title = 'Jawaban untuk pertanyaanmu';
+      answer.text = scAnswer || ('Untuk ' + focus + ', kartu menunjukkan: <b>' + verdict.label.toLowerCase() + '</b>. ' + verdict.text);
+    }
+    if (answer.text && question) answer.quote = question;
 
     /* --- langkah praktis --- */
     const steps = [];
@@ -407,12 +449,13 @@
     steps.push(D.kini.reversed
       ? 'Akui dan bereskan ' + D.kini.card.kwRev[0] + ' yang sedang menghambat ' + T.noun + '.'
       : 'Manfaatkan energi ' + D.kini.card.kwUp[0] + ' yang sedang hadir dalam ' + T.noun + '.');
+    if (sc) steps.push(sc.tip);
     steps.push(actions[0]);
     steps.push(actions[1]);
-    steps.push(actions[2]);
+    if (!sc) steps.push(actions[2]);
 
     /* --- jawaban singkat --- */
-    const essence = verdict.label + '. Inti pesannya: dari <i>' + kw(D.kini, 1)[0] + '</i> menuju <i>' + kw(D.depan, 1)[0] + '</i>, dengan kunci “' + D.kunci.card.advice + '”';
+    const essence = 'Untuk ' + focus + ': ' + verdict.label.toLowerCase() + '. Inti pesannya: dari <i>' + kw(D.kini, 1)[0] + '</i> menuju <i>' + kw(D.depan, 1)[0] + '</i>, dengan kunci “' + D.kunci.card.advice + '”';
 
     return {
       topic: topic,
@@ -420,6 +463,8 @@
       topicIcon: T.icon,
       question: question,
       qType: qType,
+      focus: focus,
+      scenario: sc ? sc.key : null,
       intro: intro,
       essence: essence,
       verdict: verdict,

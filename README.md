@@ -12,7 +12,14 @@ A tarot reader web app in Indonesian. After the cards are read, it asks the user
 6. **The app asks**: "Pertanyaanmu tadi apa?" (What was your question?) The user writes the question (optional) and picks a topic: Cinta (love), Karier (career), Keuangan (money), Kesehatan (health), Diri & Spiritual (self and spirit), or Keluarga & Pertemanan (family and friends). The topic is detected automatically from the question text.
 7. **Linked reading**: the core engine reads every card again within the chosen topic.
 
-## The core engine (`js/engine.js`)
+## Master Tarot
+
+The reading is written by the **Master Tarot**, which works in two layers:
+
+1. **Question scenarios (`js/scenarios.js`)**: the actual words of the question are matched against about 20 situations, such as getting back with an ex, whether someone likes you, marriage, finding a new job, resigning, debt, recovery and family. Each card's meaning is then written for that situation. The answer repeats the question and answers it directly.
+2. **AI reading (optional)**: when the page is opened inside a claude.ai artifact, the Master Tarot also writes a personal reading through the artifact's `sample` capability. Anywhere else this panel stays hidden and the rule-based reading still works.
+
+## The rule engine (`js/engine.js`)
 
 The engine is rule-based and runs entirely in the browser, with no server or API. What it does:
 
@@ -38,7 +45,8 @@ python3 -m http.server 8000
 index.html      page layout and the question dialog
 css/style.css   visuals: cards, animations, responsive layout
 js/cards.js     data for all 78 cards (Rider–Waite–Smith) in Indonesian
-js/engine.js    core engine: links the topic to the cards
+js/scenarios.js question scenarios (what is actually being asked)
+js/engine.js    Master Tarot rule engine: links the question to the cards
 js/app.js       flow: shuffle → spread → pick → open → ask → link
 ```
 
