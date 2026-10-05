@@ -541,6 +541,8 @@
       '<div class="panel"><h3>Untuk Direnungkan</h3><ul class="reflect">' +
       r.reflections.map((s) => '<li>' + s + '</li>').join('') + '</ul></div>' +
 
+      (window.Numerology ? window.Numerology.html() : '') +
+
       (r.disclaimer ? '<p class="disclaimer">⚠︎ ' + r.disclaimer + '</p>' : '') +
       '<p class="disclaimer">Tarot adalah cermin untuk refleksi diri — keputusan akhir tetap ada di tanganmu.</p>' +
 
@@ -564,6 +566,7 @@
     box.querySelector('[data-act="topic"]').addEventListener('click', () => { state.topicManual = true; openAsk(); });
     box.querySelector('[data-act="new"]').addEventListener('click', () => { window.scrollTo({ top: 0, behavior: REDUCED ? 'auto' : 'smooth' }); startReading(); });
     box.querySelector('[data-act="copy"]').addEventListener('click', () => copyReading(r));
+    if (window.Numerology) window.Numerology.bind(box, toast);
   }
 
   /* ---------------- MASTER TAROT (AI, bila tersedia di viewer) ---------------- */

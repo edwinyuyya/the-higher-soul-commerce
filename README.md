@@ -47,6 +47,7 @@ css/style.css   visuals: cards, animations, responsive layout
 js/cards.js     data for all 78 cards (Rider–Waite–Smith) in Indonesian
 js/scenarios.js question scenarios (what is actually being asked)
 js/engine.js    Master Tarot rule engine: links the question to the cards
+js/numerology.js numerology report promo (price and order link in PROMO)
 js/app.js       flow: shuffle → spread → pick → open → ask → link
 ```
 
