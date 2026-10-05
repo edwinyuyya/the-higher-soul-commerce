@@ -136,6 +136,22 @@
     document.querySelectorAll('.slot').forEach((s, i) => s.classList.toggle('is-next', i === state.picks.length && state.picks.length < 4 && state.phase === 'pick'));
   }
 
+  /* ---------------- MASTER TAROT DI MEJA ---------------- */
+  const ORACLE_LINES = {
+    shuffle: 'Tenangkan hatimu… biarkan kartu mendengar pertanyaanmu.',
+    spread: 'Lihatlah. Kartu-kartu ini sudah menunggumu.',
+    pick: ['Pilih kartu pertama — akar dari pertanyaanmu.', 'Sekarang kartu untuk saat ini.', 'Satu lagi, untuk apa yang akan datang.', 'Terakhir, Kartu Kunci. Biarkan tanganmu memilih.'],
+    done: 'Bagus. Mari kita lihat apa yang mereka katakan…'
+  };
+  function showOracle(phase) {
+    const o = $('#oracle');
+    o.hidden = false;
+    o.classList.toggle('is-shuffling', phase === 'shuffle');
+    o.classList.toggle('is-leaving', phase === 'done');
+    const line = phase === 'pick' ? ORACLE_LINES.pick[Math.min(state.picks.length, 3)] : ORACLE_LINES[phase];
+    $('#oracleSay').textContent = line;
+  }
+
   /* ---------------- KOCOK ---------------- */
   async function shuffleAnimation(run) {
     const stage = $('#stage');
@@ -302,6 +318,7 @@
     c3.style.visibility = '';
 
     state.busy = false;
+    showOracle('pick');
     if (state.picks.length < 3) {
       setStatus('Pilih ' + (3 - state.picks.length) + ' kartu lagi', 'Kartu berikutnya untuk ' + E.POSITIONS[state.picks.length].label + '. Biarkan tanganmu mengikuti rasa.');
     } else if (state.picks.length === 3) {
@@ -317,6 +334,7 @@
     state.phase = 'reveal';
     markNextSlot();
     setStatus('Kartu sudah terpilih', 'Semesta sedang membuka pesannya…');
+    showOracle('done');
     const stage = $('#stage');
     stage.classList.add('fan-out');
     await wait(T(750));
@@ -334,6 +352,7 @@
     await wait(T(500));
     if (run !== state.run) return;
     stage.hidden = true;
+    $('#oracle').hidden = true;
     $('#pickCounter').hidden = true;
     setStatus('Kartumu telah terbuka', 'Ketuk kartu untuk langsung melompat ke penjelasannya.');
     renderDetails();
@@ -697,15 +716,18 @@
     $('#pickCounter').hidden = true;
     buildSlots();
 
+    showOracle('shuffle');
     setStatus('Mengocok kartu…', 'Tenangkan napasmu dan fokuskan pikiran pada pertanyaan yang kamu simpan dalam hati.');
     await shuffleAnimation(run);
     if (run !== state.run) return;
+    showOracle('spread');
     setStatus('Kartu sedang dijereng…', '78 kartu tertutup terbentang di hadapanmu.');
     await spreadFan(run);
     if (run !== state.run) return;
     state.phase = 'pick';
     updateCounter();
     markNextSlot();
+    showOracle('pick');
     setStatus('Pilih 3 kartu', 'Ikuti intuisimu. Kartu pertama untuk Masa Lalu, kedua Masa Kini, ketiga Masa Depan — lalu +1 Kartu Kunci.');
   }
 
@@ -714,6 +736,7 @@
     state.phase = 'intro';
     document.querySelectorAll('.flyer').forEach((f) => f.remove());
     $('#askbar').hidden = true;
+    $('#oracle').hidden = true;
     $('#table').classList.remove('is-active');
     $('#intro').classList.add('is-active');
     window.scrollTo({ top: 0 });
