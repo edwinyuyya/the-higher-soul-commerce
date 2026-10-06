@@ -491,6 +491,57 @@ textarea::placeholder { color: #8f86b3; }
   .promo-buy { flex-direction: column; align-items: stretch; text-align: center; }
 }
 
+/* ---------- paywall bacaan tarot ---------- */
+.paywall {
+  max-width: 640px; margin: 8px auto 24px; padding: 28px 24px 22px; border-radius: 24px; text-align: center;
+  border: 1px solid var(--gold); background: linear-gradient(165deg, #2c1d5e 0%, #1a1240 60%, #120c30 100%);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45); animation: fadeUp 0.6s ease both;
+}
+.paywall h2 { font-family: var(--font-title); font-size: clamp(22px, 3.4vw, 28px); margin: 8px 0 6px; }
+.pw-lead { color: var(--muted); margin: 0 auto 16px; max-width: 520px; }
+.pw-cards { display: flex; justify-content: center; gap: 8px; }
+.pw-cards i { width: 34px; height: 56px; border-radius: 5px; border: 1.5px solid var(--gold); background: repeating-conic-gradient(from 0deg at 50% 50%, #2c2068 0 10deg, #1c1447 10deg 20deg); box-shadow: 0 0 14px rgba(230, 196, 122, 0.35); animation: bob 3s ease-in-out infinite; }
+.pw-cards i:nth-child(2) { animation-delay: -0.6s; } .pw-cards i:nth-child(3) { animation-delay: -1.2s; } .pw-cards i:nth-child(4) { animation-delay: -1.8s; margin-left: 10px; }
+.pw-list { list-style: none; padding: 0; margin: 0 auto 18px; display: grid; gap: 8px; text-align: left; max-width: 520px; }
+.pw-list li { position: relative; padding-left: 26px; font-size: 15.5px; }
+.pw-list li::before { content: '✦'; position: absolute; left: 2px; color: var(--gold); }
+.pw-buy { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px 22px; padding: 16px; border-radius: 18px; background: rgba(230, 196, 122, 0.1); border: 1px solid rgba(230, 196, 122, 0.45); }
+.pw-price { display: grid; line-height: 1.15; text-align: left; }
+.pw-price span { font-size: 12.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); }
+.pw-price strong { font-family: var(--font-title); font-size: 32px; }
+.pw-buy .btn-big { font-size: 17px; padding: 14px 26px; letter-spacing: 0.05em; }
+.pw-methods { font-size: 13.5px; color: #f6e3b6; margin: 14px 0 4px; }
+.pw-secure { font-size: 13px; color: var(--muted); margin: 0; }
+
+/* ---------- dialog pembayaran ---------- */
+.pay-dialog {
+  width: min(480px, calc(100% - 24px)); max-height: calc(100% - 24px); overflow: auto; border-radius: 22px; padding: 22px 22px 18px;
+  border: 1px solid var(--gold); background: linear-gradient(170deg, #241a55, #140e35); color: var(--text); box-shadow: var(--shadow);
+}
+.pay-dialog::backdrop { background: rgba(6, 4, 20, 0.75); backdrop-filter: blur(3px); }
+.pay-head { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.pay-lock { font-size: 26px; }
+.pay-head h2 { font-family: var(--font-title); font-size: 19px; margin: 0; line-height: 1.25; }
+.pay-amount { margin: 2px 0 0; font-family: var(--font-title); font-size: 22px; color: var(--gold); }
+.pay-msg { margin: 10px 0; }
+.pay-ok { color: var(--good); font-weight: 600; font-size: 18px; }
+.pay-err { color: var(--bad); }
+.pay-demo { margin: 8px 0; padding: 8px 12px; border-radius: 10px; border: 1px dashed var(--warn); color: var(--warn); font-size: 14px; }
+.pay-order { font-size: 14px; color: var(--muted); margin: 6px 0 12px; word-break: break-all; }
+.pay-methods { list-style: none; padding: 0; margin: 12px 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.pay-methods li { font-size: 12.5px; padding: 3px 9px; border-radius: 999px; border: 1px solid var(--line); color: #f6e3b6; }
+.pay-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; margin-top: 8px; }
+.pay-spin { display: inline-block; width: 14px; height: 14px; margin-right: 8px; vertical-align: -2px; border-radius: 50%; border: 2px solid rgba(230, 196, 122, 0.3); border-top-color: var(--gold); animation: spin 0.8s linear infinite; }
+.promo-contact { margin: 0 0 20px; }
+.promo-paid { padding: 18px 20px; border-radius: 18px; border: 1px solid var(--good); background: rgba(143, 214, 166, 0.1); }
+.promo-paid-title { font-family: var(--font-title); font-size: 20px; color: var(--good); margin: 0 0 6px !important; }
+.paid-banner { margin-top: 16px; }
+@media (max-width: 560px) {
+  .pay-actions { justify-content: stretch; }
+  .pay-actions .btn { flex: 1 1 100%; }
+  .pw-price { text-align: center; }
+}
+
 /* ---------- toast ---------- */
 .toast {
   position: fixed; left: 50%; bottom: 90px; transform: translateX(-50%); z-index: 2000; padding: 10px 18px; border-radius: 999px;

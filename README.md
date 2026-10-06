@@ -39,6 +39,42 @@ python3 -m http.server 8000
 # open http://localhost:8000
 ```
 
+## Payments (Midtrans)
+
+The tarot reading (Rp 15.000) and the numerology PDF report (Rp 199.000) are paid through **Midtrans Snap**: QRIS (which covers GoPay, OVO, DANA, ShopeePay, LinkAja and mobile banking), GoPay and ShopeePay directly, and Virtual Accounts for BCA, BNI, BRI, Mandiri, Permata and CIMB.
+
+- **Tarot**: after the 4 cards are picked, a paywall appears. The cards only flip once the server confirms the payment.
+- **Numerology**: the buyer fills in name, birth date and email. After payment, the order (with that data in `custom_field2`/`custom_field3`) is visible in the Midtrans dashboard, and the report is sent to the buyer's email manually.
+
+How the flow avoids lost or failed payments:
+
+1. Prices and transactions are created on the server (`/api/create-payment`). The browser cannot change the price.
+2. Payment status is always read from Midtrans by the server (`/api/payment-status`). Browser callbacks only trigger a check. The page polls every 3 seconds and keeps retrying on network errors.
+3. The unpaid order and the picked cards are saved in the browser. When the buyer switches to an e-wallet or banking app and comes back (Midtrans redirects to the site with `?order_id=`), the check resumes on the same order. No double charge.
+4. If the Snap popup cannot load, the buyer is sent to the hosted Midtrans payment page.
+5. The webhook (`/api/midtrans-notification`) verifies the SHA-512 signature and re-checks the status with Midtrans. The app does not depend on it to unlock.
+6. A paid amount that does not match the product price is never treated as paid.
+
+### Setup
+
+1. Create a Midtrans account at https://dashboard.midtrans.com and copy the **Sandbox** Server Key and Client Key (Settings → Access Keys).
+2. Deploy this repository to Vercel (static files plus the `api/` functions; no build step).
+3. In Vercel → Settings → Environment Variables, set the values from `.env.example`.
+4. In the Midtrans dashboard → Settings → Payment, set:
+   - Payment Notification URL: `https://<your-domain>/api/midtrans-notification`
+   - Finish / Unfinish / Error Redirect URL: `https://<your-domain>/`
+5. Test with the Midtrans sandbox simulator (QRIS, GoPay, VA). When everything works and Midtrans has approved your production account, switch to the Production keys and set `MIDTRANS_IS_PRODUCTION=true`.
+
+### Local development and tests
+
+```bash
+cp .env.example .env   # fill in sandbox keys
+npm run dev            # http://localhost:3000, runs the api/ functions too
+npm test               # payment logic against a fake Midtrans (no network, no money)
+```
+
+`window.HS_PAYMENT_MODE = 'demo'` turns on a clearly labelled simulation with no real payment; it is used only for the claude.ai demo.
+
 ## Structure
 
 ```
@@ -48,6 +84,10 @@ js/cards.js     data for all 78 cards (Rider–Waite–Smith) in Indonesian
 js/scenarios.js question scenarios (what is actually being asked)
 js/engine.js    Master Tarot rule engine: links the question to the cards
 js/numerology.js numerology report promo (price and order link in PROMO)
+js/payment.js   payment dialog and status checks (Midtrans Snap)
+api/            serverless functions: config, create-payment, payment-status, midtrans-notification
+lib/midtrans.js prices, Midtrans API calls, signature check
+scripts/        local dev server, fake Midtrans, payment tests
 js/app.js       flow: shuffle → spread → pick → open → ask → link
 ```
 

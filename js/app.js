@@ -341,6 +341,18 @@
     if (run !== state.run) return;
     stage.style.height = '0px';
     stage.innerHTML = '';
+    stage.hidden = true;
+    $('#oracle').hidden = true;
+    $('#pickCounter').hidden = true;
+
+    // Kartu baru terbuka setelah pembayaran terkonfirmasi.
+    const paid = await tarotGate(run);
+    if (!paid || run !== state.run) return;
+    await revealCards(run);
+  }
+
+  async function revealCards(run) {
+    setStatus('Kartu sudah terpilih', 'Semesta sedang membuka pesannya…');
     await wait(T(250));
     const slots = document.querySelectorAll('.slot');
     for (let i = 0; i < slots.length; i++) {
@@ -351,15 +363,97 @@
     }
     await wait(T(500));
     if (run !== state.run) return;
-    stage.hidden = true;
-    $('#oracle').hidden = true;
-    $('#pickCounter').hidden = true;
     setStatus('Kartumu telah terbuka', 'Ketuk kartu untuk langsung melompat ke penjelasannya.');
     renderDetails();
     state.phase = 'ask';
     await wait(T(900));
     if (run !== state.run) return;
     $('#askbar').hidden = false;
+  }
+
+  /* ---------------- PEMBAYARAN BACAAN TAROT ---------------- */
+  const SESSION_KEY = 'hs_tarot_session';
+  const sessionStore = {
+    get() { try { return JSON.parse(localStorage.getItem(SESSION_KEY) || 'null'); } catch (e) { return null; } },
+    set(v) { try { localStorage.setItem(SESSION_KEY, JSON.stringify(v)); } catch (e) { /* abaikan */ } },
+    del() { try { localStorage.removeItem(SESSION_KEY); } catch (e) { /* abaikan */ } }
+  };
+  const picksSig = () => state.picks.map((d) => d.card.id + (d.reversed ? 'r' : '')).join('.');
+
+  function saveSession(extra) {
+    sessionStore.set(Object.assign({
+      picks: state.picks.map((d) => ({ id: d.card.id, reversed: d.reversed })),
+      sig: picksSig(),
+      at: Date.now()
+    }, extra || {}));
+  }
+
+  function tarotGate(run) {
+    return new Promise((resolve) => {
+      const box = $('#paywall');
+      const price = window.Payment ? window.Payment.rupiah(15000) : 'Rp 15.000';
+      setStatus('Kartumu sudah terpilih', 'Empat kartu menunggu untuk dibuka.');
+      box.innerHTML =
+        '<div class="pw-cards" aria-hidden="true"><i></i><i></i><i></i><i></i></div>' +
+        '<h2>Buka bacaan kartumu</h2>' +
+        '<p class="pw-lead">Master Tarot siap membuka keempat kartumu dan menjawab pertanyaan yang kamu simpan dalam hati.</p>' +
+        '<ul class="pw-list">' +
+        '<li>Makna lengkap 4 kartu yang kamu pilih, tegak maupun terbalik</li>' +
+        '<li>Jawaban Master Tarot yang disambungkan langsung dengan pertanyaanmu</li>' +
+        '<li>Benang merah masa lalu, kini, dan masa depan, plus langkah yang bisa kamu ambil</li>' +
+        '<li>Boleh bertanya topik lain dengan kartu yang sama, tanpa biaya tambahan</li>' +
+        '</ul>' +
+        '<div class="pw-buy"><div class="pw-price"><span>Sekali bayar</span><strong>' + price + '</strong></div>' +
+        '<button class="btn btn-primary btn-big" type="button" id="pwPay">Bayar &amp; buka kartuku</button></div>' +
+        '<p class="pw-methods">QRIS · GoPay · ShopeePay · OVO · DANA · LinkAja · Virtual Account BCA, BNI, BRI, Mandiri, Permata, CIMB</p>' +
+        '<p class="pw-secure">Pembayaran diproses oleh Midtrans, payment gateway berizin Bank Indonesia. Kartu yang kamu pilih tersimpan, jadi aman bila kamu berpindah ke aplikasi e-wallet atau m-banking.</p>';
+      box.hidden = false;
+      const btn = box.querySelector('#pwPay');
+      btn.addEventListener('click', async () => {
+        if (!window.Payment) return;
+        btn.disabled = true;
+        try {
+          const res = await window.Payment.checkout({
+            product: 'tarot',
+            reuseKey: picksSig(),
+            beforePay: (orderId) => saveSession({ orderId: orderId, paid: false })
+          });
+          if (run !== state.run) return;
+          saveSession({ orderId: res.orderId, paid: true });
+          box.hidden = true;
+          box.innerHTML = '';
+          resolve(true);
+        } catch (e) {
+          btn.disabled = false;
+        }
+      });
+    });
+  }
+
+  /** Membuka kembali bacaan yang sudah dibayar (mis. setelah kembali dari aplikasi e-wallet). */
+  async function restoreSession(sess) {
+    const picks = (sess.picks || []).map((p) => ({ card: window.TAROT.byId(p.id), reversed: !!p.reversed })).filter((d) => d.card);
+    if (picks.length !== 4) return false;
+    state.run++;
+    const run = state.run;
+    state.picks = picks;
+    state.phase = 'reveal';
+    $('#intro').classList.remove('is-active');
+    $('#table').classList.add('is-active');
+    $('#details').hidden = true;
+    $('#reading').hidden = true;
+    $('#reading').innerHTML = '';
+    $('#paywall').hidden = true;
+    $('#stage').hidden = true;
+    $('#oracle').hidden = true;
+    $('#pickCounter').hidden = true;
+    buildSlots();
+    document.querySelectorAll('.slot').forEach((slot, i) => {
+      $('.slot-card', slot).innerHTML = card3dHTML(picks[i]);
+      slot.classList.add('filled');
+    });
+    await revealCards(run);
+    return true;
   }
 
   /* ---------------- DETAIL KARTU ---------------- */
@@ -703,6 +797,9 @@
     state.topic = null;
     state.topicManual = false;
     state.question = '';
+    sessionStore.del();
+    $('#paywall').hidden = true;
+    $('#paywall').innerHTML = '';
     document.querySelectorAll('.flyer').forEach((f) => f.remove());
     document.querySelectorAll('#topicChips input').forEach((i) => { i.checked = false; });
     clearAutoTags();
@@ -740,6 +837,7 @@
     document.querySelectorAll('.flyer').forEach((f) => f.remove());
     $('#askbar').hidden = true;
     $('#oracle').hidden = true;
+    $('#paywall').hidden = true;
     $('#table').classList.remove('is-active');
     $('#intro').classList.add('is-active');
     window.scrollTo({ top: 0 });
@@ -764,6 +862,26 @@
     });
     let rt;
     window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(relayoutFan, 150); });
+    resumePayments();
+  }
+
+  /* Setelah kembali dari halaman/aplikasi pembayaran: lanjutkan dari kartu yang sama. */
+  async function resumePayments() {
+    if (!window.Payment) return;
+    let done = null;
+    try { done = await window.Payment.resume(); } catch (e) { done = null; }
+    const sess = sessionStore.get();
+    if (done && done.product === 'numerology') {
+      if (window.Numerology && window.Numerology.showPaid) window.Numerology.showPaid(done.orderId, toast);
+      return;
+    }
+    if (done && done.product === 'tarot' && sess) {
+      saveSession(Object.assign({}, sess, { orderId: done.orderId, paid: true, at: sess.at }));
+      restoreSession(sess);
+      return;
+    }
+    // Bacaan yang sudah dibayar dalam 3 jam terakhir dibuka kembali setelah halaman dimuat ulang.
+    if (sess && sess.paid && Date.now() - (sess.at || 0) < 3 * 60 * 60 * 1000) restoreSession(sess);
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);

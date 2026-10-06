@@ -7,10 +7,11 @@
 
   const PROMO = {
     price: 'Rp 199rb',
-    // Tautan pemesanan, mis. 'https://wa.me/6281234567890'. Pesan berisi nama,
-    // tanggal lahir dan angka yang dihitung akan ditambahkan otomatis (?text=...).
-    // Kosongkan bila belum ada: tombol akan menyalin pesan pemesanan.
-    orderUrl: ''
+    // Harga yang ditagih ditetapkan di server (lib/midtrans.js), bukan di sini.
+    // Janji pengiriman laporan yang ditampilkan setelah pembayaran berhasil.
+    delivery: 'Laporan PDF-mu akan dikirim ke email yang kamu isi.',
+    // Opsional: nomor WhatsApp admin untuk konfirmasi, mis. '6281234567890'.
+    adminWhatsApp: ''
   };
 
   /* Arti singkat angka (cuplikan gratis). Laporan PDF berisi penjelasan lengkap. */
@@ -75,6 +76,13 @@
       '<div class="promo-result" id="numResult" hidden></div>' +
       '</div>' +
 
+      '<div class="promo-contact">' +
+      '<p class="promo-try-title">Kirim laporannya ke mana?</p>' +
+      '<div class="promo-fields">' +
+      '<label for="numEmail">Email (laporan PDF dikirim ke sini)<input id="numEmail" type="email" autocomplete="email" placeholder="nama@email.com"></label>' +
+      '<label for="numPhone">No. WhatsApp (opsional)<input id="numPhone" type="tel" autocomplete="tel" placeholder="08xxxxxxxxxx"></label>' +
+      '</div></div>' +
+
       '<p class="promo-list-title">Dalam <b>Laporan Numerologi Lengkap (PDF)</b> kamu akan menemukan:</p>' +
       '<ul class="promo-list">' +
       '<li><b>Karier panggilan hidupmu.</b> Bidang kerja yang paling selaras dengan jiwamu, dan cara mendatangkan rezeki lewat bakat alamimu.</li>' +
@@ -88,7 +96,7 @@
       '<div class="promo-price"><span>Harga promo</span><strong>' + PROMO.price + '</strong><small>Laporan pribadi dalam bentuk PDF</small></div>' +
       '<button class="btn btn-primary btn-big promo-cta" type="button" id="numOrder">Dapatkan Laporan Numerologiku</button>' +
       '</div>' +
-      '<p class="promo-fine" id="numFine">Isi nama lengkap dan tanggal lahirmu di atas agar laporan bisa langsung disiapkan.</p>' +
+      '<p class="promo-fine" id="numFine">Bayar dengan QRIS, GoPay, ShopeePay, OVO, DANA, atau Virtual Account bank. Diproses aman oleh Midtrans.</p>' +
       '</section>';
   }
 
@@ -124,26 +132,59 @@
 
     root.querySelector('#numCalc').addEventListener('click', () => calc(true));
 
-    root.querySelector('#numOrder').addEventListener('click', () => {
-      const d = calc(false) || last;
-      const msg = 'Halo, saya ingin memesan Laporan Numerologi Lengkap (PDF) promo ' + PROMO.price + '.' +
-        (d ? '\nNama lengkap: ' + d.name + '\nTanggal lahir: ' + d.date + '\nLife Path: ' + d.lp + ', Destiny: ' + d.ds : '');
-      if (PROMO.orderUrl) {
-        const url = PROMO.orderUrl + (PROMO.orderUrl.indexOf('?') === -1 ? '?' : '&') + 'text=' + encodeURIComponent(msg);
-        const a = document.createElement('a');
-        a.href = url;
-        a.target = '_blank';
-        a.rel = 'noopener';
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        return;
+    const fine = root.querySelector('#numFine');
+    const orderBtn = root.querySelector('#numOrder');
+    orderBtn.addEventListener('click', async () => {
+      const emailEl = root.querySelector('#numEmail');
+      const phoneEl = root.querySelector('#numPhone');
+      const d = calc(true);
+      const email = emailEl.value.trim();
+      if (!d) { nameEl.focus(); return warn('Isi nama lengkap dan tanggal lahirmu dulu, lalu tekan tombol ini lagi.'); }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { emailEl.focus(); return warn('Isi alamat email yang valid agar laporan PDF bisa dikirim.'); }
+      if (!window.Payment) return warn('Pembayaran belum tersedia. Silakan muat ulang halaman.');
+      orderBtn.disabled = true;
+      try {
+        const res = await window.Payment.checkout({
+          product: 'numerology',
+          customer: { name: d.name, email: email, phone: phoneEl.value.trim() },
+          birthdate: d.date
+        });
+        showPaid(res.orderId, toast, { email: email, root: root });
+      } catch (e) {
+        /* dibatalkan pembeli */
       }
-      const done = () => toast('Pesan pemesanan disalin. Kirimkan ke admin Higher Soul.');
-      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(msg).then(done, () => toast('Hubungi admin Higher Soul untuk memesan.'));
-      else toast('Hubungi admin Higher Soul untuk memesan.');
+      orderBtn.disabled = false;
     });
+
+    function warn(text) {
+      fine.textContent = text;
+      fine.classList.add('promo-warn');
+    }
   }
 
-  window.Numerology = { PROMO: PROMO, html: html, bind: bind, lifePath: lifePath, destiny: destiny };
+  /** Ucapan terima kasih setelah laporan numerologi lunas. */
+  function showPaid(orderId, toast, opts) {
+    opts = opts || {};
+    const wa = PROMO.adminWhatsApp
+      ? '<a class="btn" href="https://wa.me/' + PROMO.adminWhatsApp + '?text=' + encodeURIComponent('Halo, saya sudah membayar Laporan Numerologi. No. pesanan: ' + orderId) + '" target="_blank" rel="noopener">Konfirmasi ke WhatsApp admin</a>'
+      : '';
+    const html = '<div class="promo-paid"><p class="promo-paid-title">✓ Pembayaran berhasil</p>' +
+      '<p>' + PROMO.delivery + (opts.email ? ' (<b>' + opts.email.replace(/[<>&"]/g, '') + '</b>)' : '') + '</p>' +
+      '<p>No. pesanan: <b>' + orderId + '</b>. Simpan nomor ini untuk menanyakan laporanmu.</p>' + wa + '</div>';
+    const buy = opts.root && opts.root.querySelector('.promo-buy');
+    if (buy) {
+      buy.outerHTML = html;
+      const fine = opts.root.querySelector('#numFine');
+      if (fine) fine.hidden = true;
+    } else {
+      const banner = document.createElement('div');
+      banner.className = 'promo paid-banner';
+      banner.innerHTML = html + '<button class="btn btn-ghost" type="button">Tutup</button>';
+      banner.querySelector('button').onclick = () => banner.remove();
+      document.querySelector('main').prepend(banner);
+      window.scrollTo({ top: 0 });
+    }
+  }
+
+  window.Numerology = { PROMO: PROMO, html: html, bind: bind, showPaid: showPaid, lifePath: lifePath, destiny: destiny };
 })();
