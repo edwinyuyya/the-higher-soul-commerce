@@ -451,33 +451,79 @@ textarea::placeholder { color: #8f86b3; }
 .promo h3 { font-family: var(--font-title); font-size: clamp(21px, 3.2vw, 28px); line-height: 1.3; margin: 0 0 14px; text-wrap: balance; }
 .promo h3 span { color: var(--gold); }
 .promo p { margin: 0 0 12px; }
-.promo-paths { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 4px 0 16px; }
-.promo-paths > div { padding: 14px 16px; border-radius: 16px; background: rgba(230, 196, 122, 0.08); border: 1px solid rgba(230, 196, 122, 0.3); }
-.promo-paths b { display: block; font-family: var(--font-title); font-size: 18px; color: #fff; }
-.promo-paths i { display: block; color: var(--gold); font-size: 14px; margin-bottom: 6px; }
-.promo-paths p { margin: 0; font-size: 15px; color: var(--muted); }
-.promo-try { margin: 18px 0 20px; padding: 18px; border-radius: 16px; background: rgba(0, 0, 0, 0.22); border: 1px dashed rgba(230, 196, 122, 0.45); }
-.promo-try-title { font-weight: 600; color: #f6e3b6; }
-.promo-fields { display: grid; grid-template-columns: 1.4fr 1fr; gap: 10px; margin-bottom: 12px; }
-.promo-fields label { display: grid; gap: 4px; font-size: 14px; color: var(--muted); min-width: 0; }
+.promo-paths { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 4px 0 18px; }
+.promo-paths > div { padding: 16px; border-radius: 16px; background: rgba(230, 196, 122, 0.07); border: 1px solid rgba(230, 196, 122, 0.28); }
+.promo-paths .pp-ico { display: grid; place-items: center; width: 34px; height: 34px; margin-bottom: 8px; border-radius: 50%; border: 1px solid var(--gold); color: var(--gold); font-size: 17px; }
+.promo-paths b { display: block; font-family: var(--font-title); font-size: 17px; color: #fff; margin-bottom: 4px; }
+.promo-paths p { margin: 0; font-size: 15px; color: var(--muted); line-height: 1.55; }
+.promo-paths u { text-decoration: none; color: #f6e3b6; }
+.promo-try { margin: 0 0 18px; padding: 18px; border-radius: 18px; background: rgba(0, 0, 0, 0.25); border: 1px solid rgba(230, 196, 122, 0.3); }
+.promo-try-title { font-family: var(--font-title); font-size: 16px; letter-spacing: 0.04em; color: #f6e3b6; margin: 0 0 12px !important; }
+.promo-fields { display: grid; grid-template-columns: 1.4fr 1fr; gap: 12px; margin-bottom: 14px; }
+.promo-fields label { display: grid; gap: 6px; font-size: 14px; color: var(--muted); min-width: 0; }
 .promo-fields input {
-  width: 100%; min-width: 0; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line);
+  width: 100%; min-width: 0; height: 48px; padding: 0 14px; border-radius: 12px; border: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.06); color: var(--text); font: inherit; font-size: 16px; color-scheme: dark;
 }
 .promo-fields input:focus { outline: 2px solid var(--gold); outline-offset: 1px; }
-.promo-result { margin-top: 14px; }
-.num-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-.num-card { display: grid; gap: 2px; padding: 14px; border-radius: 14px; background: rgba(230, 196, 122, 0.1); border: 1px solid rgba(230, 196, 122, 0.4); }
-.num-card .num { font-family: var(--font-title); font-size: 40px; line-height: 1; color: var(--gold); text-shadow: 0 0 18px rgba(230, 196, 122, 0.5); }
-.num-card .lbl { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
-.num-card b { margin-top: 4px; }
-.num-card p { margin: 0; font-size: 14.5px; color: var(--muted); }
-.promo-tease { margin: 12px 0 0 !important; font-style: italic; color: #f6e3b6; }
+.promo-calc { width: 100%; padding: 13px 20px; font-family: var(--font-title); letter-spacing: 0.08em; }
+.promo-result { margin: 0 0 22px; scroll-margin-top: 16px; }
+.promo-tease { margin: 14px 0 0 !important; font-size: 15.5px; color: #f6e3b6; text-align: center; }
 .promo-warn { color: var(--warn); margin: 0 !important; }
+
+/* hasil numerologi */
+.nr { display: grid; gap: 14px; animation: nrIn 0.6s ease both; }
+@keyframes nrIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.nr-hello { margin: 0 !important; text-align: center; font-family: var(--font-title); font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); }
+.nr-hello b { color: #fff; }
+.nr-card { padding: 20px; border-radius: 20px; background: linear-gradient(160deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02)); border: 1px solid rgba(230, 196, 122, 0.35); }
+.nr-head { display: grid; grid-template-columns: 96px 1fr; gap: 16px; align-items: center; margin-bottom: 14px; }
+.nr-medal { position: relative; width: 96px; height: 96px; }
+.nr-medal svg { position: absolute; inset: 0; width: 100%; height: 100%; animation: nrSpin 40s linear infinite; }
+@keyframes nrSpin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .nr, .nr-medal svg { animation: none; } }
+.nr-ring-a { fill: none; stroke: var(--gold); stroke-width: 1.4; opacity: 0.8; }
+.nr-ring-b { fill: rgba(230, 196, 122, 0.1); stroke: rgba(230, 196, 122, 0.45); stroke-width: 1; stroke-dasharray: 3 4; }
+.nr-dot { fill: var(--gold); }
+.nr-medal span { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--font-title); font-weight: 700; font-size: 40px; color: #fbe7b5; text-shadow: 0 0 20px rgba(230, 196, 122, 0.6); }
+.nr-kind { margin: 0 0 2px !important; font-size: 12.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); line-height: 1.4; }
+.nr-kind small { display: block; letter-spacing: 0.02em; text-transform: none; font-size: 13px; color: var(--muted); }
+.nr-card h4 { margin: 2px 0 4px; font-family: var(--font-title); font-size: 21px; line-height: 1.25; color: #fff; }
+.nr-means { margin: 0 !important; font-size: 14px; color: var(--muted); line-height: 1.5; }
+.nr-master { margin: 0 0 4px !important; font-size: 13.5px; color: #f6e3b6; line-height: 1.45; }
+.nr-about { font-size: 17px; line-height: 1.65; }
+.nr-sub { margin: 0 0 6px !important; font-size: 12.5px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); }
+.nr-chips { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 0 0 14px; }
+.nr-chips li { padding: 6px 12px; border-radius: 999px; font-size: 14.5px; background: rgba(230, 196, 122, 0.12); border: 1px solid rgba(230, 196, 122, 0.4); color: #fbeccc; }
+.nr-two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.nr-box { padding: 12px 14px; border-radius: 14px; }
+.nr-box p:last-child { margin: 0; font-size: 15px; line-height: 1.55; }
+.nr-watch { background: rgba(240, 179, 106, 0.08); border-left: 3px solid var(--warn); }
+.nr-watch .nr-sub { color: var(--warn); }
+.nr-tip { background: rgba(143, 214, 166, 0.08); border-left: 3px solid var(--good); }
+.nr-tip .nr-sub { color: var(--good); }
+.nr-how { margin-top: 14px; border-top: 1px dashed rgba(230, 196, 122, 0.25); padding-top: 10px; font-size: 14.5px; color: var(--muted); }
+.nr-how summary { cursor: pointer; color: #f6e3b6; list-style: none; }
+.nr-how summary::-webkit-details-marker { display: none; }
+.nr-how summary::before { content: '＋ '; color: var(--gold); }
+.nr-how[open] summary::before { content: '－ '; }
+.nr-calc { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 4px; }
+.nr-calc li { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2px 12px; padding: 6px 10px; border-radius: 8px; background: rgba(0, 0, 0, 0.2); }
+.nr-calc b { color: var(--text); font-weight: 500; font-variant-numeric: tabular-nums; }
+.nr-calc-sum { border: 1px solid rgba(230, 196, 122, 0.35); }
+.nr-calc-note { margin: 10px 0 0 !important; line-height: 1.55; }
+.nr-combo { padding: 18px 20px; border-radius: 18px; background: radial-gradient(120% 140% at 0% 0%, rgba(230, 196, 122, 0.2), rgba(230, 196, 122, 0.05)); border: 1px solid var(--gold); }
+.nr-combo p:last-child { margin: 0; font-size: 16.5px; line-height: 1.65; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+/* penawaran laporan */
+.promo-report { padding-top: 20px; border-top: 1px solid rgba(230, 196, 122, 0.25); }
 .promo-list-title { font-weight: 500; }
-.promo-list { list-style: none; padding: 0; margin: 0 0 20px; display: grid; gap: 8px; }
-.promo-list li { position: relative; padding-left: 28px; }
-.promo-list li::before { content: '✦'; position: absolute; left: 4px; top: 0; color: var(--gold); }
+.promo-list { list-style: none; padding: 0; margin: 0 0 20px; display: grid; gap: 10px; }
+.promo-list li { display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: start; padding: 12px 14px; border-radius: 14px; background: rgba(255, 255, 255, 0.04); }
+.promo-list li > span { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; background: rgba(230, 196, 122, 0.14); color: var(--gold); font-size: 16px; }
+.promo-list li div { font-size: 15px; line-height: 1.5; color: var(--muted); }
+.promo-list li b { display: block; color: #fff; font-size: 16px; margin-bottom: 2px; }
 .promo-buy { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 20px; border-radius: 18px; background: rgba(230, 196, 122, 0.12); border: 1px solid var(--gold); }
 .promo-price { display: grid; line-height: 1.2; }
 .promo-price span { font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); }
@@ -486,8 +532,13 @@ textarea::placeholder { color: #8f86b3; }
 .promo-cta { font-size: 17px; padding: 14px 26px; letter-spacing: 0.06em; }
 .promo-fine { font-size: 13.5px; color: var(--muted); margin: 12px 0 0 !important; text-align: center; }
 @media (max-width: 560px) {
-  .promo { padding: 24px 18px 20px; }
-  .promo-paths, .promo-fields, .num-cards { grid-template-columns: 1fr; }
+  .promo { padding: 24px 16px 20px; }
+  .promo-try { padding: 16px 14px; }
+  .promo-paths, .promo-fields, .nr-two { grid-template-columns: 1fr; }
+  .nr-card { padding: 18px 16px; }
+  .nr-head { grid-template-columns: 82px 1fr; gap: 14px; }
+  .nr-medal { width: 82px; height: 82px; }
+  .nr-medal span { font-size: 34px; }
   .promo-buy { flex-direction: column; align-items: stretch; text-align: center; }
 }
 
