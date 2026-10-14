@@ -125,12 +125,12 @@ function build(o) {
     [c.soul, 'Angka Isi Hati', 'Apa yang sebenarnya kamu inginkan', 'huruf hidup nama'],
     [c.persona, 'Angka Kesan Pertama', 'Cara orang lain melihatmu', 'huruf mati nama'],
     [c.bday, 'Angka Hari Lahir', 'Bakat khusus dari tanggal lahir', 'tanggal ' + c.d],
-    [c.py, 'Tahun Pribadi ' + c.year, 'Tema hidupmu tahun ini', 'tanggal, bulan, dan tahun ' + c.year]
+    [c.py, 'Tahun Pribadi ' + c.year, 'Tema hidupmu tahun ini', 'tanggal, bulan, dan tahun ' + c.year, YEARS[c.py].theme]
   ];
   pages.push(page(
     chapter('Ringkasan', 'Peta Angkamu', 'Halo, ' + first + '. Laporan ini dihitung dari nama lengkap dan tanggal lahirmu. Ada enam angka penting yang membentuk dirimu. Setiap angka dibahas satu per satu di halaman berikutnya, dengan bahasa sehari-hari.') +
-    '<div class="grid6">' + grid.map(([n, t, s, from]) =>
-      '<div class="g">' + medal(n, 's') + '<div><b>' + t + '</b><span class="g-title">' + NUMBERS[n].title + '</span><small>' + s + '. Dari ' + from + '.</small></div></div>').join('') + '</div>' +
+    '<div class="grid6">' + grid.map(([n, t, s, from, title]) =>
+      '<div class="g">' + medal(n, 's') + '<div><b>' + t + '</b><span class="g-title">' + (title || NUMBERS[n].title) + '</span><small>' + s + '. Dari ' + from + '.</small></div></div>').join('') + '</div>' +
     '<div class="callout"><p class="callout-t">Kalimat tentang dirimu</p><p>Kamu adalah <b>' + LP.title.replace('Sang ', 'sang ').toLowerCase() + '</b> (' + LP.short + ') yang dibekali bakat <b>' + DS.short + '</b>. Di dalam hati, kamu ' + SU.soul.replace(/^Jauh di dalam hati, kamu /, '').replace(/\.$/, '') + '.</p></div>' +
     '<p class="note">Cara membaca: angka 1–9 adalah angka dasar. Angka 11, 22, dan 33 disebut <b>Angka Master</b>, angka istimewa dengan energi yang lebih kuat.</p>',
     pn++));
