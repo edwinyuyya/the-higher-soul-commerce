@@ -75,6 +75,19 @@ npm test               # payment logic against a fake Midtrans (no network, no m
 
 `window.HS_PAYMENT_MODE = 'demo'` turns on a clearly labelled simulation with no real payment; it is used only for the claude.ai demo.
 
+## Numerology PDF report
+
+After a numerology order is paid, generate the buyer's report with one command:
+
+```bash
+npm run report -- --name "Arianita Dewi" --date 1977-02-22 --time 14:00 --city Semarang
+# → reports/numerologi-arianita-dewi-1977-02-22.pdf (and .html)
+```
+
+The report is 10 A4 pages in plain Indonesian: number map, Life Path, Destiny (talent) and how the two combine, Soul Urge / Personality / Birthday numbers, career and money, love and compatible numbers, the Personal Year with a month-by-month table plus a look at next year, a bonus page with zodiac sign and Javanese weton, and a closing page with an affirmation. `--year` sets the forecast year (default: this year). Birth time and city appear on the cover and bonus page; they are not used in the numerology math.
+
+PDF output needs Playwright (Chromium). Without it the script still writes the HTML, which can be printed to PDF from Chrome. Text for every number lives in `report/content.js`; layout is in `report/report.css`.
+
 ## Structure
 
 ```
@@ -87,6 +100,8 @@ js/numerology.js free numerology reading (plain-language meanings) and the PDF r
 js/payment.js   payment dialog and status checks (Midtrans Snap)
 api/            serverless functions: config, create-payment, payment-status, midtrans-notification
 lib/midtrans.js prices, Midtrans API calls, signature check
+report/         numerology PDF report: text per number (content.js), print styles, fonts
+scripts/make-report.js  builds the numerology PDF report for one buyer
 scripts/        local dev server, fake Midtrans, payment tests
 js/app.js       flow: shuffle → spread → pick → open → ask → link
 ```

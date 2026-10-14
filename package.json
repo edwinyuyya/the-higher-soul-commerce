@@ -4,7 +4,8 @@
   "description": "Tarot reader dengan Master Tarot dan pembayaran Midtrans (QRIS, e-wallet, Virtual Account).",
   "scripts": {
     "dev": "node scripts/dev-server.js",
-    "test": "node scripts/test-payment.js"
+    "test": "node scripts/test-payment.js",
+    "report": "node scripts/make-report.js"
   },
   "engines": {
     "node": ">=18"
