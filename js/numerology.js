@@ -199,7 +199,7 @@
       readingCard(d.lp, 'lp', lifePathSteps(d.date)) +
       readingCard(d.ds, 'ds', destinySteps(d.name)) +
       '<div class="nr-combo"><p class="nr-sub">Kalau digabung, artinya…</p><p>' + comboText(d.lp, d.ds) + '</p></div>' +
-      '<p class="promo-tease">Ini baru gambaran singkatnya. Di laporan lengkap, kombinasi <b>' + d.lp + '</b> dan <b>' + d.ds + '</b> dibahas khusus untuk pekerjaan, cinta, dan keuangan kamu.</p>' +
+      '<p class="promo-tease">Ini baru gambaran singkatnya. Di laporan berbayar di bawah, kombinasi <b>' + d.lp + '</b> dan <b>' + d.ds + '</b> dibahas khusus untuk pekerjaan, cinta, dan keuangan kamu.</p>' +
       '</div>';
   }
 
@@ -225,30 +225,8 @@
       '</div>' +
       '<div class="promo-result" id="numResult" hidden aria-live="polite"></div>' +
 
-      '<div class="promo-report">' +
-      '<p class="promo-list-title">Mau tahu lebih banyak? <b>Laporan Numerologi Lengkap (PDF)</b> membahas:</p>' +
-      '<ul class="promo-list">' +
-      '<li><span aria-hidden="true">💼</span><div><b>Pekerjaan yang cocok</b>Bidang kerja yang paling pas dengan sifatmu, dan cara menambah penghasilan dari bakatmu.</div></li>' +
-      '<li><span aria-hidden="true">❤</span><div><b>Cinta dan pasangan</b>Pola hubunganmu, tipe pasangan yang cocok, dan kenapa masalah yang sama sering terulang.</div></li>' +
-      '<li><span aria-hidden="true">✦</span><div><b>Kelebihan yang belum terpakai</b>Potensi yang masih tersimpan dan cara mengasahnya.</div></li>' +
-      '<li><span aria-hidden="true">⛰</span><div><b>Yang sering menghambatmu</b>Kebiasaan yang bikin kamu jalan di tempat, dan cara keluar darinya.</div></li>' +
-      '<li><span aria-hidden="true">☾</span><div><b>Gambaran tahun ini</b>Tema tahun pribadimu dan kapan waktu yang baik untuk melangkah.</div></li>' +
-      '</ul>' +
-
-      '<div class="promo-contact">' +
-      '<p class="promo-try-title">Laporannya dikirim ke mana?</p>' +
-      '<div class="promo-fields">' +
-      '<label for="numEmail">Email<input id="numEmail" type="email" autocomplete="email" placeholder="nama@email.com"></label>' +
-      '<label for="numPhone">No. WhatsApp (boleh dikosongkan)<input id="numPhone" type="tel" autocomplete="tel" placeholder="08xxxxxxxxxx"></label>' +
-      '</div></div>' +
-
-      '<div class="promo-buy">' +
-      '<div class="promo-price"><span>Harga promo</span><strong>' + PROMO.price + '</strong><small>Laporan pribadi dalam bentuk PDF</small></div>' +
-      '<button class="btn btn-primary btn-big promo-cta" type="button" id="numOrder">Dapatkan Laporan Lengkap</button>' +
-      '</div>' +
-      '<p class="promo-fine" id="numFine">Bayar dengan QRIS, GoPay, ShopeePay, OVO, DANA, atau Virtual Account bank. Diproses aman oleh Midtrans.</p>' +
-      '</div>' +
-      '</section>';
+      '</section>' +
+      (window.Shop ? window.Shop.html() : '');
   }
 
   function bind(root, toast) {
@@ -278,34 +256,7 @@
 
     root.querySelector('#numCalc').addEventListener('click', () => calc(true, true));
 
-    const fine = root.querySelector('#numFine');
-    const orderBtn = root.querySelector('#numOrder');
-    orderBtn.addEventListener('click', async () => {
-      const emailEl = root.querySelector('#numEmail');
-      const phoneEl = root.querySelector('#numPhone');
-      const d = calc(true);
-      const email = emailEl.value.trim();
-      if (!d) { nameEl.focus(); return warn('Isi nama lengkap dan tanggal lahirmu dulu, lalu tekan tombol ini lagi.'); }
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { emailEl.focus(); return warn('Isi alamat email yang valid agar laporan PDF bisa dikirim.'); }
-      if (!window.Payment) return warn('Pembayaran belum tersedia. Silakan muat ulang halaman.');
-      orderBtn.disabled = true;
-      try {
-        const res = await window.Payment.checkout({
-          product: 'numerology',
-          customer: { name: d.name, email: email, phone: phoneEl.value.trim() },
-          birthdate: d.date
-        });
-        showPaid(res.orderId, toast, { email: email, root: root });
-      } catch (e) {
-        /* dibatalkan pembeli */
-      }
-      orderBtn.disabled = false;
-    });
-
-    function warn(text) {
-      fine.textContent = text;
-      fine.classList.add('promo-warn');
-    }
+    if (window.Shop) window.Shop.bind(root);
   }
 
   /** Ucapan terima kasih setelah laporan numerologi lunas. */

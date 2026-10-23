@@ -346,7 +346,7 @@
     $('#pickCounter').hidden = true;
 
     // Kartu baru terbuka setelah pembayaran terkonfirmasi.
-    const paid = await tarotGate(run);
+    const paid = (window.Shop && window.Shop.tarotFree) || await tarotGate(run);
     if (!paid || run !== state.run) return;
     await revealCards(run);
   }
@@ -862,6 +862,8 @@
     });
     let rt;
     window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(relayoutFan, 150); });
+    const introShop = $('#introShop');
+    if (introShop && window.Shop) { introShop.innerHTML = window.Shop.html(); window.Shop.bind(introShop); }
     resumePayments();
   }
 

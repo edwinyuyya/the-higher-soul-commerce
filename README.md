@@ -39,6 +39,23 @@ python3 -m http.server 8000
 # open http://localhost:8000
 ```
 
+## Selling manually (bank transfer + WhatsApp)
+
+For now the paid reports are sold by manual transfer. Everything is set in `js/shop.js` (`SHOP`):
+
+- `whatsapp`: the admin's WhatsApp number, e.g. `6281234567890`. Until it and at least one account number are filled in, the order dialog shows a warning and no WhatsApp button.
+- `accounts`: banks or e-wallets to transfer to.
+- `products` and `bundle`: names and prices. Currently Life Path Rp 29.000, Destiny Rp 29.000, Numerologi Lengkap Rp 59.000, Human Design Rp 79.000, and Paket Lengkap (all four) Rp 150.000.
+- `tarotFree`: `true` skips the tarot paywall so the reading works as a free lead-in to the shop.
+
+The buyer picks a package or single reports, fills in name and birth date (plus birth city and time for Human Design), transfers, and taps the WhatsApp button. WhatsApp opens with the order code, items, total and birth data already written; the buyer attaches the transfer screenshot and sends it. The shop appears on the landing page and below the tarot reading.
+
+The Midtrans code is still in place for later; it is not used while `tarotFree` is on and the shop handles orders.
+
+## Deploying on Vercel
+
+`vercel.json` sets `"framework": null` so Vercel serves the site as static files with the `api/` functions, instead of looking for a Node server entrypoint.
+
 ## Payments (Midtrans)
 
 The tarot reading (Rp 15.000) and the numerology PDF report (Rp 199.000) are paid through **Midtrans Snap**: QRIS (which covers GoPay, OVO, DANA, ShopeePay, LinkAja and mobile banking), GoPay and ShopeePay directly, and Virtual Accounts for BCA, BNI, BRI, Mandiri, Permata and CIMB.

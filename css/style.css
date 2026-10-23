@@ -620,3 +620,44 @@ textarea::placeholder { color: #8f86b3; }
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.2s !important; }
   html { scroll-behavior: auto; }
 }
+
+/* ---------- toko (transfer manual) ---------- */
+.intro-shop { max-width: 860px; margin: 48px auto 0; text-align: left; }
+.shop h3 span { display: inline-block; margin-top: 4px; font-size: 0.8em; }
+.shop-bundle, .shop-item {
+  position: relative; display: grid; gap: 4px; width: 100%; text-align: left; cursor: pointer;
+  padding: 16px 48px 16px 16px; border-radius: 16px; color: var(--text);
+  background: rgba(230, 196, 122, 0.07); border: 1px solid rgba(230, 196, 122, 0.28);
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
+}
+.shop-bundle:hover, .shop-item:hover { transform: translateY(-1px); border-color: var(--gold); }
+.shop-bundle:focus-visible, .shop-item:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.shop-bundle { padding: 20px 52px 18px 20px; background: linear-gradient(135deg, rgba(230, 196, 122, 0.2), rgba(230, 196, 122, 0.06)); border: 1.5px solid var(--gold); }
+.shop-bundle[aria-pressed="true"], .shop-item[aria-pressed="true"] { border-color: var(--gold); background: rgba(230, 196, 122, 0.2); box-shadow: 0 0 0 1px var(--gold) inset; }
+.shop-badge { justify-self: start; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; background: var(--gold); color: #2a1a05; font-weight: 700; }
+.shop-bundle-title { font-family: var(--font-title); font-size: 21px; color: #fff; margin-top: 4px; }
+.shop-item-title { font-family: var(--font-title); font-size: 17px; color: #fff; }
+.shop-blurb { font-size: 14.5px; color: var(--muted); line-height: 1.5; }
+.shop-price { margin-top: 4px; font-size: 15px; color: var(--muted); }
+.shop-price strong { font-family: var(--font-title); font-size: 20px; color: var(--gold); }
+.shop-bundle .shop-price strong { font-size: 28px; }
+.shop-check { position: absolute; top: 16px; right: 16px; width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--gold); }
+[aria-pressed="true"] > .shop-check { background: var(--gold); }
+[aria-pressed="true"] > .shop-check::after { content: '✓'; display: grid; place-items: center; height: 100%; color: #2a1a05; font-size: 13px; font-weight: 700; }
+.shop-item .pp-ico { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--gold); color: var(--gold); font-size: 16px; margin-bottom: 4px; }
+.shop-or { text-align: center; color: var(--muted); font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase; margin: 16px 0 10px !important; }
+.shop-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.shop-form { margin-top: 20px; padding-top: 18px; border-top: 1px solid rgba(230, 196, 122, 0.25); }
+.shop-form .promo-fields input { width: 100%; }
+.shop-note { font-size: 14px; color: var(--muted); margin-top: -4px !important; }
+.shop-link { background: none; border: 0; padding: 0; color: var(--gold); text-decoration: underline; cursor: pointer; font: inherit; }
+.shop-steps { margin: 8px 0 6px; padding-left: 20px; display: grid; gap: 10px; }
+.shop-accs { list-style: none; padding: 0; margin: 8px 0 0; display: grid; gap: 8px; }
+.shop-accs li { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 12px; border-radius: 12px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--line); }
+.shop-accs span { display: grid; line-height: 1.35; word-break: break-all; }
+.shop-accs small { color: var(--muted); }
+.shop-copy { padding: 6px 14px; font-size: 14px; flex: none; }
+@media (max-width: 560px) {
+  .shop-grid { grid-template-columns: 1fr; }
+  .intro-shop { margin-top: 36px; }
+}
