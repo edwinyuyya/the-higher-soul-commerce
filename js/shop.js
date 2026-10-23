@@ -11,11 +11,10 @@
 
   const SHOP = {
     // Nomor WhatsApp admin, format internasional tanpa + atau spasi, mis. '6281234567890'.
-    whatsapp: '',
-    // Rekening / e-wallet tujuan transfer. Hapus baris yang tidak dipakai.
+    whatsapp: '6281916416688',
+    // Rekening / e-wallet tujuan transfer. Tambah baris bila perlu.
     accounts: [
-      { bank: 'BCA', number: '', name: '' },
-      { bank: 'DANA', number: '', name: '' }
+      { bank: 'BCA', number: '015 2800 914', name: 'Edwin Adrian Pranoto' }
     ],
     // true: bacaan tarot gratis (tanpa paywall). Produk berbayar dijual di toko ini.
     tarotFree: true,
