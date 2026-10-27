@@ -47,7 +47,7 @@ export const BUNDLE = {
   title: "Paket Lengkap Higher Soul",
   price: 150000,
   needsBirthTime: true,
-  body: "Life Path + Destiny Path + Numerologi Lengkap + Human Design dalam satu laporan PDF.",
+  body: "Life Path + Destiny Path + Numerologi Lengkap + Human Design dalam satu laporan PDF, plus bonus akses Tarot Master.",
 };
 
 export const SINGLES_TOTAL = PRODUCTS.reduce((a, p) => a + p.price, 0);

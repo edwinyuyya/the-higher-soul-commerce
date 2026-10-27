@@ -24,6 +24,9 @@ export async function notifyNewOrder(order) {
     "",
     `Order ID: ${order.order_code}`
   );
+  if (order.tarot_link) {
+    lines.push("", "Bonus Tarot (kirim ke pembeli setelah transfer dicek):", order.tarot_link);
+  }
 
   // Tanpa parse_mode: nama atau email berisi _ atau * membuat Markdown Telegram gagal.
   const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {

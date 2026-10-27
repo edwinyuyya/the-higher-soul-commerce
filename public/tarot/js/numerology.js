@@ -199,7 +199,7 @@
       readingCard(d.lp, 'lp', lifePathSteps(d.date)) +
       readingCard(d.ds, 'ds', destinySteps(d.name)) +
       '<div class="nr-combo"><p class="nr-sub">Kalau digabung, artinya…</p><p>' + comboText(d.lp, d.ds) + '</p></div>' +
-      '<p class="promo-tease">Ini baru gambaran singkatnya. Di laporan berbayar di bawah, kombinasi <b>' + d.lp + '</b> dan <b>' + d.ds + '</b> dibahas khusus untuk pekerjaan, cinta, dan keuangan kamu.</p>' +
+      '<p class="promo-tease">Ini baru gambaran singkatnya. Di laporan Paket Lengkap-mu, kombinasi <b>' + d.lp + '</b> dan <b>' + d.ds + '</b> dibahas khusus untuk pekerjaan, cinta, dan keuangan kamu.</p>' +
       '</div>';
   }
 

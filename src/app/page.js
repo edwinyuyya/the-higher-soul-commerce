@@ -15,7 +15,7 @@ export default function Home() {
             <a href="#pilihan">{t.nav.products}</a>
             <a href="#how">{t.nav.how}</a>
             <a href="#faq">{t.nav.faq}</a>
-            <a className="nav-tarot" href="/tarot">
+            <a className="nav-tarot" href="#tarot">
               {t.nav.tarot}
             </a>
           </nav>
@@ -31,7 +31,7 @@ export default function Home() {
             <a className="btn btn-primary" href="#pilihan">
               {t.ctaPrimary}
             </a>
-            <a className="btn btn-outline" href="/tarot">
+            <a className="btn btn-outline" href="#tarot">
               {t.ctaTarot}
             </a>
           </div>
@@ -109,8 +109,8 @@ export default function Home() {
           </div>
           <h2>{t.tarotTitle}</h2>
           <p>{t.tarotBody}</p>
-          <a className="btn btn-gold" href="/tarot">
-            ✦ {t.ctaTarot}
+          <a className="btn btn-gold" href={`/order?items=${BUNDLE.id}`}>
+            ✦ Pesan Paket Lengkap + Bonus Tarot
           </a>
         </div>
       </section>
