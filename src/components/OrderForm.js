@@ -43,7 +43,7 @@ export default function OrderForm({ initialItems }) {
     e.preventDefault();
     setError("");
     if (!sel.items.length) return setError("Pilih minimal satu laporan dulu.");
-    if (!form.fullName || !form.birthDate || !form.whatsapp || !form.email) {
+    if (!form.fullName || !form.whatsapp || (sel.needsBirthDate && (!form.birthDate || !form.email))) {
       return setError("Mohon lengkapi semua data.");
     }
     if (sel.needsBirthTime && (!form.birthTime || !form.birthPlace)) {
@@ -84,8 +84,8 @@ export default function OrderForm({ initialItems }) {
       `Pesanan: ${order.itemsLabel}`,
       `Nominal: ${order.amountDisplay}`,
       `Nama: ${form.fullName}`,
-      `Tanggal lahir: ${form.birthDate}`,
     ];
+    if (sel.needsBirthDate) lines.push(`Tanggal lahir: ${form.birthDate}`);
     if (sel.needsBirthTime) lines.push(`Jam lahir: ${form.birthTime}`, `Kota lahir: ${form.birthPlace}`);
     lines.push("(Bukti transfer saya lampirkan)");
     const waHref = `https://wa.me/${STORE.whatsappNumber}?text=${encodeURIComponent(lines.join("\n"))}`;
@@ -145,7 +145,9 @@ export default function OrderForm({ initialItems }) {
           Atau chat ke <strong>{STORE.whatsappDisplay}</strong>
         </p>
         <p style={{ textAlign: "center", fontSize: "0.8rem", color: "var(--ink-soft)" }}>
-          Simpan Order ID ini. Laporan akan dikirim ke email kamu.
+          Simpan Order ID ini.
+          {sel.needsBirthDate && " Laporan akan dikirim ke email kamu."}
+          {sel.grantsTarot && " Link Tarot Master pribadimu kami kirim lewat WhatsApp setelah transfer dicek."}
         </p>
       </div>
     );
@@ -203,10 +205,12 @@ export default function OrderForm({ initialItems }) {
         <label htmlFor="fullName">Nama Lengkap (sesuai akta/KTP)</label>
         <input id="fullName" type="text" value={form.fullName} onChange={(e) => update("fullName", e.target.value)} required />
       </div>
-      <div className="field">
-        <label htmlFor="birthDate">Tanggal Lahir</label>
-        <input id="birthDate" type="date" value={form.birthDate} onChange={(e) => update("birthDate", e.target.value)} required />
-      </div>
+      {sel.needsBirthDate && (
+        <div className="field">
+          <label htmlFor="birthDate">Tanggal Lahir</label>
+          <input id="birthDate" type="date" value={form.birthDate} onChange={(e) => update("birthDate", e.target.value)} required />
+        </div>
+      )}
       {sel.needsBirthTime && (
         <div className="field-row">
           <div className="field">
@@ -238,10 +242,12 @@ export default function OrderForm({ initialItems }) {
           required
         />
       </div>
-      <div className="field">
-        <label htmlFor="email">Alamat Email (untuk kirim PDF)</label>
-        <input id="email" type="email" value={form.email} onChange={(e) => update("email", e.target.value)} required />
-      </div>
+      {sel.needsBirthDate && (
+        <div className="field">
+          <label htmlFor="email">Alamat Email (untuk kirim PDF)</label>
+          <input id="email" type="email" value={form.email} onChange={(e) => update("email", e.target.value)} required />
+        </div>
+      )}
       <button type="submit" className="btn btn-primary btn-block" disabled={loading || !sel.items.length}>
         {loading ? "Mohon tunggu…" : "Lanjut ke Pembayaran"}
       </button>

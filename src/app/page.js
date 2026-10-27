@@ -1,6 +1,8 @@
 import { CONTENT as t } from "@/lib/content";
 import { PRODUCTS, BUNDLE, SINGLES_TOTAL, MIN_PRICE, rupiah } from "@/lib/products";
 
+const TAROT = PRODUCTS.find((p) => p.grantsTarot);
+
 export default function Home() {
   const save = SINGLES_TOTAL - BUNDLE.price;
 
@@ -109,9 +111,14 @@ export default function Home() {
           </div>
           <h2>{t.tarotTitle}</h2>
           <p>{t.tarotBody}</p>
-          <a className="btn btn-gold" href={`/order?items=${BUNDLE.id}`}>
-            ✦ Pesan Paket Lengkap + Bonus Tarot
-          </a>
+          <div className="hero-ctas">
+            <a className="btn btn-gold" href={`/order?items=${TAROT.id}`}>
+              ✦ Baca Tarot · {rupiah(TAROT.price)}
+            </a>
+            <a className="btn btn-outline-light" href={`/order?items=${BUNDLE.id}`}>
+              Gratis di Paket Lengkap
+            </a>
+          </div>
         </div>
       </section>
 

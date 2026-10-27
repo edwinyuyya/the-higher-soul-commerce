@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabase";
 import { notifyNewOrder } from "@/lib/notify";
-import { BUNDLE, resolveItems, rupiah } from "@/lib/products";
+import { resolveItems, rupiah } from "@/lib/products";
 import { makeTarotToken } from "@/lib/tarotAccess";
 
 export const dynamic = "force-dynamic";
@@ -24,9 +24,9 @@ async function saveOrder(order) {
   const base = {
     market: "id",
     full_name: order.full_name,
-    birth_date: order.birth_date,
+    birth_date: order.birth_date || null,
     whatsapp: order.whatsapp,
-    email: order.email,
+    email: order.email || null,
     amount: order.amount,
     payment_status: "pending",
   };
@@ -71,7 +71,8 @@ export async function POST(req) {
   };
 
   if (!sel.items.length) return NextResponse.json({ error: "Pilih minimal satu laporan." }, { status: 400 });
-  if (!order.full_name || !/^\d{4}-\d{2}-\d{2}$/.test(order.birth_date) || !order.whatsapp || !order.email) {
+  const dateOk = /^\d{4}-\d{2}-\d{2}$/.test(order.birth_date);
+  if (!order.full_name || !order.whatsapp || (sel.needsBirthDate && (!dateOk || !order.email))) {
     return NextResponse.json({ error: "Mohon lengkapi semua data." }, { status: 400 });
   }
   if (sel.needsBirthTime && (!order.birth_time || !order.birth_place)) {
@@ -84,10 +85,11 @@ export async function POST(req) {
   order.amount_display = rupiah(order.amount);
   order.items_label = sel.items.map((p) => p.title).join(" + ");
   order.order_code = orderCode();
+  if (!dateOk) order.birth_date = "";
 
-  // Bonus tarot Paket Lengkap: link pribadi ikut di notifikasi Telegram,
-  // admin meneruskannya ke pembeli setelah transfer dicek.
-  if (sel.items[0]?.id === BUNDLE.id) {
+  // Tarot Master (sendiri atau dalam Paket Lengkap): link pribadi ikut di
+  // notifikasi Telegram, admin meneruskannya ke pembeli setelah transfer dicek.
+  if (sel.grantsTarot) {
     const token = await makeTarotToken(order.order_code);
     if (token) order.tarot_link = `${new URL(req.url).origin}/tarot?akses=${encodeURIComponent(token)}`;
   }

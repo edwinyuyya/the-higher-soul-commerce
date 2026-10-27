@@ -1,7 +1,9 @@
-import { BUNDLE, SINGLES_TOTAL, STORE, rupiah } from "@/lib/products";
+import { BUNDLE, PRODUCTS, SINGLES_TOTAL, STORE, rupiah } from "@/lib/products";
+
+const TAROT = PRODUCTS.find((p) => p.grantsTarot);
 
 export const metadata = {
-  title: "Bonus Tarot — The Higher Soul",
+  title: "Tarot Master — The Higher Soul",
 };
 
 export default function BonusTarotPage() {
@@ -20,20 +22,21 @@ export default function BonusTarotPage() {
           <div className="tarot-cards" aria-hidden="true">
             🂠🂠🂠
           </div>
-          <h2>Tarot Master khusus pembeli Paket Lengkap</h2>
+          <h2>Tarot Master</h2>
           <p>
             Pikirkan satu pertanyaan, kocok kartu, pilih 3 + 1 kartu, dan Master Tarot menjawab pertanyaanmu lewat kartu yang
-            keluar. Akses tarot jadi bonus untuk setiap pembelian {BUNDLE.title}.
+            keluar. Akses pribadinya bisa kamu ambil sendiri, atau gratis di {BUNDLE.title}.
           </p>
-          <p style={{ fontSize: "1.4rem", fontWeight: 700, color: "#f6e3b6" }}>
-            <s style={{ opacity: 0.6, fontWeight: 400, marginRight: 10 }}>{rupiah(SINGLES_TOTAL)}</s>
-            {rupiah(BUNDLE.price)}
-          </p>
-          <a className="btn btn-gold" href={`/order?items=${BUNDLE.id}`}>
-            Pesan Paket Lengkap + Bonus Tarot
-          </a>
+          <div className="hero-ctas">
+            <a className="btn btn-gold" href={`/order?items=${TAROT.id}`}>
+              Baca Tarot · {rupiah(TAROT.price)}
+            </a>
+            <a className="btn btn-outline-light" href={`/order?items=${BUNDLE.id}`}>
+              Paket Lengkap + Tarot · <s style={{ opacity: 0.7 }}>{rupiah(SINGLES_TOTAL)}</s> {rupiah(BUNDLE.price)}
+            </a>
+          </div>
           <p style={{ marginTop: 28, fontSize: "0.9rem" }}>
-            Sudah membeli Paket Lengkap? Link tarot pribadimu kami kirim lewat WhatsApp setelah transfer dicek. Belum
+            Sudah membeli? Link tarot pribadimu kami kirim lewat WhatsApp setelah transfer dicek. Belum
             menerima? Chat <strong>{STORE.whatsappDisplay}</strong>.
           </p>
         </div>
