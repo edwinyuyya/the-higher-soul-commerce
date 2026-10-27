@@ -1,11 +1,11 @@
 // Teks halaman (Bahasa Indonesia).
 export const CONTENT = {
-  nav: { products: "Pilihan", tarot: "Tarot Gratis", how: "Cara Kerja", faq: "FAQ" },
+  nav: { products: "Pilihan", tarot: "Bonus Tarot", how: "Cara Kerja", faq: "FAQ" },
   eyebrow: "Blueprint Numerologi & Human Design",
   headline: "Namamu dan Tanggal Lahirmu Menyimpan Peta Rezeki, Karier, dan Jodohmu",
   sub: "Selama ini kamu mungkin merasa berjalan tanpa arah yang jelas — padahal jawabannya sudah tertulis sejak kamu lahir. The Higher Soul mengungkap Life Path, Destiny Path, Numerologi, dan Human Design pribadimu dalam laporan PDF yang dibuat khusus untukmu, bukan template umum.",
   ctaPrimary: "Pilih Blueprint-ku",
-  ctaTarot: "Coba Tarot Gratis",
+  ctaTarot: "Lihat Bonus Tarot",
   painTitle: "Pernah Merasa...",
   painItems: [
     "Rezeki seret padahal sudah kerja keras dan berusaha maksimal?",
@@ -31,9 +31,9 @@ export const CONTENT = {
   ],
   productsTitle: "Pilih Blueprint-mu",
   productsSub: "Ambil yang kamu butuhkan, atau hemat dengan Paket Lengkap.",
-  tarotTitle: "Belum yakin? Coba Tarot Gratis dulu",
+  tarotTitle: "Bonus Paket Lengkap: Tarot Master",
   tarotBody:
-    "Pikirkan satu pertanyaan, kocok kartu, pilih 3 + 1 kartu, dan Master Tarot menjawab pertanyaanmu lewat kartu yang keluar. Gratis, tanpa daftar.",
+    "Pikirkan satu pertanyaan, kocok kartu, pilih 3 + 1 kartu, dan Master Tarot menjawab pertanyaanmu lewat kartu yang keluar. Akses pribadi ini kami kirim lewat WhatsApp untuk setiap pembeli Paket Lengkap.",
   originTitle: "Bukan Hal Baru — Ilmu Ribuan Tahun",
   originBody:
     "Numerologi bukan tren dadakan. Akarnya bisa ditelusuri hingga lebih dari 2.500 tahun lalu, dari Pythagoras dan para pengikutnya di Yunani Kuno yang mempelajari hubungan angka dengan pola alam semesta, hingga sistem Chaldean di Babel Kuno dan tradisi numerologi di Tiongkok serta India. Selama ribuan tahun, lintas budaya dan peradaban, angka telah dipakai sebagai alat memahami pola diri dan kehidupan.",

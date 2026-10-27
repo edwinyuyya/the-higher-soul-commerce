@@ -1,12 +1,12 @@
 # The Higher Soul
 
-Next.js site for The Higher Soul Blueprint, rebuilt from the deployment that was live on Vercel (its source had never been committed). It sells personal reports by bank transfer, and a free tarot reading at `/tarot` brings visitors in.
+Next.js site for The Higher Soul Blueprint, rebuilt from the deployment that was live on Vercel (its source had never been committed). It sells personal reports by bank transfer. The tarot reader at `/tarot` is a bonus for Paket Lengkap buyers.
 
 ## Pages
 
 - `/`: landing page with the products, the free tarot band, sample report, how it works and FAQ.
 - `/order?items=complete` (or `lifepath`, `destiny`, `numerology`, `humandesign`, comma separated): pick reports, fill in birth data, then get the transfer details and a WhatsApp button with the order filled in.
-- `/tarot`: free tarot reader, a static site in `public/tarot/`. Its offer cards read prices from `/api/products` and link to `/order`.
+- `/tarot`: tarot reader, a static site in `public/tarot/`, open only with a personal link. Every Paket Lengkap order puts a link like `/tarot?akses=HS-XXXXXX.<signature>` in the Telegram alert; forward it to the buyer once the transfer is confirmed. The link sets a cookie for a year. Without it, visitors land on `/bonus-tarot`, which offers the package. Links are signed with `TAROT_SECRET`, falling back to `TELEGRAM_BOT_TOKEN`; changing either one invalidates links already sent.
 - `/admin`: order list. Mark transfers as paid and upload the PDF to email it to the buyer.
 
 ## Prices, bank account, WhatsApp
@@ -21,6 +21,7 @@ Same names as the previous deployment:
 - `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`: new-order notification.
 - `RESEND_API_KEY`, `RESEND_FROM_EMAIL`: emailing the PDF from `/admin`.
 - `ADMIN_PASSWORD`: password for `/admin`.
+- `TAROT_SECRET` (optional): signs the bonus tarot links. Without it the Telegram bot token is used.
 
 Run `supabase/add-product-columns.sql` once in the Supabase SQL editor so the order table stores the items, order code, and birth time and place. Before that, orders are still saved, with the items written into `amount_display`.
 

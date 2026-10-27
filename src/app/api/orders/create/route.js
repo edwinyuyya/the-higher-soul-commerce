@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabase";
 import { notifyNewOrder } from "@/lib/notify";
-import { resolveItems, rupiah } from "@/lib/products";
+import { BUNDLE, resolveItems, rupiah } from "@/lib/products";
+import { makeTarotToken } from "@/lib/tarotAccess";
 
 export const dynamic = "force-dynamic";
 
@@ -83,6 +84,13 @@ export async function POST(req) {
   order.amount_display = rupiah(order.amount);
   order.items_label = sel.items.map((p) => p.title).join(" + ");
   order.order_code = orderCode();
+
+  // Bonus tarot Paket Lengkap: link pribadi ikut di notifikasi Telegram,
+  // admin meneruskannya ke pembeli setelah transfer dicek.
+  if (sel.items[0]?.id === BUNDLE.id) {
+    const token = await makeTarotToken(order.order_code);
+    if (token) order.tarot_link = `${new URL(req.url).origin}/tarot?akses=${encodeURIComponent(token)}`;
+  }
 
   try {
     await saveOrder(order);
