@@ -1,13 +1,17 @@
 {
-  "name": "higher-soul-tarot",
+  "name": "the-higher-soul-app",
+  "version": "1.0.0",
   "private": true,
-  "description": "Tarot reader dengan Master Tarot dan pembayaran Midtrans (QRIS, e-wallet, Virtual Account).",
   "scripts": {
-    "dev": "node scripts/dev-server.js",
-    "test": "node scripts/test-payment.js",
-    "report": "node scripts/make-report.js"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "report": "node tools/make-report.js"
   },
-  "engines": {
-    "node": ">=18"
+  "dependencies": {
+    "next": "14.2.35",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "@supabase/supabase-js": "2.45.4"
   }
 }

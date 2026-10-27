@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Higher Soul Tarot</title>
+  <title>Tarot Gratis — The Higher Soul</title>
   <meta name="description" content="Aplikasi tarot reader: kocok kartu, pilih 3 + 1 kartu, baca maknanya, lalu Master Tarot menjawab pertanyaanmu berdasarkan kartu yang keluar.">
   <meta name="theme-color" content="#0b0820">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='14' y='4' width='36' height='56' rx='5' fill='%231a1240' stroke='%23e6c47a' stroke-width='3'/%3E%3Cpath d='M32 18l4 10 10 1-8 7 3 10-9-6-9 6 3-10-8-7 10-1z' fill='%23e6c47a'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="/tarot/css/style.css">
 </head>
 <body>
   <div class="sky" aria-hidden="true"></div>
@@ -19,6 +19,7 @@
     <button class="brand" id="brandBtn" type="button" aria-label="Kembali ke awal">
       <span class="brand-mark">✦</span> Higher Soul <span class="brand-sub">Tarot</span>
     </button>
+    <a class="home-link" href="/">← The Higher Soul</a>
   </header>
 
   <main>
@@ -53,7 +54,7 @@
       <div id="slots" class="slots"></div>
 
       <figure id="oracle" class="oracle" hidden aria-hidden="true">
-        <img src="assets/master-tarot.webp" alt="" width="760" height="912" decoding="async">
+        <img src="/tarot/assets/master-tarot.webp" alt="" width="760" height="912" decoding="async">
         <span class="oracle-orb"></span>
         <figcaption class="oracle-say" id="oracleSay">Tenangkan hatimu…</figcaption>
       </figure>
@@ -100,12 +101,11 @@
 
   <div id="toast" class="toast" role="status" hidden></div>
 
-  <script src="js/cards.js"></script>
-  <script src="js/scenarios.js"></script>
-  <script src="js/engine.js"></script>
-  <script src="js/payment.js"></script>
-  <script src="js/shop.js"></script>
-  <script src="js/numerology.js"></script>
-  <script src="js/app.js"></script>
+  <script src="/tarot/js/cards.js"></script>
+  <script src="/tarot/js/scenarios.js"></script>
+  <script src="/tarot/js/engine.js"></script>
+  <script src="/tarot/js/shop.js"></script>
+  <script src="/tarot/js/numerology.js"></script>
+  <script src="/tarot/js/app.js"></script>
 </body>
 </html>

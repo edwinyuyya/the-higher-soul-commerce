@@ -3,7 +3,7 @@
    GENERATOR LAPORAN NUMEROLOGI LENGKAP (PDF)
 
    Pakai:
-     node scripts/make-report.js --name "Arianita Dewi" --date 1977-02-22 \
+     node tools/make-report.js --name "Arianita Dewi" --date 1977-02-22 \
        [--time 14:00] [--city Semarang] [--year 2026] [--out reports/]
 
    Hasil: file .html dan .pdf di folder --out (default: reports/).
@@ -13,7 +13,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { NUMBERS, YEARS, ZODIAC, HARI, PASARAN } = require('../report/content');
+const { NUMBERS, YEARS, ZODIAC, HARI, PASARAN } = require('./report/content');
 
 /* ---------------- argumen ---------------- */
 function args() {
@@ -257,8 +257,8 @@ function build(o) {
 }
 
 function shell(body, name) {
-  const css = fs.readFileSync(path.join(__dirname, '..', 'report', 'report.css'), 'utf8')
-    .replace(/url\(fonts\//g, 'url(' + 'file://' + path.join(__dirname, '..', 'report', 'fonts') + '/');
+  const css = fs.readFileSync(path.join(__dirname, 'report', 'report.css'), 'utf8')
+    .replace(/url\(fonts\//g, 'url(' + 'file://' + path.join(__dirname, 'report', 'fonts') + '/');
   return '<!doctype html><html lang="id"><head><meta charset="utf-8"><title>Laporan Numerologi - ' + esc(name) + '</title><style>' + css + '</style></head><body>' + body + '</body></html>';
 }
 
@@ -282,7 +282,7 @@ async function toPdf(htmlFile, pdfFile) {
 async function main() {
   const a = args();
   if (!a.name || !/^\d{4}-\d{2}-\d{2}$/.test(a.date || '')) {
-    console.error('Pakai: node scripts/make-report.js --name "Nama Lengkap" --date YYYY-MM-DD [--time 14:00] [--city Kota] [--year 2026] [--out reports/]');
+    console.error('Pakai: node tools/make-report.js --name "Nama Lengkap" --date YYYY-MM-DD [--time 14:00] [--city Kota] [--year 2026] [--out reports/]');
     process.exit(1);
   }
   const o = { name: String(a.name), date: a.date, time: a.time, city: a.city, year: Number(a.year) || new Date().getFullYear() };
