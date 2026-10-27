@@ -39,6 +39,15 @@ export const PRODUCTS = [
     needsBirthTime: true,
     body: "Tipe, strategi, cara terbaikmu mengambil keputusan, profil, dan pusat energimu. Butuh jam dan kota lahir.",
   },
+  {
+    id: "tarot",
+    icon: "🃏",
+    title: "Tarot Master",
+    price: 29000,
+    grantsTarot: true,
+    noBirthData: true,
+    body: "Akses pribadi bacaan tarot: kocok kartu, pilih 3 + 1 kartu, dan Master Tarot menjawab pertanyaanmu. Link dikirim lewat WhatsApp.",
+  },
 ];
 
 export const BUNDLE = {
@@ -47,7 +56,8 @@ export const BUNDLE = {
   title: "Paket Lengkap Higher Soul",
   price: 150000,
   needsBirthTime: true,
-  body: "Life Path + Destiny Path + Numerologi Lengkap + Human Design dalam satu laporan PDF, plus bonus akses Tarot Master.",
+  grantsTarot: true,
+  body: "Life Path + Destiny Path + Numerologi Lengkap + Human Design dalam satu laporan PDF, plus akses Tarot Master.",
 };
 
 export const SINGLES_TOTAL = PRODUCTS.reduce((a, p) => a + p.price, 0);
@@ -57,16 +67,22 @@ export function rupiah(n) {
   return "Rp" + Number(n).toLocaleString("id-ID");
 }
 
-/** Mengubah daftar id produk jadi pesanan. Paket menggantikan item satuan. */
+/**
+ * Mengubah daftar id produk jadi pesanan. Paket menggantikan item satuan.
+ * needsBirthDate: false bila hanya membeli Tarot Master. grantsTarot: pesanan
+ * ini mendapat link tarot pribadi.
+ */
 export function resolveItems(ids) {
   const list = Array.isArray(ids) ? ids : String(ids || "").split(",");
   if (list.includes(BUNDLE.id)) {
-    return { items: [BUNDLE], total: BUNDLE.price, needsBirthTime: true };
+    return { items: [BUNDLE], total: BUNDLE.price, needsBirthTime: true, needsBirthDate: true, grantsTarot: true };
   }
   const items = PRODUCTS.filter((p) => list.includes(p.id));
   return {
     items,
     total: items.reduce((a, p) => a + p.price, 0),
     needsBirthTime: items.some((p) => p.needsBirthTime),
+    needsBirthDate: items.some((p) => !p.noBirthData),
+    grantsTarot: items.some((p) => p.grantsTarot),
   };
 }

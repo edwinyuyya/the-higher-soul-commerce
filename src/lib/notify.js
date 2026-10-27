@@ -12,20 +12,20 @@ export async function notifyNewOrder(order) {
     "",
     `Pesanan: ${order.items_label}`,
     `Nama Lengkap: ${order.full_name}`,
-    `Tanggal Lahir: ${order.birth_date}`,
+    `Tanggal Lahir: ${order.birth_date || "-"}`,
   ];
   if (order.birth_time || order.birth_place) {
     lines.push(`Jam Lahir: ${order.birth_time || "-"}`, `Kota Lahir: ${order.birth_place || "-"}`);
   }
   lines.push(
     `WhatsApp: ${order.whatsapp}`,
-    `Email: ${order.email}`,
+    `Email: ${order.email || "-"}`,
     `Total Bayar: ${order.amount_display}`,
     "",
     `Order ID: ${order.order_code}`
   );
   if (order.tarot_link) {
-    lines.push("", "Bonus Tarot (kirim ke pembeli setelah transfer dicek):", order.tarot_link);
+    lines.push("", "Link Tarot (kirim ke pembeli setelah transfer dicek):", order.tarot_link);
   }
 
   // Tanpa parse_mode: nama atau email berisi _ atau * membuat Markdown Telegram gagal.
