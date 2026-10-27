@@ -2,7 +2,10 @@ export async function notifyNewOrder(order) {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
 
-  if (!token || !chatId) return;
+  if (!token || !chatId) {
+    console.warn("Notifikasi Telegram dilewati: TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID belum diset.");
+    return;
+  }
 
   const lines = [
     "🔮 *Order Baru — The Higher Soul*",
@@ -22,9 +25,14 @@ export async function notifyNewOrder(order) {
     `Order ID: ${order.order_code}`
   );
 
-  await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+  // Tanpa parse_mode: nama atau email berisi _ atau * membuat Markdown Telegram gagal.
+  const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ chat_id: chatId, text: lines.join("\n"), parse_mode: "Markdown" }),
+    body: JSON.stringify({ chat_id: chatId, text: lines.join("\n").replace(/\*/g, "") }),
   });
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    throw new Error(`Telegram ${res.status}: ${data.description || "gagal"}`);
+  }
 }
