@@ -2,7 +2,7 @@ import OrderForm from "@/components/OrderForm";
 import { PRODUCTS, BUNDLE } from "@/lib/products";
 
 export const metadata = {
-  title: "Order — The Higher Soul Blueprint",
+  title: "Pesan · The Higher Soul",
 };
 
 export default function OrderPage({ searchParams }) {
@@ -23,7 +23,7 @@ export default function OrderPage({ searchParams }) {
       <div className="order-page">
         <div className="wrap">
           <div className="order-card">
-            <h2 style={{ textAlign: "center" }}>Isi Data untuk Blueprint-mu</h2>
+            <h2>Pesananmu</h2>
             <OrderForm initialItems={initial} />
           </div>
         </div>

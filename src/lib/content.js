@@ -1,130 +1,117 @@
-// Teks halaman (Bahasa Indonesia).
+// Teks halaman depan. Ikuti .claude/skills/higher-soul-style sebelum mengubahnya.
 export const CONTENT = {
-  nav: { products: "Pilihan", tarot: "Tarot", how: "Cara Kerja", faq: "FAQ" },
-  eyebrow: "Blueprint Numerologi & Human Design",
-  headline: "Namamu dan Tanggal Lahirmu Menyimpan Peta Rezeki, Karier, dan Jodohmu",
-  sub: "Selama ini kamu mungkin merasa berjalan tanpa arah yang jelas — padahal jawabannya sudah tertulis sejak kamu lahir. The Higher Soul mengungkap Life Path, Destiny Path, Numerologi, dan Human Design pribadimu dalam laporan PDF yang dibuat khusus untukmu, bukan template umum.",
-  ctaPrimary: "Pilih Blueprint-ku",
-  ctaTarot: "Baca Tarot",
-  painTitle: "Pernah Merasa...",
-  painItems: [
-    "Rezeki seret padahal sudah kerja keras dan berusaha maksimal?",
-    "Karier terasa jalan di tempat, seperti ada yang mengganjal tapi tidak tahu apa?",
-    "Jodoh yang datang selalu terasa salah, atau malah tidak kunjung datang?",
+  nav: { products: "Harga", how: "Cara pesan", faq: "Tanya jawab", tarot: "Tarot" },
+  headline: "Baca dirimu dari nama dan tanggal lahir.",
+  sub: "Kami menghitung angka dari nama lengkap dan tanggal lahirmu, lalu menuliskan artinya dengan bahasa sehari-hari: soal kerja, uang, dan hubungan. Hasilnya laporan PDF yang dikirim ke emailmu dalam 2-3 hari kerja.",
+  ctaPrimary: "Lihat harga",
+  ctaSample: "Lihat contoh isi",
+  heroSample: {
+    label: "Contoh",
+    date: "Lahir 17 Agustus 1990",
+    sum: "1 + 7 + 8 + 1 + 9 + 9 + 0 = 35 → 8",
+    number: 8,
+    caption: "Life Path 8. Orang dengan angka ini biasanya cepat diberi tanggung jawab di tempat kerja, dan sering lupa istirahat.",
+  },
+
+  reasonsTitle: "Biasanya orang memesan karena",
+  reasons: [
+    "Sudah dua kali ganti kerja tahun ini dan masih belum yakin bidang mana yang cocok.",
+    "Penghasilan naik, tapi uangnya tetap habis entah ke mana.",
+    "Hubungannya baik-baik saja di awal, lalu selalu retak di titik yang mirip.",
   ],
-  painClose:
-    "Kamu tidak sendirian. Dan jawabannya mungkin lebih dekat dari yang kamu kira — tersimpan di dalam nama lengkap dan tanggal lahirmu sendiri.",
-  conceptTitle: "Apa itu Life Path, Destiny Path & Human Design?",
-  conceptItems: [
+  reasonsClose: "Angka tidak menjawab semuanya. Tapi sering membantu kamu melihat pola yang selama ini kamu ulang.",
+
+  numbersTitle: "Apa yang kami hitung",
+  numbers: [
     {
-      title: "Life Path — dari Tanggal Lahir",
-      body: "Mengungkap arah hidup alami, siklus keberuntungan, dan periode-periode penting dalam perjalanan hidupmu.",
+      name: "Life Path",
+      from: "dari tanggal lahir",
+      body: "Arah besar hidupmu, dan pelajaran yang terus datang lagi sampai kamu paham.",
     },
     {
-      title: "Destiny Path — dari Nama Lengkap",
-      body: "Mengungkap potensi, bakat tersembunyi, dan tujuan hidup yang sebenarnya kamu bawa sejak lahir.",
+      name: "Destiny Path",
+      from: "dari nama lengkap sesuai akta",
+      body: "Bakat yang kamu bawa. Biasanya hal yang orang lain anggap susah, buatmu terasa biasa saja.",
     },
     {
-      title: "Human Design — dari Waktu & Tempat Lahir",
-      body: "Mengungkap tipe energimu, cara terbaikmu mengambil keputusan, dan bagaimana kamu bekerja paling selaras.",
+      name: "Human Design",
+      from: "dari jam dan kota lahir",
+      body: "Cara energimu bekerja. Kapan sebaiknya kamu memulai sesuatu, dan bagaimana kamu paling tepat mengambil keputusan.",
+    },
+    {
+      name: "Tarot Master",
+      from: "dari pertanyaanmu hari ini",
+      body: "Untuk satu pertanyaan yang sedang mengganjal. Kamu kocok kartu sendiri, Master Tarot menjawab lewat kartu yang keluar.",
     },
   ],
-  productsTitle: "Pilih Blueprint-mu",
-  productsSub: "Ambil yang kamu butuhkan, atau hemat dengan Paket Lengkap.",
+
+  productsTitle: "Harga",
+  productsSub: "Ambil satu laporan, atau semuanya sekaligus dalam Paket Lengkap.",
+
   tarotTitle: "Tarot Master",
   tarotBody:
-    "Pikirkan satu pertanyaan, kocok kartu, pilih 3 + 1 kartu, dan Master Tarot menjawab pertanyaanmu lewat kartu yang keluar. Ambil aksesnya saja, atau dapatkan gratis di Paket Lengkap.",
-  originTitle: "Bukan Hal Baru — Ilmu Ribuan Tahun",
-  originBody:
-    "Numerologi bukan tren dadakan. Akarnya bisa ditelusuri hingga lebih dari 2.500 tahun lalu, dari Pythagoras dan para pengikutnya di Yunani Kuno yang mempelajari hubungan angka dengan pola alam semesta, hingga sistem Chaldean di Babel Kuno dan tradisi numerologi di Tiongkok serta India. Selama ribuan tahun, lintas budaya dan peradaban, angka telah dipakai sebagai alat memahami pola diri dan kehidupan.",
-  sampleTitle: "Contoh Isi Blueprint-mu",
-  sampleIntro:
-    "Ini contoh ilustrasi format laporan (bukan hasil sungguhan) — laporan aslimu dihitung dan ditulis khusus dari data pribadimu.",
-  sample: {
-    badge: "CONTOH ILUSTRASI",
-    name: "Contoh: Nama Pengguna",
-    birthDate: "17 Agustus 1990",
-    lifePath: {
-      number: 8,
-      title: "Angka Kepemimpinan & Kekuatan Material",
-      body: "Kamu punya potensi besar mencapai stabilitas finansial melalui kerja keras dan pengambilan keputusan yang tegas.",
-    },
-    destiny: {
-      number: 5,
-      title: "Angka Kebebasan & Perubahan",
-      body: "Terlahir untuk eksplorasi, mudah beradaptasi, dan tertarik pada peluang baru.",
-    },
-    sections: [
-      {
-        icon: "🌾",
-        title: "Peta Rezeki (cuplikan)",
-        body: "Periode 2026–2028 menunjukkan siklus pertumbuhan finansial yang kuat, terutama lewat kolaborasi dan kemitraan…",
-      },
-      {
-        icon: "💼",
-        title: "Arah Karier (cuplikan)",
-        body: "Cocok di bidang yang melibatkan negosiasi, kepemimpinan tim, atau usaha mandiri…",
-      },
-      {
-        icon: "💞",
-        title: "Pola Jodoh (cuplikan)",
-        body: "Cenderung selaras dengan pasangan ber-Life Path 2 atau 6, karena saling melengkapi dalam hal…",
-      },
-    ],
-    footerNote: "Laporan lengkap berisi 8–12 halaman analisis mendalam untuk tiap bagian.",
-  },
-  howTitle: "Cara Kerjanya",
-  howSteps: [
-    {
-      title: "Pilih & Isi Data",
-      body: "Pilih laporan, lalu isi nama lengkap dan tanggal lahir sesuai akta/KTP, nomor WhatsApp, dan email.",
-    },
-    {
-      title: "Transfer & Kirim Bukti",
-      body: "Transfer ke rekening BCA kami dengan nominal unik, lalu kirim bukti lewat WhatsApp. Kami konfirmasi hari itu juga.",
-    },
-    {
-      title: "Kami Proses Blueprint-mu",
-      body: "Tim kami menyusun laporanmu secara personal, biasanya dalam 2-3 hari kerja.",
-    },
-    {
-      title: "Terima di Emailmu",
-      body: "PDF Blueprint lengkap dikirim langsung ke email yang kamu daftarkan.",
-    },
+    "Pikirkan satu pertanyaan, kocok kartunya, lalu pilih tiga kartu ditambah satu kartu kunci. Master Tarot membaca kartu yang keluar khusus untuk pertanyaanmu. Aksesnya pribadi, linknya kami kirim lewat WhatsApp setelah transfer dicek.",
+
+  originTitle: "Sistem yang kami pakai",
+  originBody: [
+    "Numerologi sudah dipakai sejak zaman Pythagoras, sekitar 2.500 tahun lalu. Kami memakai sistem Pythagoras: setiap huruf punya nilai 1 sampai 9, lalu dijumlahkan dan disederhanakan sampai tinggal satu angka. Angka 11, 22, dan 33 tidak disederhanakan karena dianggap istimewa.",
+    "Laporannya kami pakai untuk bercermin, tidak untuk meramal. Keputusan tetap di tanganmu.",
   ],
-  priceTitle: "Paling Hemat",
-  priceBody:
-    "Semua laporan dalam satu paket: kejelasan arah rezeki, karier, jodoh, dan cara kerjamu yang bisa kamu pegang seumur hidup.",
-  faqTitle: "Pertanyaan yang Sering Ditanyakan",
+
+  sampleTitle: "Contoh isi laporan",
+  sampleIntro: "Cuplikan dari laporan untuk nama contoh, lahir 17 Agustus 1990. Laporanmu dihitung dari datamu sendiri.",
+  sample: {
+    name: "Nama Contoh",
+    birthDate: "17 Agustus 1990",
+    numbers: [
+      { label: "Life Path", number: 8, body: "Kamu cepat diberi tanggung jawab, dan biasanya sanggup. Yang sering terlupa adalah istirahat." },
+      { label: "Destiny", number: 5, body: "Kamu betah di pekerjaan yang isinya bertemu orang baru dan berpindah tempat." },
+    ],
+    sections: [
+      { title: "Kerja dan uang", body: "2026 sampai 2028 cocok untuk kerja sama dan kemitraan. Hati-hati membeli barang besar di bulan-bulan yang angkanya 5." },
+      { title: "Hubungan", body: "Kamu biasanya cocok dengan Life Path 2 atau 6, karena mereka sabar dengan jadwalmu yang padat." },
+    ],
+    footerNote: "Laporan lengkap berisi 10 halaman.",
+  },
+
+  howTitle: "Cara pesan",
+  howSteps: [
+    "Pilih laporan, lalu isi nama lengkap dan tanggal lahir sesuai akta.",
+    "Transfer ke BCA sesuai nominal yang muncul, termasuk tiga angka terakhirnya.",
+    "Tekan tombol WhatsApp dan lampirkan bukti transfer.",
+    "PDF dikirim ke emailmu dalam 2-3 hari kerja. Link tarot dikirim lewat WhatsApp.",
+  ],
+
+  faqTitle: "Tanya jawab",
   faq: [
     {
       q: "Apakah hasilnya akurat?",
-      a: "Blueprint ini dihitung berdasarkan sistem numerologi klasik dari nama lengkap dan tanggal lahirmu, dan Human Design dari waktu serta tempat lahirmu. Hasilnya adalah gambaran pola dan kecenderungan hidup, bukan ramalan pasti — cara memaknainya tetap ada di tanganmu.",
+      a: "Angkanya dihitung dengan rumus numerologi Pythagoras, jadi hasil hitungannya pasti sama setiap kali. Artinya yang kami tulis adalah gambaran kecenderungan. Pakai untuk bercermin, jangan untuk menebak masa depan.",
     },
     {
       q: "Apa bedanya Human Design dengan numerologi?",
-      a: "Numerologi membaca angka dari nama dan tanggal lahirmu. Human Design membaca posisi planet pada jam dan tempat kamu lahir, lalu menunjukkan tipe energimu dan cara terbaikmu mengambil keputusan. Karena itu Human Design butuh jam dan kota lahir.",
+      a: "Numerologi memakai nama dan tanggal lahir. Human Design memakai posisi planet pada jam dan tempat kamu lahir, jadi perlu jam dan kota lahir.",
     },
     {
-      q: "Tidak tahu jam lahir pasti, bagaimana?",
-      a: "Isi perkiraan terdekat dan beri tahu kami lewat WhatsApp. Untuk laporan numerologi, jam lahir tidak diperlukan.",
+      q: "Saya tidak tahu jam lahir pastinya.",
+      a: "Isi perkiraan terdekat dan beri tahu kami lewat WhatsApp. Untuk numerologi, jam lahir tidak diperlukan.",
     },
     {
-      q: "Data pribadiku aman?",
-      a: "Data yang kamu berikan hanya digunakan untuk menyusun Blueprint-mu dan tidak dibagikan ke pihak manapun.",
+      q: "Data saya dipakai untuk apa?",
+      a: "Hanya untuk menyusun laporanmu. Tidak kami bagikan ke siapa pun.",
     },
     {
-      q: "Berapa lama prosesnya?",
-      a: "Umumnya 2-3 hari kerja sejak pembayaran berhasil dikonfirmasi.",
+      q: "Berapa lama sampai laporannya jadi?",
+      a: "Biasanya 2-3 hari kerja setelah transfer kami terima.",
     },
     {
-      q: "Bisa refund tidak?",
-      a: "Karena Blueprint dibuat khusus dan personal untuk datamu, pembayaran yang sudah mulai diproses tidak dapat dikembalikan.",
+      q: "Bisa refund?",
+      a: "Laporan ditulis untuk datamu, jadi setelah mulai dikerjakan tidak bisa dikembalikan. Kalau ragu, tanya dulu lewat WhatsApp sebelum transfer.",
     },
     {
-      q: "Apakah ini bertentangan dengan kepercayaan agama saya?",
-      a: "Kami memposisikan The Higher Soul Blueprint sebagai alat refleksi diri berdasarkan numerologi klasik yang sudah dipraktikkan lintas budaya selama ribuan tahun — hasilnya adalah gambaran pola dan kecenderungan, bukan klaim mengetahui hal gaib atau ramalan pasti. Silakan pertimbangkan sesuai keyakinan dan penilaian pribadimu sebelum memutuskan.",
+      q: "Apakah ini bertentangan dengan agama?",
+      a: "Kami menyajikan numerologi sebagai alat refleksi diri. Kami tidak mengklaim tahu hal gaib atau meramal. Silakan pertimbangkan sesuai keyakinanmu.",
     },
   ],
-  footerNote: "Dibuat dengan niat baik.",
+  footerNote: "Ditulis dan dihitung di Indonesia.",
 };

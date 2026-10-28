@@ -8,7 +8,7 @@ export async function notifyNewOrder(order) {
   }
 
   const lines = [
-    "🔮 *Order Baru — The Higher Soul*",
+    "Order baru · The Higher Soul",
     "",
     `Pesanan: ${order.items_label}`,
     `Nama Lengkap: ${order.full_name}`,
