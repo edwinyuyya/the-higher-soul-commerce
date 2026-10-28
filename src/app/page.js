@@ -1,10 +1,10 @@
 import { CONTENT as t } from "@/lib/content";
-import { PRODUCTS, BUNDLE, SINGLES_TOTAL, MIN_PRICE, rupiah } from "@/lib/products";
+import { PRODUCTS, BUNDLE, BUNDLE_VALUE, MIN_PRICE, rupiah } from "@/lib/products";
 
 const TAROT = PRODUCTS.find((p) => p.grantsTarot);
 
 export default function Home() {
-  const save = SINGLES_TOTAL - BUNDLE.price;
+  const save = BUNDLE_VALUE - BUNDLE.price;
 
   return (
     <>
@@ -81,7 +81,7 @@ export default function Home() {
             <h3>{BUNDLE.title}</h3>
             <p className="product-body">{BUNDLE.body}</p>
             <span className="product-price">
-              <s>{rupiah(SINGLES_TOTAL)}</s>
+              <s>{rupiah(BUNDLE_VALUE)}</s>
               {rupiah(BUNDLE.price)}
             </span>
             <span className="product-link">Pesan Paket Lengkap →</span>
@@ -185,7 +185,7 @@ export default function Home() {
         <div className="wrap">
           <h2>{t.priceTitle}</h2>
           <div className="price-tag">
-            <s>{rupiah(SINGLES_TOTAL)}</s>
+            <s>{rupiah(BUNDLE_VALUE)}</s>
             {rupiah(BUNDLE.price)}
           </div>
           <p className="desc">{t.priceBody}</p>

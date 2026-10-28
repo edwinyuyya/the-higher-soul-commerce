@@ -11,7 +11,7 @@ Next.js site for The Higher Soul Blueprint, rebuilt from the deployment that was
 
 ## Prices, bank account, WhatsApp
 
-All in `src/lib/products.js`. Currently Life Path Rp29.000, Destiny Path Rp29.000, Numerologi Lengkap Rp59.000, Human Design Rp79.000, Tarot Master Rp29.000, and Paket Lengkap (all five) Rp150.000. A Tarot Master order on its own asks only for name and WhatsApp. Each order adds a random 3-digit code to the total so transfers can be told apart.
+All in `src/lib/products.js`. Currently Life Path Rp29.000, Destiny Path Rp29.000, Numerologi Lengkap Rp99.000 (includes Life Path and Destiny Path), Human Design Rp79.000, Tarot Master Rp29.000, and Paket Lengkap Rp150.000 (Numerologi Lengkap, Human Design and Tarot Master, worth Rp207.000). A Tarot Master order on its own asks only for name and WhatsApp. Each order adds a random 3-digit code to the total so transfers can be told apart.
 
 ## Environment variables (Vercel)
 

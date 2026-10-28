@@ -1,4 +1,4 @@
-import { BUNDLE, PRODUCTS, SINGLES_TOTAL, STORE, rupiah } from "@/lib/products";
+import { BUNDLE, PRODUCTS, BUNDLE_VALUE, STORE, rupiah } from "@/lib/products";
 
 const TAROT = PRODUCTS.find((p) => p.grantsTarot);
 
@@ -32,7 +32,7 @@ export default function BonusTarotPage() {
               Baca Tarot · {rupiah(TAROT.price)}
             </a>
             <a className="btn btn-outline-light" href={`/order?items=${BUNDLE.id}`}>
-              Paket Lengkap + Tarot · <s style={{ opacity: 0.7 }}>{rupiah(SINGLES_TOTAL)}</s> {rupiah(BUNDLE.price)}
+              Paket Lengkap + Tarot · <s style={{ opacity: 0.7 }}>{rupiah(BUNDLE_VALUE)}</s> {rupiah(BUNDLE.price)}
             </a>
           </div>
           <p style={{ marginTop: 28, fontSize: "0.9rem" }}>
