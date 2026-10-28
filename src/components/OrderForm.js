@@ -29,6 +29,10 @@ export default function OrderForm({ initialItems }) {
       else {
         if (id === BUNDLE.id) next.clear();
         else next.delete(BUNDLE.id);
+        // Numerologi Lengkap sudah berisi Life Path & Destiny: pilihan yang tumpang tindih dilepas.
+        const p = PRODUCTS.find((x) => x.id === id);
+        (p?.includes || []).forEach((x) => next.delete(x));
+        PRODUCTS.filter((x) => x.includes?.includes(id)).forEach((x) => next.delete(x.id));
         next.add(id);
       }
       return next;

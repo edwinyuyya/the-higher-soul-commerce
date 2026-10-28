@@ -28,8 +28,9 @@ export const PRODUCTS = [
     id: "numerology",
     icon: "✦",
     title: "Numerologi Lengkap",
-    price: 59000,
-    body: "Peta rezeki, arah karier, pola jodoh, Soul Urge, Personality, dan tema Tahun Pribadimu.",
+    price: 99000,
+    includes: ["lifepath", "destiny"],
+    body: "Sudah termasuk Life Path & Destiny Path, plus peta rezeki, arah karier, pola jodoh, Soul Urge, Personality, dan tema Tahun Pribadimu.",
   },
   {
     id: "humandesign",
@@ -57,10 +58,12 @@ export const BUNDLE = {
   price: 150000,
   needsBirthTime: true,
   grantsTarot: true,
-  body: "Life Path + Destiny Path + Numerologi Lengkap + Human Design dalam satu laporan PDF, plus akses Tarot Master.",
+  includes: ["numerology", "humandesign", "tarot"],
+  body: "Numerologi Lengkap (termasuk Life Path & Destiny Path) + Human Design dalam laporan PDF, plus akses Tarot Master.",
 };
 
-export const SINGLES_TOTAL = PRODUCTS.reduce((a, p) => a + p.price, 0);
+// Harga kalau isi paket dibeli satuan, ditampilkan sebagai harga coret.
+export const BUNDLE_VALUE = PRODUCTS.filter((p) => BUNDLE.includes.includes(p.id)).reduce((a, p) => a + p.price, 0);
 export const MIN_PRICE = Math.min(...PRODUCTS.map((p) => p.price));
 
 export function rupiah(n) {
@@ -77,7 +80,9 @@ export function resolveItems(ids) {
   if (list.includes(BUNDLE.id)) {
     return { items: [BUNDLE], total: BUNDLE.price, needsBirthTime: true, needsBirthDate: true, grantsTarot: true };
   }
-  const items = PRODUCTS.filter((p) => list.includes(p.id));
+  // Item yang sudah termasuk di item lain (mis. Life Path di Numerologi Lengkap) tidak ditagih dua kali.
+  const covered = PRODUCTS.filter((p) => list.includes(p.id)).flatMap((p) => p.includes || []);
+  const items = PRODUCTS.filter((p) => list.includes(p.id) && !covered.includes(p.id));
   return {
     items,
     total: items.reduce((a, p) => a + p.price, 0),
