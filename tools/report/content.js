@@ -1,6 +1,6 @@
 /* =========================================================
    ISI LAPORAN NUMEROLOGI LENGKAP
-   Ditulis dengan bahasa sehari-hari. Setiap angka (1–9, 11, 22, 33)
+   Ditulis dengan bahasa sehari-hari. Setiap angka (1 sampai 9, 11, 22, 33)
    punya teks untuk semua bab laporan.
    ========================================================= */
 'use strict';
@@ -8,7 +8,7 @@
 const NUMBERS = {
   1: {
     title: 'Sang Pemimpin',
-    short: 'berani memulai dan membuka jalan',
+    short: 'berani memulai duluan',
     about: [
       'Kamu orang yang suka memulai duluan. Saat orang lain masih ragu, kamu sudah melangkah. Kamu punya dorongan kuat untuk berdiri di atas kaki sendiri dan membuktikan bahwa kamu mampu.',
       'Hidupmu mengajarkan satu hal: percaya pada diri sendiri. Semakin kamu berani mengambil keputusan sendiri, semakin hidupmu terasa "pas".'
@@ -26,13 +26,13 @@ const NUMBERS = {
       advice: 'Belajar mendengar sebelum memutuskan. Tunjukkan sisi lembutmu. Itu tidak membuatmu lemah.'
     },
     match: [3, 5, 6],
-    soul: 'Jauh di dalam hati, kamu ingin diakui sebagai orang yang mampu dan mandiri. Kamu ingin hidup dengan caramu sendiri, bukan mengikuti aturan orang lain.',
+    soul: 'Jauh di dalam hati, kamu ingin diakui sebagai orang yang mampu dan mandiri. Kamu ingin hidup dengan caramu sendiri.',
     persona: 'Orang melihatmu sebagai sosok yang percaya diri, tegas, dan tahu apa yang diinginkan. Kadang kamu terlihat sulit didekati, padahal kamu hanya sedang fokus.',
     birthday: 'Tanggal lahirmu memberi bakat untuk memulai hal baru dan bertahan sendiri saat keadaan sulit.'
   },
   2: {
     title: 'Sang Pendamai',
-    short: 'peka, sabar, dan pandai menyatukan',
+    short: 'membuat orang merasa didengar',
     about: [
       'Kamu peka terhadap perasaan orang lain. Kamu cepat menangkap kalau suasana tidak enak, dan secara alami berusaha menenangkan. Banyak orang merasa nyaman bercerita padamu.',
       'Hidupmu mengajarkan keseimbangan: menjaga perasaan orang lain tanpa melupakan perasaanmu sendiri.'
@@ -47,7 +47,7 @@ const NUMBERS = {
     love: {
       pattern: 'Kamu romantis dan sangat setia. Kamu rela banyak mengalah demi hubungan, kadang sampai kebutuhanmu sendiri terabaikan.',
       needs: 'Pasangan yang lembut, memberi rasa aman, dan mau mengungkapkan perasaan.',
-      advice: 'Sampaikan apa yang kamu butuhkan dengan jelas. Pasangan yang baik ingin tahu, bukan menebak-nebak.'
+      advice: 'Sampaikan apa yang kamu butuhkan dengan jelas. Pasangan yang baik lebih suka diberi tahu daripada menebak-nebak.'
     },
     match: [4, 6, 8],
     soul: 'Jauh di dalam hati, kamu ingin dicintai dan hidup damai bersama orang-orang yang kamu sayangi. Rasa diterima lebih penting bagimu daripada harta.',
@@ -56,7 +56,7 @@ const NUMBERS = {
   },
   3: {
     title: 'Sang Ekspresif',
-    short: 'kreatif, ceria, dan pandai berkomunikasi',
+    short: 'membuat suasana jadi hidup',
     about: [
       'Kamu orangnya ekspresif. Kamu pandai bercerita, gampang membuat orang tertawa, dan kepalamu penuh ide. Di mana pun kamu berada, suasana jadi lebih hidup.',
       'Hidupmu mengajarkan cara menyalurkan bakat dengan tekun. Ide yang bagus baru bermakna kalau diselesaikan.'
@@ -66,7 +66,7 @@ const NUMBERS = {
     career: {
       fields: ['Penulis, konten kreator, atau MC', 'Guru dan pelatih', 'Desain, fotografi, dan seni', 'Marketing dan media sosial', 'Kuliner dan acara (event)', 'Hubungan masyarakat (PR)'],
       style: 'Kamu bersinar di pekerjaan yang memberi ruang untuk berekspresi dan bertemu orang. Pekerjaan yang monoton akan memadamkan semangatmu.',
-      money: 'Rezekimu datang dari bakat bicara dan berkarya. Tantangannya: uang cepat masuk, cepat keluar. Biasakan menyisihkan di awal, bukan di akhir.'
+      money: 'Rezekimu datang dari bakat bicara dan berkarya. Tantangannya: uang cepat masuk, cepat keluar. Biasakan menyisihkan begitu gajian, sebelum uangnya dipakai untuk yang lain.'
     },
     love: {
       pattern: 'Kamu menyenangkan sebagai pasangan: hangat, lucu, dan penuh kejutan. Tapi kamu bisa cepat bosan kalau hubungan terasa datar.',
@@ -74,13 +74,13 @@ const NUMBERS = {
       advice: 'Saat hubungan terasa biasa saja, jangan langsung menjauh. Ciptakan suasana baru bersama-sama.'
     },
     match: [1, 5, 9],
-    soul: 'Jauh di dalam hati, kamu ingin didengar dan dihargai karena karyamu. Kamu ingin hidup yang penuh warna, bukan hanya rutinitas.',
+    soul: 'Jauh di dalam hati, kamu ingin didengar dan dihargai karena karyamu. Kamu ingin hari-harimu ada kejutannya.',
     persona: 'Orang melihatmu sebagai pribadi yang ceria, menarik, dan menyenangkan diajak ngobrol.',
     birthday: 'Tanggal lahirmu memberi bakat bicara dan berkarya yang menyenangkan hati orang.'
   },
   4: {
     title: 'Sang Pembangun',
-    short: 'tekun, teratur, dan bisa diandalkan',
+    short: 'menyelesaikan apa yang sudah dimulai',
     about: [
       'Kamu orang yang bisa diandalkan. Kamu suka hal yang jelas, rapi, dan bertahap. Kalau sudah berjanji, kamu tepati. Kalau sudah mulai, kamu selesaikan.',
       'Hidupmu mengajarkan bahwa hasil besar datang dari langkah kecil yang konsisten, dan bahwa sesekali kamu boleh santai.'
@@ -93,7 +93,7 @@ const NUMBERS = {
       money: 'Rezekimu tumbuh pelan tapi pasti. Kamu cocok menabung dan berinvestasi jangka panjang. Jangan tergiur cara cepat kaya.'
     },
     love: {
-      pattern: 'Kamu setia dan serius. Kamu menunjukkan cinta lewat tindakan nyata, bukan kata-kata manis.',
+      pattern: 'Kamu setia dan serius. Kamu menunjukkan cinta lewat tindakan, misalnya membetulkan barang yang rusak atau menjemput tanpa diminta.',
       needs: 'Pasangan yang stabil, jujur, dan bisa diajak membangun masa depan.',
       advice: 'Sesekali ungkapkan perasaanmu dengan kata-kata. Pasanganmu juga butuh mendengarnya.'
     },
@@ -104,10 +104,10 @@ const NUMBERS = {
   },
   5: {
     title: 'Sang Petualang',
-    short: 'bebas, luwes, dan suka hal baru',
+    short: 'cepat menyesuaikan diri di tempat baru',
     about: [
       'Kamu butuh kebebasan dan suka hal baru. Kamu cepat menyesuaikan diri, berani mencoba, dan punya banyak pengalaman dibanding orang seusiamu.',
-      'Hidupmu mengajarkan cara memakai kebebasan dengan bijak, supaya perubahan membawamu maju, bukan sekadar berpindah-pindah.'
+      'Hidupmu mengajarkan cara memakai kebebasan dengan bijak, supaya setiap kali pindah, kamu sampai di tempat yang lebih baik.'
     ],
     strengths: ['Luwes', 'Berani mencoba', 'Mudah bergaul', 'Cepat belajar', 'Pandai membujuk'],
     challenges: ['Mudah gelisah', 'Kurang sabar menunggu hasil', 'Tergoda kesenangan sesaat'],
@@ -128,7 +128,7 @@ const NUMBERS = {
   },
   6: {
     title: 'Sang Pengasuh',
-    short: 'penyayang, setia, dan bertanggung jawab',
+    short: 'mengurus orang-orang yang disayangi',
     about: [
       'Kamu penyayang dan bertanggung jawab. Keluarga dan teman dekat sering datang padamu saat butuh tempat bersandar. Kamu senang membuat orang lain merasa diperhatikan.',
       'Hidupmu mengajarkan cara mencintai dengan seimbang: merawat orang lain tanpa melupakan dirimu sendiri.'
@@ -152,7 +152,7 @@ const NUMBERS = {
   },
   7: {
     title: 'Sang Pencari',
-    short: 'pemikir dalam yang mencari kebenaran',
+    short: 'mencari tahu sampai ke akarnya',
     about: [
       'Kamu pemikir yang dalam. Kamu tidak puas dengan jawaban yang dangkal dan selalu ingin tahu "kenapa". Kamu butuh waktu sendiri untuk mengisi ulang tenaga.',
       'Hidupmu mengajarkan cara memadukan pikiran dan iman: percaya pada intuisimu sendiri, sambil tetap membuka diri pada orang lain.'
@@ -176,7 +176,7 @@ const NUMBERS = {
   },
   8: {
     title: 'Sang Penguasa',
-    short: 'tegas, ambisius, dan pandai mengatur',
+    short: 'mengatur orang dan uang',
     about: [
       'Kamu punya mental pengusaha. Kamu fokus pada hasil, kuat menghadapi tekanan, dan berbakat mengatur uang serta orang.',
       'Hidupmu mengajarkan cara memakai kekuatan dan uang dengan bijak, supaya keberhasilanmu juga membawa kebaikan bagi orang lain.'
@@ -200,7 +200,7 @@ const NUMBERS = {
   },
   9: {
     title: 'Sang Humanis',
-    short: 'berhati besar dan suka menolong',
+    short: 'menolong tanpa diminta',
     about: [
       'Kamu berhati besar. Kamu mudah iba, suka menolong, dan ingin hidupmu berguna bagi banyak orang. Wawasanmu luas dan kamu mudah memahami orang dari latar belakang apa pun.',
       'Hidupmu mengajarkan cara melepaskan: memaafkan masa lalu dan memberi tanpa berharap balasan.'
@@ -215,7 +215,7 @@ const NUMBERS = {
     love: {
       pattern: 'Kamu pasangan yang pengertian dan romantis. Tapi kamu bisa terjebak menunggu orang berubah.',
       needs: 'Pasangan yang punya nilai hidup sama dan mau tumbuh bersama.',
-      advice: 'Cintai orang apa adanya hari ini, bukan versi yang kamu harapkan nanti.'
+      advice: 'Cintai orang seperti apa adanya dia hari ini.'
     },
     match: [3, 6, 7],
     soul: 'Jauh di dalam hati, kamu ingin dunia menjadi tempat yang lebih baik, dan ingin ikut berperan di dalamnya.',
@@ -224,7 +224,7 @@ const NUMBERS = {
   },
   11: {
     title: 'Sang Pemberi Cahaya',
-    short: 'intuitif dan menginspirasi',
+    short: 'menangkap hal yang belum diucapkan orang',
     about: [
       'Kamu sangat intuitif. Kamu sering sudah "merasa" sesuatu sebelum terjadi. Kata-katamu bisa menyemangati banyak orang. Ini adalah Angka Master: angka istimewa dengan energi seperti angka 2, tapi lebih kuat.',
       'Hidupmu mengajarkan cara memercayai suara hatimu dan berani berbagi cahayamu, walaupun kadang kamu merasa berbeda dari orang lain.'
@@ -237,7 +237,7 @@ const NUMBERS = {
       money: 'Rezekimu datang saat kamu berani tampil dan berbagi. Jangan menunda karena merasa "belum siap".'
     },
     love: {
-      pattern: 'Kamu mencari hubungan jiwa yang dalam, bukan sekadar status. Kamu sangat peka pada suasana hati pasangan.',
+      pattern: 'Kamu mencari hubungan yang dalam, dan cepat bosan dengan hubungan yang ramainya hanya di luar. Kamu sangat peka pada suasana hati pasangan.',
       needs: 'Pasangan yang tenang, sabar, dan menghargai sisi spiritualmu.',
       advice: 'Jangan menyerap semua emosi pasangan. Jaga energimu sendiri.'
     },
@@ -248,7 +248,7 @@ const NUMBERS = {
   },
   22: {
     title: 'Sang Arsitek Agung',
-    short: 'visioner yang mampu mewujudkan mimpi besar',
+    short: 'mewujudkan rencana besar selangkah demi selangkah',
     about: [
       'Kamu punya mimpi besar sekaligus kemampuan untuk mewujudkannya. Kamu bisa melihat gambaran besar dan menyusun langkah-langkahnya. Ini adalah Angka Master: angka istimewa dengan energi seperti angka 4, tapi lebih kuat.',
       'Hidupmu mengajarkan cara membangun sesuatu yang bertahan lama dan berguna bagi banyak orang, satu langkah demi satu langkah.'
@@ -272,7 +272,7 @@ const NUMBERS = {
   },
   33: {
     title: 'Sang Guru Kasih',
-    short: 'penyembuh dan pengajar yang penuh kasih',
+    short: 'membuat orang merasa diterima',
     about: [
       'Kamu terlahir sebagai penyembuh dan pengajar. Kehadiranmu menenangkan, dan orang merasa diterima saat di dekatmu. Ini adalah Angka Master: angka istimewa dengan energi seperti angka 6, tapi lebih kuat.',
       'Hidupmu mengajarkan cara mengasihi tanpa kehilangan diri sendiri.'
@@ -287,7 +287,7 @@ const NUMBERS = {
     love: {
       pattern: 'Kamu memberi cinta tanpa syarat, tapi bisa terjebak menjadi "penyelamat" bagi pasangan.',
       needs: 'Pasangan yang dewasa dan bisa saling merawat.',
-      advice: 'Pilih pasangan untuk berjalan bersama, bukan untuk diselamatkan.'
+      advice: 'Pilih pasangan yang bisa berjalan sendiri di sampingmu.'
     },
     match: [6, 9, 22],
     soul: 'Jauh di dalam hati, kamu ingin semua orang yang kamu sayangi bahagia dan utuh.',
@@ -304,7 +304,7 @@ const YEARS = {
   4: { theme: 'Membangun Fondasi', text: 'Tahun kerja keras. Waktunya merapikan keuangan, kesehatan, dan rencana. Hasilnya akan terasa beberapa tahun lagi.', do: ['Rapikan keuangan', 'Bangun rutinitas sehat', 'Selesaikan yang tertunda'], avoid: 'Mencari jalan pintas.' },
   5: { theme: 'Perubahan dan Kebebasan', text: 'Tahun yang dinamis. Akan ada perubahan, perjalanan, atau kesempatan tak terduga.', do: ['Terbuka pada perubahan', 'Coba hal baru', 'Bepergian'], avoid: 'Keputusan impulsif yang belum dipikirkan matang.' },
   6: { theme: 'Keluarga dan Tanggung Jawab', text: 'Tahun yang berpusat pada rumah, keluarga, dan hubungan. Cocok untuk menikah, pindah rumah, atau memperbaiki hubungan.', do: ['Perhatikan keluarga', 'Perbaiki hubungan yang renggang', 'Rawat rumah dan dirimu'], avoid: 'Memikul tanggung jawab orang lain sendirian.' },
-  7: { theme: 'Menepi dan Mendalami', text: 'Tahun untuk mengendapkan diri, bukan ngebut. Cocok untuk belajar, memperdalam keahlian, merawat kesehatan, dan merenungkan arah hidup.', do: ['Belajar atau ambil kursus', 'Jaga kesehatan dan istirahat', 'Luangkan waktu hening'], avoid: 'Keputusan besar yang terburu-buru. Siapkan matang dulu.' },
+  7: { theme: 'Menepi dan Mendalami', text: 'Tahun untuk mengendapkan diri dan berjalan pelan-pelan. Cocok untuk belajar, memperdalam keahlian, merawat kesehatan, dan merenungkan arah hidup.', do: ['Belajar atau ambil kursus', 'Jaga kesehatan dan istirahat', 'Luangkan waktu hening'], avoid: 'Keputusan besar yang terburu-buru. Siapkan matang dulu.' },
   8: { theme: 'Panen dan Rezeki', text: 'Tahun hasil. Kerja keras beberapa tahun terakhir mulai berbuah, terutama soal karier dan keuangan.', do: ['Ambil peluang karier dan bisnis', 'Minta kenaikan atau pasang harga yang layak', 'Kelola uang dengan bijak'], avoid: 'Sombong atau boros saat rezeki datang.' },
   9: { theme: 'Menutup dan Melepaskan', text: 'Tahun penutup siklus. Waktunya membereskan dan melepaskan yang sudah tidak cocok, supaya siap untuk awal baru.', do: ['Selesaikan urusan lama', 'Maafkan dan lepaskan', 'Bersihkan barang dan kebiasaan lama'], avoid: 'Memulai komitmen besar yang baru.' }
 };

@@ -96,18 +96,12 @@ export default function OrderForm({ initialItems }) {
 
     return (
       <div className="transfer-box">
-        <p style={{ textAlign: "center", fontWeight: 600 }}>Order Diterima ✓</p>
-        <p style={{ textAlign: "center" }}>
-          Order ID: <strong>{order.orderCode}</strong>
-        </p>
-        <p style={{ textAlign: "center" }}>{order.itemsLabel}</p>
-        <p style={{ textAlign: "center" }}>Silakan transfer dengan nominal PERSIS:</p>
+        <p className="mono">Pesanan {order.orderCode} · {order.itemsLabel}</p>
+        <p>Transfer tepat sejumlah ini, termasuk tiga angka terakhirnya:</p>
         <p className="transfer-amount">{order.amountDisplay}</p>
-        <p style={{ textAlign: "center", fontSize: "0.85rem", color: "var(--ink-soft)" }}>
-          Jangan dibulatkan ya — 3 angka terakhir adalah kode pesananmu.
-        </p>
+        <p className="mono">Tiga angka terakhir itu kode pesananmu, jadi jangan dibulatkan.</p>
         <div className="bank-details">
-          <p style={{ fontWeight: 700 }}>{STORE.bankName}</p>
+          <p>{STORE.bankName}</p>
           <p className="bank-number">{STORE.accountNumber}</p>
           <p>a.n. {STORE.accountHolder}</p>
           <button
@@ -120,14 +114,12 @@ export default function OrderForm({ initialItems }) {
               });
             }}
           >
-            {copied ? "Tersalin ✓" : "Salin nomor rekening"}
+            {copied ? "Tersalin" : "Salin nomor rekening"}
           </button>
         </div>
-        <p style={{ textAlign: "center", fontSize: "0.9rem", fontWeight: 600 }}>
-          Selesaikan dalam 2 jam untuk mengamankan slot-mu.
-        </p>
-        <p style={{ textAlign: "center", fontSize: "0.9rem" }}>
-          Setelah transfer, kirim bukti bayar via WhatsApp agar laporan PDF-mu segera diproses (maks. 1x24 jam kerja).
+        <p>
+          Setelah transfer, tekan tombol di bawah dan lampirkan bukti transfernya. Kami cek hari itu juga, paling lambat 1x24
+          jam kerja.
         </p>
         <a
           className="btn btn-primary btn-block"
@@ -141,17 +133,13 @@ export default function OrderForm({ initialItems }) {
               content_name: order.itemsLabel,
             })
           }
-          style={{ marginTop: "1rem" }}
         >
-          Kirim Bukti Transfer via WhatsApp
+          Kirim bukti transfer lewat WhatsApp
         </a>
-        <p style={{ textAlign: "center", fontSize: "0.85rem", marginTop: "0.75rem", color: "var(--ink-soft)" }}>
-          Atau chat ke <strong>{STORE.whatsappDisplay}</strong>
-        </p>
-        <p style={{ textAlign: "center", fontSize: "0.8rem", color: "var(--ink-soft)" }}>
-          Simpan Order ID ini.
-          {sel.needsBirthDate && " Laporan akan dikirim ke email kamu."}
-          {sel.grantsTarot && " Link Tarot Master pribadimu kami kirim lewat WhatsApp setelah transfer dicek."}
+        <p className="mono" style={{ marginTop: 14 }}>
+          Atau chat langsung ke {STORE.whatsappDisplay}.
+          {sel.needsBirthDate && " Laporan dikirim ke emailmu."}
+          {sel.grantsTarot && " Link Tarot Master dikirim lewat WhatsApp."}
         </p>
       </div>
     );
@@ -196,7 +184,7 @@ export default function OrderForm({ initialItems }) {
         ))}
       </div>
 
-      <div className="order-price">Total: {rupiah(sel.total)}</div>
+      <div className="order-price">Total {rupiah(sel.total)}</div>
       {nudge && (
         <p className="pick-nudge">
           <button type="button" className="link-btn" onClick={() => setPicked(new Set([BUNDLE.id]))}>
@@ -206,24 +194,24 @@ export default function OrderForm({ initialItems }) {
       )}
 
       <div className="field">
-        <label htmlFor="fullName">Nama Lengkap (sesuai akta/KTP)</label>
+        <label htmlFor="fullName">Nama lengkap sesuai akta</label>
         <input id="fullName" type="text" value={form.fullName} onChange={(e) => update("fullName", e.target.value)} required />
       </div>
       {sel.needsBirthDate && (
         <div className="field">
-          <label htmlFor="birthDate">Tanggal Lahir</label>
+          <label htmlFor="birthDate">Tanggal lahir</label>
           <input id="birthDate" type="date" value={form.birthDate} onChange={(e) => update("birthDate", e.target.value)} required />
         </div>
       )}
       {sel.needsBirthTime && (
         <div className="field-row">
           <div className="field">
-            <label htmlFor="birthTime">Jam Lahir</label>
+            <label htmlFor="birthTime">Jam lahir</label>
             <input id="birthTime" type="time" value={form.birthTime} onChange={(e) => update("birthTime", e.target.value)} required />
-            <small>Tidak tahu pasti? Isi perkiraan terdekat.</small>
+            <small>Kalau tidak tahu pasti, isi perkiraan terdekat.</small>
           </div>
           <div className="field">
-            <label htmlFor="birthPlace">Kota Lahir</label>
+            <label htmlFor="birthPlace">Kota lahir</label>
             <input
               id="birthPlace"
               type="text"
@@ -248,12 +236,12 @@ export default function OrderForm({ initialItems }) {
       </div>
       {sel.needsBirthDate && (
         <div className="field">
-          <label htmlFor="email">Alamat Email (untuk kirim PDF)</label>
+          <label htmlFor="email">Email, untuk kirim PDF</label>
           <input id="email" type="email" value={form.email} onChange={(e) => update("email", e.target.value)} required />
         </div>
       )}
       <button type="submit" className="btn btn-primary btn-block" disabled={loading || !sel.items.length}>
-        {loading ? "Mohon tunggu…" : "Lanjut ke Pembayaran"}
+        {loading ? "Sebentar…" : "Lanjut ke pembayaran"}
       </button>
     </form>
   );

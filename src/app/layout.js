@@ -1,10 +1,15 @@
 import Script from "next/script";
+import "@fontsource/newsreader/400.css";
+import "@fontsource/newsreader/400-italic.css";
+import "@fontsource/newsreader/500.css";
+import "@fontsource/newsreader/600.css";
+import "@fontsource/ibm-plex-mono/400.css";
 import "./globals.css";
 
 export const metadata = {
-  title: "The Higher Soul Blueprint — Numerologi & Human Design",
+  title: "The Higher Soul · Numerologi dan Human Design",
   description:
-    "Blueprint pribadi dari nama lengkap dan tanggal lahirmu: Life Path, Destiny Path, Numerologi, dan Human Design. Plus tarot gratis.",
+    "Laporan numerologi dan Human Design dari nama lengkap dan tanggal lahirmu, ditulis dengan bahasa sehari-hari. Mulai Rp29.000.",
 };
 
 const META_PIXEL_ID = "1698135181396942";
@@ -12,13 +17,6 @@ const META_PIXEL_ID = "1698135181396942";
 export default function RootLayout({ children }) {
   return (
     <html lang="id">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
-          rel="stylesheet"
-        />
-      </head>
       <body>
         <Script id="meta-pixel" strategy="afterInteractive">
           {`

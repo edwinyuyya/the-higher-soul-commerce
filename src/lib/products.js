@@ -15,14 +15,14 @@ export const PRODUCTS = [
     icon: "☉",
     title: "Life Path",
     price: 29000,
-    body: "Arah hidup alami, siklus keberuntungan, dan pelajaran utama dari tanggal lahirmu.",
+    body: "Arah hidup dan pelajaran utamamu, dihitung dari tanggal lahir.",
   },
   {
     id: "destiny",
     icon: "✧",
     title: "Destiny Path",
     price: 29000,
-    body: "Potensi, bakat tersembunyi, dan tujuan hidup dari nama lengkapmu.",
+    body: "Bakat bawaan dari nama lengkapmu, dan cara memakainya untuk kerja.",
   },
   {
     id: "numerology",
@@ -30,7 +30,7 @@ export const PRODUCTS = [
     title: "Numerologi Lengkap",
     price: 99000,
     includes: ["lifepath", "destiny"],
-    body: "Sudah termasuk Life Path & Destiny Path, plus peta rezeki, arah karier, pola jodoh, Soul Urge, Personality, dan tema Tahun Pribadimu.",
+    body: "Laporan 10 halaman. Sudah termasuk Life Path dan Destiny Path, ditambah bab kerja dan uang, hubungan, dan tema tahun 2026 per bulan.",
   },
   {
     id: "humandesign",
@@ -38,7 +38,7 @@ export const PRODUCTS = [
     title: "Human Design",
     price: 79000,
     needsBirthTime: true,
-    body: "Tipe, strategi, cara terbaikmu mengambil keputusan, profil, dan pusat energimu. Butuh jam dan kota lahir.",
+    body: "Tipe energimu dan cara terbaikmu mengambil keputusan. Perlu jam dan kota lahir.",
   },
   {
     id: "tarot",
@@ -47,7 +47,7 @@ export const PRODUCTS = [
     price: 29000,
     grantsTarot: true,
     noBirthData: true,
-    body: "Akses pribadi bacaan tarot: kocok kartu, pilih 3 + 1 kartu, dan Master Tarot menjawab pertanyaanmu. Link dikirim lewat WhatsApp.",
+    body: "Akses pribadi ke pembacaan tarot online. Linknya dikirim lewat WhatsApp.",
   },
 ];
 
@@ -59,7 +59,7 @@ export const BUNDLE = {
   needsBirthTime: true,
   grantsTarot: true,
   includes: ["numerology", "humandesign", "tarot"],
-  body: "Numerologi Lengkap (termasuk Life Path & Destiny Path) + Human Design dalam laporan PDF, plus akses Tarot Master.",
+  body: "Numerologi Lengkap dan Human Design dalam laporan PDF, ditambah akses Tarot Master.",
 };
 
 // Harga kalau isi paket dibeli satuan, ditampilkan sebagai harga coret.
