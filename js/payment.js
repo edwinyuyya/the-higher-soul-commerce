@@ -18,9 +18,14 @@
   const POLL_LIMIT_MS = 30 * 60 * 1000;
 
   const LABEL = {
-    tarot: { title: 'Buka Bacaan Tarot', price: 15000 },
-    numerology: { title: 'Laporan Numerologi Lengkap (PDF)', price: 199000 }
+    tarot: { title: 'Buka Bacaan Tarot', price: 15000 }
   };
+  /** Judul & jumlah yang tampil di dialog: dari pesanan, dari opsi checkout, atau label produk. */
+  function summary(x) {
+    if (x && x.title) return { title: x.title, amount: x.amount };
+    const L = LABEL[x && x.product] || { title: 'Pembayaran', price: 0 };
+    return { title: L.title, amount: L.price };
+  }
 
   const store = {
     get(k) { try { return JSON.parse(localStorage.getItem(k) || 'null'); } catch (e) { return null; } },
@@ -37,7 +42,7 @@
   function getConfig() {
     if (cfgPromise) return cfgPromise;
     if (window.HS_PAYMENT_MODE === 'demo') {
-      cfgPromise = Promise.resolve({ mode: 'demo', prices: { tarot: 15000, numerology: 199000 } });
+      cfgPromise = Promise.resolve({ mode: 'demo', products: null, methods: null, meta: {} });
       return cfgPromise;
     }
     cfgPromise = fetch('/api/config', { cache: 'no-store' })
@@ -100,10 +105,10 @@
     '<li>QRIS</li><li>GoPay</li><li>ShopeePay</li><li>OVO · DANA · LinkAja <small>(via QRIS)</small></li>' +
     '<li>VA BCA</li><li>VA BNI</li><li>VA BRI</li><li>Mandiri</li><li>Permata</li><li>CIMB</li></ul>';
 
-  function head(product, extra) {
-    const L = LABEL[product];
-    return '<div class="pay-head"><span class="pay-lock" aria-hidden="true">🔒</span><div><h2 id="payTitle">' + L.title + '</h2>' +
-      '<p class="pay-amount">' + rupiah(L.price) + '</p></div></div>' + (extra || '');
+  function head(x, extra) {
+    const L = summary(x);
+    return '<div class="pay-head"><span class="pay-lock" aria-hidden="true">🔒</span><div><h2 id="payTitle">' + esc(L.title) + '</h2>' +
+      (L.amount ? '<p class="pay-amount">' + rupiah(L.amount) + '</p>' : '') + '</div></div>' + (extra || '');
   }
 
   /* ---------------- Polling status ---------------- */
@@ -131,7 +136,8 @@
 
   /* ---------------- Alur utama ---------------- */
   /**
-   * checkout({product, customer, birthdate, beforePay}) → Promise<{orderId}>
+   * checkout({product | items, method, title, amount, customer, birthdate, beforePay}) → Promise<{orderId}>
+   * items + method dipakai untuk keranjang laporan; total pasti dihitung server.
    * Selesai HANYA bila server mengonfirmasi pembayaran lunas.
    * Ditolak dengan {cancelled:true} bila pembeli menutup dialog.
    */
@@ -144,22 +150,24 @@
   }
 
   async function run(opts, resolve, reject) {
-    const product = opts.product;
+    const items = opts.items || [opts.product];
+    const product = items[0];
+    const cartKey = items.join('+') + ':' + (opts.method || 'A');
     const cfg = await getConfig();
 
     if (cfg.mode === 'demo') return demoFlow(opts, resolve, reject);
     if (cfg.mode !== 'midtrans') {
-      show(head(product) + '<p class="pay-msg">Pembayaran online belum aktif di situs ini. Silakan hubungi admin Higher Soul.</p>' +
+      show(head(opts) + '<p class="pay-msg">Pembayaran online belum aktif di situs ini. Silakan hubungi admin Higher Soul.</p>' +
         '<div class="pay-actions"><button class="btn" type="button" data-x>Tutup</button></div>');
       dlg.querySelector('[data-x]').onclick = () => { hide(); reject({ cancelled: true }); };
       return;
     }
 
-    show(head(product, '<p class="pay-msg"><span class="pay-spin"></span>Menyiapkan pembayaran aman…</p>' + METHODS));
+    show(head(opts, '<p class="pay-msg"><span class="pay-spin"></span>Menyiapkan pembayaran aman…</p>' + (opts.method ? '' : METHODS)));
 
     // Pakai ulang pesanan yang belum dibayar agar tidak membuat tagihan ganda.
     let order = store.get(PENDING_KEY);
-    if (order && order.product === product && opts.reuseKey && order.reuseKey === opts.reuseKey && Date.now() - order.createdAt < 50 * 60 * 1000) {
+    if (order && (order.cartKey || order.product) === (order.cartKey ? cartKey : product) && opts.reuseKey && order.reuseKey === opts.reuseKey && Date.now() - order.createdAt < 50 * 60 * 1000) {
       try {
         const st = await api('/api/payment-status?order_id=' + encodeURIComponent(order.orderId));
         if (st.status === 'paid') return finish(order, resolve);
@@ -173,10 +181,16 @@
       const created = await api('/api/create-payment', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ product, customer: opts.customer || {}, birthdate: opts.birthdate || '' })
+        body: JSON.stringify({ items, method: opts.method || null, customer: opts.customer || {}, birthdate: opts.birthdate || '' })
       });
-      order = { orderId: created.orderId, token: created.token, redirectUrl: created.redirectUrl, product, reuseKey: opts.reuseKey || null, createdAt: Date.now() };
+      order = {
+        orderId: created.orderId, token: created.token, redirectUrl: created.redirectUrl,
+        product, items: created.items || items, cartKey, title: summary(opts).title, amount: created.amount || summary(opts).amount,
+        reuseKey: opts.reuseKey || null, createdAt: Date.now()
+      };
       store.set(PENDING_KEY, order);
+      // Hanya InitiateCheckout. Purchase dikirim server setelah lunas.
+      if (window.Track) window.Track.track('InitiateCheckout', { value: created.subtotal || order.amount, content_ids: order.items, num_items: order.items.length }, 'IC-' + order.orderId);
     }
     if (opts.beforePay) opts.beforePay(order.orderId);
 
@@ -189,7 +203,7 @@
       snap = await loadSnap(cfg);
     } catch (e) {
       // Popup tidak bisa dimuat (jaringan/pemblokir iklan): pakai halaman bayar Midtrans.
-      show(head(order.product) + '<p class="pay-msg">Jendela pembayaran tidak bisa dimuat di peramban ini. Lanjutkan di halaman pembayaran resmi Midtrans; setelah selesai kamu akan diarahkan kembali ke sini.</p>' +
+      show(head(order) + '<p class="pay-msg">Jendela pembayaran tidak bisa dimuat di peramban ini. Lanjutkan di halaman pembayaran resmi Midtrans; setelah selesai kamu akan diarahkan kembali ke sini.</p>' +
         '<div class="pay-actions"><button class="btn btn-ghost" type="button" data-x>Batal</button><a class="btn btn-primary" href="' + esc(order.redirectUrl) + '">Buka halaman pembayaran</a></div>');
       dlg.querySelector('[data-x]').onclick = () => { hide(); reject({ cancelled: true }); };
       return;
@@ -217,7 +231,7 @@
       error: 'Ada kendala di jendela pembayaran. Kamu bisa mencoba lagi; tagihan yang sama tetap berlaku.'
     }[hint] || 'Mengecek status pembayaran…';
 
-    show(head(order.product) +
+    show(head(order) +
       '<p class="pay-msg" id="payMsg"><span class="pay-spin"></span>' + msg + '</p>' +
       '<p class="pay-order">No. pesanan: <b>' + esc(order.orderId) + '</b></p>' +
       '<div class="pay-actions">' +
@@ -251,7 +265,7 @@
             : 'Status pembayaran tidak sesuai. Hubungi admin dengan nomor pesanan di atas.';
       if (st.status === 'expired' || st.status === 'failed') store.del(PENDING_KEY);
       if (st.status === 'timeout' && msgEl) { msgEl.textContent = text; return; }
-      show(head(order.product) + '<p class="pay-msg">' + text + '</p><p class="pay-order">No. pesanan: <b>' + esc(order.orderId) + '</b></p>' +
+      show(head(order) + '<p class="pay-msg">' + text + '</p><p class="pay-order">No. pesanan: <b>' + esc(order.orderId) + '</b></p>' +
         '<div class="pay-actions"><button class="btn btn-ghost" type="button" data-x>Tutup</button><button class="btn btn-primary" type="button" data-new>Bayar ulang</button></div>');
       dlg.querySelector('[data-x]').onclick = () => { hide(); reject({ cancelled: true }); };
       dlg.querySelector('[data-new]').onclick = () => { store.del(PENDING_KEY); run(Object.assign({}, opts, { reuseKey: null }), resolve, reject).catch((err) => showError(opts, err.message, resolve, reject)); };
@@ -260,13 +274,13 @@
 
   function finish(order, resolve) {
     store.del(PENDING_KEY);
-    show(head(order.product) + '<p class="pay-msg pay-ok">✓ Pembayaran berhasil. Terima kasih!</p><p class="pay-order">No. pesanan: <b>' + esc(order.orderId) + '</b></p>');
+    show(head(order) + '<p class="pay-msg pay-ok">✓ Pembayaran berhasil. Terima kasih!</p><p class="pay-order">No. pesanan: <b>' + esc(order.orderId) + '</b></p>');
     setTimeout(hide, 1400);
-    resolve({ orderId: order.orderId, product: order.product });
+    resolve({ orderId: order.orderId, product: order.product, items: order.items || [order.product] });
   }
 
   function showError(opts, message, resolve, reject) {
-    show(head(opts.product) + '<p class="pay-msg pay-err">' + esc(message || 'Terjadi kendala.') + '</p>' +
+    show(head(opts) + '<p class="pay-msg pay-err">' + esc(message || 'Terjadi kendala.') + '</p>' +
       '<div class="pay-actions"><button class="btn btn-ghost" type="button" data-x>Tutup</button><button class="btn btn-primary" type="button" data-retry>Coba lagi</button></div>');
     dlg.querySelector('[data-x]').onclick = () => { hide(); reject({ cancelled: true }); };
     dlg.querySelector('[data-retry]').onclick = () => run(opts, resolve, reject).catch((err) => showError(opts, err.message, resolve, reject));
@@ -274,11 +288,11 @@
 
   /* ---------------- Mode demo (tanpa uang sungguhan) ---------------- */
   function demoFlow(opts, resolve, reject) {
-    show(head(opts.product, '<p class="pay-demo">MODE DEMO: tidak ada pembayaran sungguhan. Di situs asli, di sini muncul jendela pembayaran Midtrans.</p>' + METHODS) +
+    show(head(opts, '<p class="pay-demo">MODE DEMO: tidak ada pembayaran sungguhan. Di situs asli, di sini muncul jendela pembayaran Midtrans.</p>' + METHODS) +
       '<div class="pay-actions"><button class="btn btn-ghost" type="button" data-x>Batal</button><button class="btn btn-primary" type="button" data-ok>Simulasikan pembayaran berhasil</button></div>');
     dlg.querySelector('[data-x]').onclick = () => { hide(); reject({ cancelled: true }); };
     dlg.querySelector('[data-ok]').onclick = () => {
-      const order = { orderId: 'DEMO-' + Date.now().toString(36).toUpperCase(), product: opts.product };
+      const order = { orderId: 'DEMO-' + Date.now().toString(36).toUpperCase(), product: (opts.items || [opts.product])[0], items: opts.items || [opts.product], title: summary(opts).title, amount: summary(opts).amount };
       if (opts.beforePay) opts.beforePay(order.orderId);
       finish(order, resolve);
     };
@@ -299,16 +313,16 @@
     if (cfg.mode !== 'midtrans') return null;
 
     return new Promise((resolve) => {
-      show(head(pending.product) + '<p class="pay-msg"><span class="pay-spin"></span>Mengecek pembayaranmu…</p><p class="pay-order">No. pesanan: <b>' + esc(pending.orderId) + '</b></p>');
+      show(head(pending) + '<p class="pay-msg"><span class="pay-spin"></span>Mengecek pembayaranmu…</p><p class="pay-order">No. pesanan: <b>' + esc(pending.orderId) + '</b></p>');
       api('/api/payment-status?order_id=' + encodeURIComponent(pending.orderId)).then((st) => {
         if (st.status === 'paid') return finish(pending, resolve);
         if (st.status === 'pending' || (st.status === 'waiting' && fromUrl)) {
-          return waiting(pending, { product: pending.product }, resolve, () => resolve(null), 'pending');
+          return waiting(pending, pending, resolve, () => resolve(null), 'pending');
         }
         if (st.status !== 'pending' && st.status !== 'waiting') store.del(PENDING_KEY);
         hide();
         resolve(null);
-      }).catch(() => waiting(pending, { product: pending.product }, resolve, () => resolve(null), 'checking'));
+      }).catch(() => waiting(pending, pending, resolve, () => resolve(null), 'checking'));
     });
   }
 

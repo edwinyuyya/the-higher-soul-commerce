@@ -15,6 +15,20 @@ const fs = require('fs');
 const path = require('path');
 const { NUMBERS, YEARS, ZODIAC, HARI, PASARAN } = require('../report/content');
 
+/* Produk yang dijual (lib/catalog.js) → bab yang masuk ke PDF. */
+const SECTIONS = {
+  lifepath: ['lifepath', 'career', 'love'],
+  destiny: ['destiny', 'career'],
+  soul: ['inner'],
+  year: ['year'],
+  selfpack: ['map', 'lifepath', 'destiny', 'inner', 'career', 'love'],
+  numerology: ['map', 'lifepath', 'destiny', 'inner', 'career', 'love', 'year', 'bonus']
+};
+const TITLES = {
+  numerology: 'Laporan Numerologi Lengkap', selfpack: 'Paket Kenali Diri', lifepath: 'Laporan Life Path',
+  destiny: 'Laporan Destiny Path', soul: 'Isi Hati & Kesan Pertama', year: 'Ramalan Tahun Pribadi'
+};
+
 /* ---------------- argumen ---------------- */
 function args() {
   const out = {};
@@ -104,14 +118,20 @@ function build(o) {
   const name = esc(o.name.trim());
   const z = zodiac(c.mo, c.d);
   const w = weton(o.date);
-  let pn = 1;
+  const products = (o.products && o.products.length ? o.products : ['numerology']).filter((k) => SECTIONS[k]);
+  if (!products.length) throw new Error('Produk tidak dikenal. Pilihan: ' + Object.keys(SECTIONS).join(', '));
+  const want = new Set(products.flatMap((k) => SECTIONS[k]));
+  const has = (k) => want.has(k);
+  const coverTitle = TITLES[products[0]] + (products.length > 1 ? ' + ' + products.slice(1).map((k) => TITLES[k]).join(' + ') : '');
+  let pn = 1, bn = 0;
+  const bab = () => 'Bab ' + (++bn);
   const pages = [];
 
   /* 1. Sampul */
   pages.push(page(
     '<div class="cover-top"><span class="brand">✦ Higher Soul</span><span>Laporan Pribadi</span></div>' +
     '<div class="cover-mid">' + medal(c.lp, 'xl') +
-    '<p class="cover-kicker">Laporan Numerologi Lengkap</p>' +
+    '<p class="cover-kicker">' + coverTitle + '</p>' +
     '<h1>' + name + '</h1>' +
     '<p class="cover-meta">Lahir ' + tgl(c) + (o.time ? ' · pukul ' + esc(o.time) : '') + (o.city ? ' · ' + esc(o.city) : '') + '</p>' +
     '</div>' +
@@ -127,7 +147,7 @@ function build(o) {
     [c.bday, 'Angka Hari Lahir', 'Bakat khusus dari tanggal lahir', 'tanggal ' + c.d],
     [c.py, 'Tahun Pribadi ' + c.year, 'Tema hidupmu tahun ini', 'tanggal, bulan, dan tahun ' + c.year, YEARS[c.py].theme]
   ];
-  pages.push(page(
+  if (has('map')) pages.push(page(
     chapter('Ringkasan', 'Peta Angkamu', 'Halo, ' + first + '. Laporan ini dihitung dari nama lengkap dan tanggal lahirmu. Ada enam angka penting yang membentuk dirimu. Setiap angka dibahas satu per satu di halaman berikutnya, dengan bahasa sehari-hari.') +
     '<div class="grid6">' + grid.map(([n, t, s, from, title]) =>
       '<div class="g">' + medal(n, 's') + '<div><b>' + t + '</b><span class="g-title">' + (title || NUMBERS[n].title) + '</span><small>' + s + '. Dari ' + from + '.</small></div></div>').join('') + '</div>' +
@@ -137,8 +157,8 @@ function build(o) {
 
   /* 3. Jalan hidup */
   const s = c.lpSteps;
-  pages.push(page(
-    '<div class="hero">' + medal(c.lp, 'l') + '<div>' + chapter('Bab 1 · Angka Jalan Hidup', LP.title) + '<p class="hero-sub">Angka terpenting dalam numerologi. Menunjukkan arah, tujuan, dan pelajaran utama hidupmu.</p></div></div>' +
+  if (has('lifepath')) pages.push(page(
+    '<div class="hero">' + medal(c.lp, 'l') + '<div>' + chapter(bab() + ' · Angka Jalan Hidup', LP.title) + '<p class="hero-sub">Angka terpenting dalam numerologi. Menunjukkan arah, tujuan, dan pelajaran utama hidupmu.</p></div></div>' +
     LP.about.map((p) => '<p class="lead">' + p + '</p>').join('') +
     '<div class="two">' +
     '<div class="box good"><p class="box-t">Kelebihanmu</p>' + list(LP.strengths, 'ticks') + '</div>' +
@@ -157,8 +177,8 @@ function build(o) {
     ? 'Angka Jalan Hidup dan Angka Bakatmu sama, yaitu <b>' + c.lp + '</b>. Ini cukup jarang. Artinya tujuan hidupmu dan bakat alamimu searah, jadi kamu akan cepat berkembang kalau berani menjadi dirimu sendiri.'
     : 'Hidupmu mengarah menjadi <b>' + LP.title.toLowerCase().replace('sang ', 'sang ') + '</b>: ' + LP.short + '. Bekal terbesarmu untuk sampai ke sana adalah sifat <b>' + DS.title.toLowerCase() + '</b>: ' + DS.short + '. ' +
       'Kamu akan paling bahagia dan berhasil saat memakai bakat ' + c.ds + ' (' + DS.strengths.slice(0, 2).join(', ').toLowerCase() + ') untuk menjalani jalan hidup ' + c.lp + ' (' + LP.strengths.slice(0, 2).join(', ').toLowerCase() + ').';
-  pages.push(page(
-    '<div class="hero">' + medal(c.ds, 'l') + '<div>' + chapter('Bab 2 · Angka Bakat', DS.title) + '<p class="hero-sub">Dihitung dari semua huruf nama lengkapmu. Menunjukkan kelebihan alami yang kamu bawa sejak lahir.</p></div></div>' +
+  if (has('destiny')) pages.push(page(
+    '<div class="hero">' + medal(c.ds, 'l') + '<div>' + chapter(bab() + ' · Angka Bakat', DS.title) + '<p class="hero-sub">Dihitung dari semua huruf nama lengkapmu. Menunjukkan kelebihan alami yang kamu bawa sejak lahir.</p></div></div>' +
     '<p class="lead">' + DS.about[0].replace(/Ini adalah Angka Master.*$/, '') + '</p>' +
     '<p class="label">Bakat alamimu</p><ul class="chips">' + DS.strengths.map((x) => '<li>' + x + '</li>').join('') + '</ul>' +
     '<div class="two">' +
@@ -173,8 +193,8 @@ function build(o) {
   const trio = (n, t, sub, text) => '<div class="trio">' + medal(n, 's') + '<div><p class="kicker">' + t + '</p><h3>' + NUMBERS[n].title + '</h3><p class="small muted">' + sub + '</p><p>' + text + '</p></div></div>';
   let gap = '';
   if (c.soul !== c.persona) gap = '<div class="callout"><p class="callout-t">Yang menarik</p><p>Orang yang baru kenal melihatmu sebagai pribadi angka ' + c.persona + ' (' + PE.short + '). Padahal isi hatimu adalah angka ' + c.soul + ' (' + SU.short + '). Wajar kalau kadang kamu merasa “orang belum benar-benar mengenalku”. Orang-orang terdekatlah yang melihat dirimu yang sebenarnya.</p></div>';
-  pages.push(page(
-    chapter('Bab 3 · Di Balik Nama dan Tanggalmu', 'Isi Hati, Kesan Pertama, dan Hari Lahir') +
+  if (has('inner')) pages.push(page(
+    chapter(bab() + ' · Di Balik Nama dan Tanggalmu', 'Isi Hati, Kesan Pertama, dan Hari Lahir') +
     trio(c.soul, 'Angka Isi Hati', 'Dari huruf hidup (A, I, U, E, O) namamu: ' + arrow(c.soulChain), SU.soul) +
     trio(c.persona, 'Angka Kesan Pertama', 'Dari huruf mati namamu: ' + arrow(c.personaChain), PE.persona) +
     trio(c.bday, 'Angka Hari Lahir', 'Dari tanggal ' + c.d, BD.birthday) +
@@ -183,8 +203,8 @@ function build(o) {
 
   /* 6. Karier & rezeki */
   const fields = [...new Set([...LP.career.fields.slice(0, 4), ...DS.career.fields.slice(0, 4)])].slice(0, 8);
-  pages.push(page(
-    chapter('Bab 4 · Karier dan Rezeki', 'Pekerjaan yang Cocok Untukmu', 'Pekerjaan yang paling memuaskan biasanya cocok dengan jalan hidupmu (angka ' + c.lp + ') dan memakai bakat alamimu (angka ' + c.ds + ').') +
+  if (has('career')) pages.push(page(
+    chapter(bab() + ' · Karier dan Rezeki', 'Pekerjaan yang Cocok Untukmu', 'Pekerjaan yang paling memuaskan biasanya cocok dengan jalan hidupmu (angka ' + c.lp + ') dan memakai bakat alamimu (angka ' + c.ds + ').') +
     '<p class="label">Bidang yang paling cocok</p><ol class="fields">' + fields.map((f) => '<li>' + f + '</li>').join('') + '</ol>' +
     '<div class="two">' +
     '<div class="box"><p class="box-t">Gaya kerjamu</p><p>' + LP.career.style + '</p></div>' +
@@ -199,8 +219,8 @@ function build(o) {
     pn++));
 
   /* 7. Cinta */
-  pages.push(page(
-    chapter('Bab 5 · Cinta dan Hubungan', 'Cara Kamu Mencintai') +
+  if (has('love')) pages.push(page(
+    chapter(bab() + ' · Cinta dan Hubungan', 'Cara Kamu Mencintai') +
     '<p class="lead">' + LP.love.pattern + '</p>' +
     '<p>' + DS.love.pattern + '</p>' +
     '<div class="two">' +
@@ -215,8 +235,8 @@ function build(o) {
 
   /* 8. Tahun pribadi */
   const Y = YEARS[c.py], YN = YEARS[c.pyNext];
-  pages.push(page(
-    '<div class="hero">' + medal(c.py, 'l') + '<div>' + chapter('Bab 6 · Arah Tahun ' + c.year, 'Tahun Pribadi ' + c.py + ': ' + Y.theme) + '<p class="hero-sub">Hidup berjalan dalam siklus 9 tahun. Tahun Pribadi menunjukkan “musim” yang sedang kamu jalani. Tahun pribadimu berganti setiap hari ulang tahun.</p></div></div>' +
+  if (has('year')) pages.push(page(
+    '<div class="hero">' + medal(c.py, 'l') + '<div>' + chapter(bab() + ' · Arah Tahun ' + c.year, 'Tahun Pribadi ' + c.py + ': ' + Y.theme) + '<p class="hero-sub">Hidup berjalan dalam siklus 9 tahun. Tahun Pribadi menunjukkan “musim” yang sedang kamu jalani. Tahun pribadimu berganti setiap hari ulang tahun.</p></div></div>' +
     '<p class="lead">' + Y.text + '</p>' +
     '<div class="two">' +
     '<div class="box good"><p class="box-t">Lakukan</p>' + list(Y.do, 'ticks') + '</div>' +
@@ -228,7 +248,7 @@ function build(o) {
     pn++));
 
   /* 9. Bonus: zodiak & weton */
-  pages.push(page(
+  if (has('bonus')) pages.push(page(
     chapter('Bonus', 'Zodiak dan Weton', 'Sebagai pelengkap, berikut gambaran dari dua tradisi lain. Keduanya memakai tanggal lahirmu dengan cara yang berbeda.') +
     '<div class="two">' +
     '<div class="box"><p class="box-t">Zodiak</p><h3 class="big">' + z[0] + '</h3><p>Orang ' + z[0] + ' dikenal ' + z[3] + '.</p>' +
@@ -242,14 +262,14 @@ function build(o) {
   pages.push(page(
     chapter('Penutup', 'Pesan untuk ' + first) +
     '<p class="lead">Semua angka ini bercerita tentang satu hal: kamu sudah membawa bekal yang cukup sejak lahir. Tugasmu bukan menjadi orang lain, tetapi mengenali dan memakai bekal itu dengan sadar.</p>' +
-    '<p class="label">Lima hal untuk diingat</p><ol class="fields five">' +
-    '<li><b>Kelebihan utamamu</b> adalah ' + LP.strengths.slice(0, 2).join(' dan ').toLowerCase() + '. Pakai setiap hari.</li>' +
-    '<li><b>Bakatmu</b> untuk ' + DS.short + ' layak dihargai, termasuk dengan uang.</li>' +
-    '<li><b>Jaga diri</b> dari kebiasaan ' + LP.challenges[0].toLowerCase() + '.</li>' +
-    '<li><b>Dengarkan isi hatimu:</b> ' + SU.soul.replace(/^Jauh di dalam hati, /, '') + '</li>' +
-    '<li><b>Tahun ini</b> adalah tahun ' + Y.theme.toLowerCase() + '. ' + Y.do[0] + '.</li>' +
+    '<p class="label">Hal untuk diingat</p><ol class="fields five">' +
+    (has('lifepath') ? '<li><b>Kelebihan utamamu</b> adalah ' + LP.strengths.slice(0, 2).join(' dan ').toLowerCase() + '. Pakai setiap hari.</li>' : '') +
+    (has('destiny') ? '<li><b>Bakatmu</b> untuk ' + DS.short + ' layak dihargai, termasuk dengan uang.</li>' : '') +
+    (has('lifepath') ? '<li><b>Jaga diri</b> dari kebiasaan ' + LP.challenges[0].toLowerCase() + '.</li>' : '') +
+    (has('inner') ? '<li><b>Dengarkan isi hatimu:</b> ' + SU.soul.replace(/^Jauh di dalam hati, /, '') + '</li>' : '') +
+    (has('year') ? '<li><b>Tahun ini</b> adalah tahun ' + Y.theme.toLowerCase() + '. ' + Y.do[0] + '.</li>' : '') +
     '</ol>' +
-    '<div class="affirm"><p class="kicker">Afirmasi pribadimu</p><p>“Aku ' + LP.short + '. Aku memakai ' + DS.strengths[0].toLowerCase() + ' untuk kebaikan diriku dan orang-orang yang kusayangi.”</p></div>' +
+    '<div class="affirm"><p class="kicker">Afirmasi pribadimu</p><p>“' + (has('lifepath') ? 'Aku ' + LP.short + '. ' : '') + 'Aku memakai ' + (has('destiny') ? DS.strengths[0] : (has('lifepath') ? LP.strengths[0] : SU.strengths[0])).toLowerCase() + ' untuk kebaikan diriku dan orang-orang yang kusayangi.”</p></div>' +
     '<p class="small muted center">Numerologi adalah alat refleksi diri, bukan ramalan pasti dan bukan pengganti nasihat profesional (medis, keuangan, atau hukum). Keputusan akhir tetap ada di tanganmu.</p>',
     pn++));
 
@@ -282,14 +302,18 @@ async function toPdf(htmlFile, pdfFile) {
 async function main() {
   const a = args();
   if (!a.name || !/^\d{4}-\d{2}-\d{2}$/.test(a.date || '')) {
-    console.error('Pakai: node scripts/make-report.js --name "Nama Lengkap" --date YYYY-MM-DD [--time 14:00] [--city Kota] [--year 2026] [--out reports/]');
+    console.error('Pakai: node scripts/make-report.js --name "Nama Lengkap" --date YYYY-MM-DD [--products lifepath,year] [--time 14:00] [--city Kota] [--year 2026] [--out reports/]');
+    console.error('Produk: ' + Object.keys(SECTIONS).join(', ') + ' (default: numerology)');
     process.exit(1);
   }
-  const o = { name: String(a.name), date: a.date, time: a.time, city: a.city, year: Number(a.year) || new Date().getFullYear() };
+  const products = String(a.products || 'numerology').split(',').map((x) => x.trim()).filter(Boolean);
+  const bad = products.filter((k) => !SECTIONS[k]);
+  if (bad.length) { console.error('Produk tidak dikenal: ' + bad.join(', ') + '. Pilihan: ' + Object.keys(SECTIONS).join(', ')); process.exit(1); }
+  const o = { name: String(a.name), date: a.date, time: a.time, city: a.city, products, year: Number(a.year) || new Date().getFullYear() };
   const outDir = a.out || 'reports';
   fs.mkdirSync(outDir, { recursive: true });
   const slug = o.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-  const base = path.join(outDir, 'numerologi-' + slug + '-' + o.date);
+  const base = path.join(outDir, products.join('+') + '-' + slug + '-' + o.date);
   const { html, c } = build(o);
   fs.writeFileSync(base + '.html', html);
   const ok = await toPdf(base + '.html', base + '.pdf');
@@ -298,4 +322,4 @@ async function main() {
 }
 
 if (require.main === module) main().catch((e) => { console.error(e); process.exit(1); });
-module.exports = { build, compute, weton, zodiac };
+module.exports = { build, compute, weton, zodiac, SECTIONS };

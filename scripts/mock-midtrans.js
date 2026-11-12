@@ -24,7 +24,7 @@ function start(port) {
       if (req.method === 'GET' && m) {
         const o = orders[decodeURIComponent(m[1])];
         if (!o || !o.status) return json(200, { status_code: '404', status_message: "Transaction doesn't exist." });
-        return json(200, { status_code: o.status === 'settlement' ? '200' : '201', transaction_status: o.status, gross_amount: (o.paid || o.amount) + '.00', payment_type: 'qris', fraud_status: 'accept' });
+        return json(200, { status_code: o.status === 'settlement' ? '200' : '201', transaction_status: o.status, gross_amount: (o.paid || o.amount) + '.00', payment_type: 'qris', fraud_status: 'accept', custom_field1: o.body.custom_field1, custom_field2: o.body.custom_field2, custom_field3: o.body.custom_field3 });
       }
       m = /^\/_mock\/set\/([^/]+)\/([a-z_]+)(?:\/(\d+))?$/.exec(url.pathname);
       if (m) {
@@ -35,6 +35,12 @@ function start(port) {
         return json(200, { ok: true });
       }
       if (url.pathname === '/_mock/orders') return json(200, orders);
+      // Graph API tiruan untuk Meta Conversions API.
+      m = /^\/v[\d.]+\/([^/]+)\/events$/.exec(url.pathname);
+      if (req.method === 'POST' && m) {
+        (start.metaEvents = start.metaEvents || []).push({ pixel: m[1], token: url.searchParams.get('access_token'), body: JSON.parse(raw) });
+        return json(200, { events_received: 1 });
+      }
       if (url.pathname === '/snap/snap.js') {
         res.setHeader('Content-Type', 'text/javascript');
         // Snap tiruan: menandai pesanan "pending" (pembeli memilih QRIS), lalu memanggil onPending.

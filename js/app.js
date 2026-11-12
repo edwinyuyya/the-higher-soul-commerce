@@ -871,7 +871,7 @@
     let done = null;
     try { done = await window.Payment.resume(); } catch (e) { done = null; }
     const sess = sessionStore.get();
-    if (done && done.product === 'numerology') {
+    if (done && done.product && done.product !== 'tarot') {
       if (window.Numerology && window.Numerology.showPaid) window.Numerology.showPaid(done.orderId, toast);
       return;
     }

@@ -1,18 +1,38 @@
 /* =========================================================
    PROMO LAPORAN NUMEROLOGI
-   Ubah PROMO di bawah untuk harga dan tautan pemesanan.
+   Harga yang ditagih ditetapkan di server (lib/catalog.js). Angka di SHOP
+   hanya cadangan tampilan; saat halaman dimuat diganti dari /api/config.
    ========================================================= */
 (function () {
   'use strict';
 
   const PROMO = {
-    price: 'Rp 199rb',
-    // Harga yang ditagih ditetapkan di server (lib/midtrans.js), bukan di sini.
     // Janji pengiriman laporan yang ditampilkan setelah pembayaran berhasil.
     delivery: 'Laporan PDF-mu akan dikirim ke email yang kamu isi.',
     // Opsional: nomor WhatsApp admin untuk konfirmasi, mis. '6281234567890'.
     adminWhatsApp: ''
   };
+
+  /* Produk yang bisa dipilih di halaman. desc/badge hanya untuk tampilan. */
+  const SHOP = {
+    products: {
+      lifepath: { name: 'Life Path', price: 79000, desc: 'Sifat, tujuan hidup, karier & cinta dari tanggal lahirmu.' },
+      destiny: { name: 'Destiny Path (Angka Bakat)', price: 79000, desc: 'Bakat alami dari nama lengkapmu & cara memakainya.' },
+      selfpack: { name: 'Paket Kenali Diri', price: 149000, desc: 'Life Path + Angka Bakat + Isi Hati dalam satu laporan.', badge: 'Paling hemat', includes: ['lifepath', 'destiny', 'soul'] },
+      numerology: { name: 'Numerologi Lengkap', price: 249000, desc: '10 halaman: semua angka, karier, cinta, tahun pribadi + zodiak & weton.', badge: 'Terlengkap', includes: ['lifepath', 'destiny', 'soul', 'year'] }
+    },
+    addons: {
+      soul: { name: 'Isi Hati & Kesan Pertama', price: 29000, desc: 'Apa yang sebenarnya kamu inginkan, dan bagaimana orang melihatmu.' },
+      year: { name: 'Ramalan Tahun Pribadi', price: 29000, desc: 'Tema tahunmu + tema setiap bulan.' }
+    },
+    methods: {
+      Q: { label: 'QRIS', note: 'Semua e-wallet & m-banking · tanpa biaya', feePct: 0, feeFlat: 0 },
+      E: { label: 'GoPay / ShopeePay', note: 'Biaya layanan 2%', feePct: 2, feeFlat: 0 },
+      V: { label: 'Virtual Account', note: 'BCA, BNI, BRI, Mandiri, Permata, CIMB · biaya Rp 4.000', feePct: 0, feeFlat: 4000 }
+    }
+  };
+  const rp = (n) => 'Rp ' + Number(n).toLocaleString('id-ID');
+  const feeOf = (m, sub) => { const x = SHOP.methods[m]; if (!x) return 0; let f = x.feeFlat; if (x.feePct) f += sub / (1 - x.feePct / 100) - sub; return Math.ceil(f / 100) * 100; };
 
   /* Bacaan gratis per angka, ditulis dengan bahasa sehari-hari.
      Laporan PDF berisi penjelasan lengkap. */
@@ -225,15 +245,22 @@
       '</div>' +
       '<div class="promo-result" id="numResult" hidden aria-live="polite"></div>' +
 
-      '<div class="promo-report">' +
-      '<p class="promo-list-title">Mau tahu lebih banyak? <b>Laporan Numerologi Lengkap (PDF)</b> membahas:</p>' +
-      '<ul class="promo-list">' +
-      '<li><span aria-hidden="true">💼</span><div><b>Pekerjaan yang cocok</b>Bidang kerja yang paling pas dengan sifatmu, dan cara menambah penghasilan dari bakatmu.</div></li>' +
-      '<li><span aria-hidden="true">❤</span><div><b>Cinta dan pasangan</b>Pola hubunganmu, tipe pasangan yang cocok, dan kenapa masalah yang sama sering terulang.</div></li>' +
-      '<li><span aria-hidden="true">✦</span><div><b>Kelebihan yang belum terpakai</b>Potensi yang masih tersimpan dan cara mengasahnya.</div></li>' +
-      '<li><span aria-hidden="true">⛰</span><div><b>Yang sering menghambatmu</b>Kebiasaan yang bikin kamu jalan di tempat, dan cara keluar darinya.</div></li>' +
-      '<li><span aria-hidden="true">☾</span><div><b>Gambaran tahun ini</b>Tema tahun pribadimu dan kapan waktu yang baik untuk melangkah.</div></li>' +
-      '</ul>' +
+      '<div class="promo-report shop">' +
+      '<p class="promo-list-title">Mau tahu lebih banyak? <b>Pilih laporanmu</b> (PDF, dikirim ke email):</p>' +
+      '<div class="shop-products" role="radiogroup" aria-label="Pilih laporan">' +
+      Object.keys(SHOP.products).map((k, i) => {
+        const p = SHOP.products[k];
+        return '<label class="shop-card" data-key="' + k + '"><input type="radio" name="numProduct" value="' + k + '"' + (i === 2 ? ' checked' : '') + '>' +
+          (p.badge ? '<span class="shop-badge">' + p.badge + '</span>' : '') +
+          '<b>' + p.name + '</b><small>' + p.desc + '</small><span class="shop-price" data-price="' + k + '">' + rp(p.price) + '</span></label>';
+      }).join('') +
+      '</div>' +
+      '<div class="shop-addons" id="numAddons"><p class="promo-try-title">Tambahan (opsional)</p>' +
+      Object.keys(SHOP.addons).map((k) => {
+        const p = SHOP.addons[k];
+        return '<label class="shop-addon" data-key="' + k + '"><input type="checkbox" value="' + k + '"><span><b>+ ' + p.name + '</b><small>' + p.desc + '</small></span><em data-price="' + k + '">' + rp(p.price) + '</em></label>';
+      }).join('') +
+      '</div>' +
 
       '<div class="promo-contact">' +
       '<p class="promo-try-title">Laporannya dikirim ke mana?</p>' +
@@ -242,11 +269,15 @@
       '<label for="numPhone">No. WhatsApp (boleh dikosongkan)<input id="numPhone" type="tel" autocomplete="tel" placeholder="08xxxxxxxxxx"></label>' +
       '</div></div>' +
 
-      '<div class="promo-buy">' +
-      '<div class="promo-price"><span>Harga promo</span><strong>' + PROMO.price + '</strong><small>Laporan pribadi dalam bentuk PDF</small></div>' +
-      '<button class="btn btn-primary btn-big promo-cta" type="button" id="numOrder">Dapatkan Laporan Lengkap</button>' +
+      '<div class="shop-methods" role="radiogroup" aria-label="Metode pembayaran"><p class="promo-try-title">Bayar dengan</p>' +
+      Object.keys(SHOP.methods).map((k, i) => '<label class="shop-method"><input type="radio" name="numMethod" value="' + k + '"' + (i === 0 ? ' checked' : '') + '><span><b>' + SHOP.methods[k].label + '</b><small>' + SHOP.methods[k].note + '</small></span></label>').join('') +
       '</div>' +
-      '<p class="promo-fine" id="numFine">Bayar dengan QRIS, GoPay, ShopeePay, OVO, DANA, atau Virtual Account bank. Diproses aman oleh Midtrans.</p>' +
+
+      '<div class="promo-buy">' +
+      '<div class="shop-total" id="numTotal"></div>' +
+      '<button class="btn btn-primary btn-big promo-cta" type="button" id="numOrder">Bayar</button>' +
+      '</div>' +
+      '<p class="promo-fine" id="numFine">Pembayaran diproses aman oleh Midtrans. Laporan dikirim ke email setelah pembayaran lunas.</p>' +
       '</div>' +
       '</section>';
   }
@@ -280,18 +311,67 @@
 
     const fine = root.querySelector('#numFine');
     const orderBtn = root.querySelector('#numOrder');
+    const totalEl = root.querySelector('#numTotal');
+
+    function cart() {
+      const main = (root.querySelector('input[name="numProduct"]:checked') || {}).value || 'selfpack';
+      const covered = SHOP.products[main].includes || [];
+      root.querySelectorAll('.shop-addon').forEach((el) => {
+        const hide = covered.includes(el.dataset.key);
+        el.hidden = hide;
+        if (hide) el.querySelector('input').checked = false;
+      });
+      const addons = [...root.querySelectorAll('.shop-addon input:checked')].map((i) => i.value);
+      const method = (root.querySelector('input[name="numMethod"]:checked') || {}).value || 'Q';
+      const items = [main].concat(addons);
+      const subtotal = SHOP.products[main].price + addons.reduce((a, k) => a + SHOP.addons[k].price, 0);
+      const fee = feeOf(method, subtotal);
+      return { items, method, subtotal, fee, total: subtotal + fee, title: SHOP.products[main].name + (addons.length ? ' + ' + addons.length + ' tambahan' : '') };
+    }
+    function render() {
+      root.querySelectorAll('.shop-card').forEach((el) => el.classList.toggle('on', el.querySelector('input').checked));
+      const c = cart();
+      const addonsBox = root.querySelector('#numAddons');
+      addonsBox.hidden = [...addonsBox.querySelectorAll('.shop-addon')].every((el) => el.hidden);
+      totalEl.innerHTML = '<span>Subtotal <b>' + rp(c.subtotal) + '</b></span>' +
+        (c.fee ? '<span>Biaya layanan ' + SHOP.methods[c.method].label + ' <b>' + rp(c.fee) + '</b></span>' : '<span class="shop-free">Tanpa biaya layanan</span>') +
+        '<strong>Total ' + rp(c.total) + '</strong>';
+      orderBtn.textContent = 'Bayar ' + rp(c.total);
+    }
+    root.querySelector('.shop').addEventListener('change', (e) => {
+      render();
+      if (e.target.name === 'numProduct' && window.Track) window.Track.track('ViewContent', { content_ids: [e.target.value], value: SHOP.products[e.target.value].price });
+    });
+    // Harga resmi dari server menggantikan angka cadangan di atas.
+    if (window.Payment) window.Payment.getConfig().then((cfg) => {
+      if (!cfg || !cfg.products) return;
+      Object.keys(SHOP.products).concat(Object.keys(SHOP.addons)).forEach((k) => {
+        const src = cfg.products[k]; if (!src) return;
+        (SHOP.products[k] || SHOP.addons[k]).price = src.price;
+        root.querySelectorAll('[data-price="' + k + '"]').forEach((el) => { el.textContent = rp(src.price); });
+      });
+      if (cfg.methods) Object.keys(SHOP.methods).forEach((k) => { if (cfg.methods[k]) Object.assign(SHOP.methods[k], cfg.methods[k]); });
+      render();
+    });
+    render();
+
     orderBtn.addEventListener('click', async () => {
       const emailEl = root.querySelector('#numEmail');
       const phoneEl = root.querySelector('#numPhone');
       const d = calc(true);
       const email = emailEl.value.trim();
-      if (!d) { nameEl.focus(); return warn('Isi nama lengkap dan tanggal lahirmu dulu, lalu tekan tombol ini lagi.'); }
+      if (!d) { nameEl.focus(); return warn('Isi nama lengkap dan tanggal lahirmu dulu (di atas), lalu tekan tombol ini lagi.'); }
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { emailEl.focus(); return warn('Isi alamat email yang valid agar laporan PDF bisa dikirim.'); }
       if (!window.Payment) return warn('Pembayaran belum tersedia. Silakan muat ulang halaman.');
+      fine.classList.remove('promo-warn');
+      const c = cart();
       orderBtn.disabled = true;
       try {
         const res = await window.Payment.checkout({
-          product: 'numerology',
+          items: c.items,
+          method: c.method,
+          title: c.title,
+          amount: c.total,
           customer: { name: d.name, email: email, phone: phoneEl.value.trim() },
           birthdate: d.date
         });
@@ -312,7 +392,7 @@
   function showPaid(orderId, toast, opts) {
     opts = opts || {};
     const wa = PROMO.adminWhatsApp
-      ? '<a class="btn" href="https://wa.me/' + PROMO.adminWhatsApp + '?text=' + encodeURIComponent('Halo, saya sudah membayar Laporan Numerologi. No. pesanan: ' + orderId) + '" target="_blank" rel="noopener">Konfirmasi ke WhatsApp admin</a>'
+      ? '<a class="btn" href="https://wa.me/' + PROMO.adminWhatsApp + '?text=' + encodeURIComponent('Halo, saya sudah membayar laporan Higher Soul. No. pesanan: ' + orderId) + '" target="_blank" rel="noopener">Konfirmasi ke WhatsApp admin</a>'
       : '';
     const html = '<div class="promo-paid"><p class="promo-paid-title">✓ Pembayaran berhasil</p>' +
       '<p>' + PROMO.delivery + (opts.email ? ' (<b>' + opts.email.replace(/[<>&"]/g, '') + '</b>)' : '') + '</p>' +
@@ -332,5 +412,5 @@
     }
   }
 
-  window.Numerology = { PROMO: PROMO, html: html, bind: bind, showPaid: showPaid, lifePath: lifePath, destiny: destiny };
+  window.Numerology = { PROMO: PROMO, SHOP: SHOP, html: html, bind: bind, showPaid: showPaid, lifePath: lifePath, destiny: destiny };
 })();

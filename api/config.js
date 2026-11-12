@@ -1,15 +1,18 @@
 /* GET /api/config — pengaturan publik untuk browser (tanpa kunci rahasia). */
 'use strict';
 const M = require('../lib/midtrans');
+const Meta = require('../lib/meta');
 
 module.exports = (req, res) => {
   const cfg = M.config();
-  if (!cfg.configured) return M.send(res, 200, { mode: 'unconfigured' });
-  M.send(res, 200, {
+  // Pixel ID boleh publik; token Conversions API tidak pernah dikirim ke browser.
+  const meta = { pixelId: Meta.config().pixelId || null };
+  if (!cfg.configured) return M.send(res, 200, Object.assign({ mode: 'unconfigured', meta }, M.catalog.publicCatalog()));
+  M.send(res, 200, Object.assign({
     mode: 'midtrans',
     clientKey: cfg.clientKey,
     isProduction: cfg.isProduction,
     snapJs: cfg.snapBase + '/snap/snap.js',
-    prices: { tarot: M.PRODUCTS.tarot.price, numerology: M.PRODUCTS.numerology.price }
-  });
+    meta
+  }, M.catalog.publicCatalog()));
 };

@@ -524,6 +524,31 @@ textarea::placeholder { color: #8f86b3; }
 .promo-list li > span { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; background: rgba(230, 196, 122, 0.14); color: var(--gold); font-size: 16px; }
 .promo-list li div { font-size: 15px; line-height: 1.5; color: var(--muted); }
 .promo-list li b { display: block; color: #fff; font-size: 16px; margin-bottom: 2px; }
+/* toko laporan */
+.shop-products { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 0 0 18px; }
+.shop-card { position: relative; display: grid; gap: 4px; align-content: start; padding: 16px 16px 14px; border-radius: 16px; cursor: pointer; background: rgba(255, 255, 255, 0.04); border: 1px solid var(--line); transition: border-color .2s, background .2s; }
+.shop-card input { position: absolute; opacity: 0; pointer-events: none; }
+.shop-card b { font-family: var(--font-title); font-size: 16px; color: #fff; padding-right: 64px; line-height: 1.3; }
+.shop-card small { font-size: 14px; color: var(--muted); line-height: 1.45; }
+.shop-price { margin-top: 6px; font-family: var(--font-title); font-size: 20px; color: var(--gold); }
+.shop-card.on { border-color: var(--gold); background: rgba(230, 196, 122, 0.12); box-shadow: 0 0 0 1px var(--gold) inset; }
+.shop-card:focus-within { outline: 2px solid var(--gold); outline-offset: 2px; }
+.shop-badge { position: absolute; top: 12px; right: 12px; padding: 2px 8px; border-radius: 999px; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; background: var(--gold); color: #1a1240; font-weight: 600; }
+.shop-addons { margin: 0 0 18px; display: grid; gap: 8px; }
+.shop-addon, .shop-method { display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: center; padding: 12px 14px; border-radius: 14px; background: rgba(255, 255, 255, 0.04); border: 1px solid var(--line); cursor: pointer; }
+.shop-addon[hidden] { display: none; }
+.shop-addon input, .shop-method input { width: 20px; height: 20px; accent-color: var(--gold); margin: 0; }
+.shop-addon span, .shop-method span { display: grid; gap: 2px; }
+.shop-addon b, .shop-method b { font-size: 15.5px; color: #fff; }
+.shop-addon small, .shop-method small { font-size: 13.5px; color: var(--muted); line-height: 1.4; }
+.shop-addon em { font-style: normal; font-weight: 600; color: var(--gold); white-space: nowrap; }
+.shop-addon:has(input:checked), .shop-method:has(input:checked) { border-color: var(--gold); background: rgba(230, 196, 122, 0.1); }
+.shop-methods { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 0 0 18px; }
+.shop-method { grid-template-columns: auto 1fr; }
+.shop-total { display: grid; gap: 2px; line-height: 1.35; font-size: 14.5px; color: var(--muted); }
+.shop-total b { color: var(--text); font-weight: 500; }
+.shop-total strong { font-family: var(--font-title); font-size: 26px; color: #fff; margin-top: 4px; }
+.shop-free { color: var(--good); }
 .promo-buy { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 20px; border-radius: 18px; background: rgba(230, 196, 122, 0.12); border: 1px solid var(--gold); }
 .promo-price { display: grid; line-height: 1.2; }
 .promo-price span { font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); }
@@ -540,6 +565,7 @@ textarea::placeholder { color: #8f86b3; }
   .nr-medal { width: 82px; height: 82px; }
   .nr-medal span { font-size: 34px; }
   .promo-buy { flex-direction: column; align-items: stretch; text-align: center; }
+  .shop-products { grid-template-columns: 1fr; }
 }
 
 /* ---------- paywall bacaan tarot ---------- */
