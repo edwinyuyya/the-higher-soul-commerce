@@ -8,7 +8,7 @@
 
   const PROMO = {
     // Janji pengiriman laporan yang ditampilkan setelah pembayaran berhasil.
-    delivery: 'Laporan PDF-mu akan dikirim ke email yang kamu isi.',
+    delivery: 'Laporan PDF-mu lagi disiapin dan bakal dikirim ke email yang kamu isi. Cek juga folder spam/promosi, ya.',
     // Opsional: nomor WhatsApp admin untuk konfirmasi, mis. '6281234567890'.
     adminWhatsApp: ''
   };
@@ -16,17 +16,17 @@
   /* Produk yang bisa dipilih di halaman. desc/badge hanya untuk tampilan. */
   const SHOP = {
     products: {
-      lifepath: { name: 'Life Path', price: 79000, desc: 'Sifat, tujuan hidup, karier & cinta dari tanggal lahirmu.' },
-      destiny: { name: 'Destiny Path (Angka Bakat)', price: 79000, desc: 'Bakat alami dari nama lengkapmu & cara memakainya.' },
-      selfpack: { name: 'Paket Kenali Diri', price: 149000, desc: 'Life Path + Angka Bakat + Isi Hati dalam satu laporan.', badge: 'Paling hemat', includes: ['lifepath', 'destiny', 'soul'] },
-      numerology: { name: 'Numerologi Lengkap', price: 249000, desc: '10 halaman: semua angka, karier, cinta, tahun pribadi + zodiak & weton.', badge: 'Terlengkap', includes: ['lifepath', 'destiny', 'soul', 'year'] }
+      lifepath: { name: 'Life Path', price: 79000, desc: 'Kenapa kamu kayak gini. Sifat aslimu, tujuan hidup, kerjaan yang cocok, dan pola cintamu.' },
+      destiny: { name: 'Destiny Path (Angka Bakat)', price: 79000, desc: 'Bakat yang selama ini kamu sia-siakan, plus cara bikin bakat itu jadi duit.' },
+      selfpack: { name: 'Paket Kenali Diri', price: 149000, desc: 'Life Path + Angka Bakat + Isi Hati jadi satu. Lebih murah <span data-save>Rp 38.000</span> daripada beli satu-satu.', badge: 'Paling hemat', includes: ['lifepath', 'destiny', 'soul'] },
+      numerology: { name: 'Numerologi Lengkap', price: 249000, desc: 'Buka semuanya. 10 halaman: semua angkamu, karier, cinta, ramalan tahun ini + zodiak & weton.', badge: 'Terlengkap', includes: ['lifepath', 'destiny', 'soul', 'year'] }
     },
     addons: {
-      soul: { name: 'Isi Hati & Kesan Pertama', price: 29000, desc: 'Apa yang sebenarnya kamu inginkan, dan bagaimana orang melihatmu.' },
-      year: { name: 'Ramalan Tahun Pribadi', price: 29000, desc: 'Tema tahunmu + tema setiap bulan.' }
+      soul: { name: 'Isi Hati & Kesan Pertama', price: 29000, desc: 'Apa yang sebenarnya kamu mau (yang jarang kamu akui), dan kenapa orang sering salah nilai kamu.' },
+      year: { name: 'Ramalan Tahun Pribadi', price: 29000, desc: 'Tahun ini waktunya gas atau rem? Plus tema tiap bulan, biar nggak salah langkah.' }
     },
     methods: {
-      Q: { label: 'QRIS', note: 'Semua e-wallet & m-banking · tanpa biaya', feePct: 0, feeFlat: 0 },
+      Q: { label: 'QRIS', note: 'Scan pakai e-wallet / m-banking apa aja · tanpa biaya', feePct: 0, feeFlat: 0 },
       E: { label: 'GoPay / ShopeePay', note: 'Biaya layanan 2%', feePct: 2, feeFlat: 0 },
       V: { label: 'Virtual Account', note: 'BCA, BNI, BRI, Mandiri, Permata, CIMB · biaya Rp 4.000', feePct: 0, feeFlat: 4000 }
     }
@@ -215,11 +215,11 @@
   function resultHTML(d) {
     const first = esc(d.name.split(/\s+/)[0] || '');
     return '<div class="nr">' +
-      '<p class="nr-hello">Peta angka pribadi' + (first ? ' untuk <b>' + first + '</b>' : '') + '</p>' +
+      '<p class="nr-hello">Nah, ini angka' + (first ? ' <b>' + first + '</b>' : 'mu') + '</p>' +
       readingCard(d.lp, 'lp', lifePathSteps(d.date)) +
       readingCard(d.ds, 'ds', destinySteps(d.name)) +
-      '<div class="nr-combo"><p class="nr-sub">Kalau digabung, artinya…</p><p>' + comboText(d.lp, d.ds) + '</p></div>' +
-      '<p class="promo-tease">Ini baru gambaran singkatnya. Di laporan lengkap, kombinasi <b>' + d.lp + '</b> dan <b>' + d.ds + '</b> dibahas khusus untuk pekerjaan, cinta, dan keuangan kamu.</p>' +
+      '<div class="nr-combo"><p class="nr-sub">Kalau dua angka ini digabung…</p><p>' + comboText(d.lp, d.ds) + '</p></div>' +
+      '<p class="promo-tease">Kena? Ini baru kulitnya. Kombinasi <b>' + d.lp + '</b> dan <b>' + d.ds + '</b> masih nyimpen cerita soal kerjaan, cinta, dan duitmu. Semuanya dibongkar di laporan di bawah.</p>' +
       '</div>';
   }
 
@@ -227,26 +227,26 @@
     return '' +
       '<section class="promo" id="numerologi" aria-labelledby="promoTitle">' +
       '<div class="promo-glow" aria-hidden="true"></div>' +
-      '<p class="promo-eyebrow">Bonus gratis · Numerologi</p>' +
-      '<h3 id="promoTitle">Kartu menjawab pertanyaanmu hari ini.<br><span>Angka kelahiranmu bercerita tentang siapa dirimu.</span></h3>' +
-      '<p>Cukup dengan nama lengkap dan tanggal lahir, kamu bisa tahu dua angka pribadimu:</p>' +
+      '<p class="promo-eyebrow">Gratis · 2 menit · Numerologi</p>' +
+      '<h3 id="promoTitle">Tanggal lahirmu udah ngasih jawabannya.<br><span>Kamu aja yang belum baca.</span></h3>' +
+      '<p>Kerja keras terus tapi rasanya bukan jalanmu? Jatuh cinta ke pola yang sama lagi? Cukup nama lengkap + tanggal lahir, dua angka ini bakal ngejelasin kenapa:</p>' +
       '<div class="promo-paths">' +
-      '<div><span class="pp-ico" aria-hidden="true">☉</span><b>Angka Jalan Hidup</b><p>Dihitung dari <u>tanggal lahir</u>. Menunjukkan arah dan tujuan hidupmu.</p></div>' +
-      '<div><span class="pp-ico" aria-hidden="true">✧</span><b>Angka Bakat</b><p>Dihitung dari <u>nama lengkap</u>. Menunjukkan kelebihan alami yang kamu bawa.</p></div>' +
+      '<div><span class="pp-ico" aria-hidden="true">☉</span><b>Angka Jalan Hidup</b><p>Dari <u>tanggal lahir</u>. Kamu dilahirkan buat apa, dan kenapa jalan lain terasa berat.</p></div>' +
+      '<div><span class="pp-ico" aria-hidden="true">✧</span><b>Angka Bakat</b><p>Dari <u>nama lengkap</u>. Senjata bawaanmu yang mungkin belum pernah kamu pakai.</p></div>' +
       '</div>' +
 
       '<div class="promo-try">' +
-      '<p class="promo-try-title">Hitung angkamu sekarang, gratis</p>' +
+      '<p class="promo-try-title">Cek dulu, gratis. Nggak kena? Nggak usah beli.</p>' +
       '<div class="promo-fields">' +
       '<label for="numName">Nama lengkap (sesuai akta lahir)<input id="numName" type="text" autocomplete="name" placeholder="Contoh: Ayu Kartika Sari"></label>' +
       '<label for="numDate">Tanggal lahir<input id="numDate" type="date" min="1900-01-01" max="2030-12-31"></label>' +
       '</div>' +
-      '<button class="btn btn-primary promo-calc" type="button" id="numCalc">✦ Lihat angkaku</button>' +
+      '<button class="btn btn-primary promo-calc" type="button" id="numCalc">✦ Bongkar angkaku</button>' +
       '</div>' +
       '<div class="promo-result" id="numResult" hidden aria-live="polite"></div>' +
 
       '<div class="promo-report shop">' +
-      '<p class="promo-list-title">Mau tahu lebih banyak? <b>Pilih laporanmu</b> (PDF, dikirim ke email):</p>' +
+      '<p class="promo-list-title">Penasaran lanjutannya? <b>Pilih mau bongkar yang mana</b> (PDF, langsung ke email):</p>' +
       '<div class="shop-products" role="radiogroup" aria-label="Pilih laporan">' +
       Object.keys(SHOP.products).map((k, i) => {
         const p = SHOP.products[k];
@@ -255,7 +255,7 @@
           '<b>' + p.name + '</b><small>' + p.desc + '</small><span class="shop-price" data-price="' + k + '">' + rp(p.price) + '</span></label>';
       }).join('') +
       '</div>' +
-      '<div class="shop-addons" id="numAddons"><p class="promo-try-title">Tambahan (opsional)</p>' +
+      '<div class="shop-addons" id="numAddons"><p class="promo-try-title">Sekalian? (opsional)</p>' +
       Object.keys(SHOP.addons).map((k) => {
         const p = SHOP.addons[k];
         return '<label class="shop-addon" data-key="' + k + '"><input type="checkbox" value="' + k + '"><span><b>+ ' + p.name + '</b><small>' + p.desc + '</small></span><em data-price="' + k + '">' + rp(p.price) + '</em></label>';
@@ -263,7 +263,7 @@
       '</div>' +
 
       '<div class="promo-contact">' +
-      '<p class="promo-try-title">Laporannya dikirim ke mana?</p>' +
+      '<p class="promo-try-title">Kirim ke mana nih?</p>' +
       '<div class="promo-fields">' +
       '<label for="numEmail">Email<input id="numEmail" type="email" autocomplete="email" placeholder="nama@email.com"></label>' +
       '<label for="numPhone">No. WhatsApp (boleh dikosongkan)<input id="numPhone" type="tel" autocomplete="tel" placeholder="08xxxxxxxxxx"></label>' +
@@ -277,7 +277,7 @@
       '<div class="shop-total" id="numTotal"></div>' +
       '<button class="btn btn-primary btn-big promo-cta" type="button" id="numOrder">Bayar</button>' +
       '</div>' +
-      '<p class="promo-fine" id="numFine">Pembayaran diproses aman oleh Midtrans. Laporan dikirim ke email setelah pembayaran lunas.</p>' +
+      '<p class="promo-fine" id="numFine">Bayar aman lewat Midtrans. Laporan meluncur ke email begitu pembayaranmu masuk.</p>' +
       '</div>' +
       '</section>';
   }
@@ -294,7 +294,7 @@
       if (!lp || !ds) {
         if (show) {
           out.hidden = false;
-          out.innerHTML = '<p class="promo-warn">Isi nama lengkap dan tanggal lahir dulu, ya.</p>';
+          out.innerHTML = '<p class="promo-warn">Eits, nama lengkap sama tanggal lahirnya diisi dulu, ya.</p>';
         }
         return null;
       }
@@ -337,6 +337,9 @@
         (c.fee ? '<span>Biaya layanan ' + SHOP.methods[c.method].label + ' <b>' + rp(c.fee) + '</b></span>' : '<span class="shop-free">Tanpa biaya layanan</span>') +
         '<strong>Total ' + rp(c.total) + '</strong>';
       orderBtn.textContent = 'Bayar ' + rp(c.total);
+      const pk = SHOP.products.selfpack;
+      const save = pk.includes.reduce((a, k) => a + ((SHOP.products[k] || SHOP.addons[k]).price), 0) - pk.price;
+      root.querySelectorAll('[data-save]').forEach((el) => { el.textContent = rp(save); });
     }
     root.querySelector('.shop').addEventListener('change', (e) => {
       render();
@@ -360,8 +363,8 @@
       const phoneEl = root.querySelector('#numPhone');
       const d = calc(true);
       const email = emailEl.value.trim();
-      if (!d) { nameEl.focus(); return warn('Isi nama lengkap dan tanggal lahirmu dulu (di atas), lalu tekan tombol ini lagi.'); }
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { emailEl.focus(); return warn('Isi alamat email yang valid agar laporan PDF bisa dikirim.'); }
+      if (!d) { nameEl.focus(); return warn('Eits, nama lengkap & tanggal lahirnya (di atas) belum diisi. Isi dulu, terus pencet tombol ini lagi.'); }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { emailEl.focus(); return warn('Emailnya dicek lagi, ya. Laporanmu bakal nyasar kalau emailnya salah.'); }
       if (!window.Payment) return warn('Pembayaran belum tersedia. Silakan muat ulang halaman.');
       fine.classList.remove('promo-warn');
       const c = cart();
@@ -394,7 +397,7 @@
     const wa = PROMO.adminWhatsApp
       ? '<a class="btn" href="https://wa.me/' + PROMO.adminWhatsApp + '?text=' + encodeURIComponent('Halo, saya sudah membayar laporan Higher Soul. No. pesanan: ' + orderId) + '" target="_blank" rel="noopener">Konfirmasi ke WhatsApp admin</a>'
       : '';
-    const html = '<div class="promo-paid"><p class="promo-paid-title">✓ Pembayaran berhasil</p>' +
+    const html = '<div class="promo-paid"><p class="promo-paid-title">✓ Masuk! Pembayaranmu berhasil</p>' +
       '<p>' + PROMO.delivery + (opts.email ? ' (<b>' + opts.email.replace(/[<>&"]/g, '') + '</b>)' : '') + '</p>' +
       '<p>No. pesanan: <b>' + orderId + '</b>. Simpan nomor ini untuk menanyakan laporanmu.</p>' + wa + '</div>';
     const buy = opts.root && opts.root.querySelector('.promo-buy');

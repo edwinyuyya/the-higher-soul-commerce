@@ -392,21 +392,21 @@
     return new Promise((resolve) => {
       const box = $('#paywall');
       const price = window.Payment ? window.Payment.rupiah(15000) : 'Rp 15.000';
-      setStatus('Kartumu sudah terpilih', 'Empat kartu menunggu untuk dibuka.');
+      setStatus('Kartumu udah kepilih', 'Empat kartu nunggu dibuka. Jawabannya udah ada di situ.');
       box.innerHTML =
         '<div class="pw-cards" aria-hidden="true"><i></i><i></i><i></i><i></i></div>' +
-        '<h2>Buka bacaan kartumu</h2>' +
-        '<p class="pw-lead">Master Tarot siap membuka keempat kartumu dan menjawab pertanyaan yang kamu simpan dalam hati.</p>' +
+        '<h2>Kartunya udah kamu pilih. Berani buka?</h2>' +
+        '<p class="pw-lead">Harganya kurang dari segelas kopi kekinian. Bedanya, yang ini bikin kamu mikir semalaman.</p>' +
         '<ul class="pw-list">' +
-        '<li>Makna lengkap 4 kartu yang kamu pilih, tegak maupun terbalik</li>' +
-        '<li>Jawaban Master Tarot yang disambungkan langsung dengan pertanyaanmu</li>' +
-        '<li>Benang merah masa lalu, kini, dan masa depan, plus langkah yang bisa kamu ambil</li>' +
-        '<li>Boleh bertanya topik lain dengan kartu yang sama, tanpa biaya tambahan</li>' +
+        '<li>Arti 4 kartu pilihanmu, termasuk yang keluar terbalik (biasanya justru yang paling jujur)</li>' +
+        '<li>Jawaban Master Tarot yang nyambung langsung ke pertanyaanmu, bukan ramalan umum</li>' +
+        '<li>Benang merah dulu, sekarang, nanti, plus langkah konkret yang bisa kamu ambil</li>' +
+        '<li>Mau tanya topik lain pakai kartu yang sama? Boleh, nggak bayar lagi</li>' +
         '</ul>' +
-        '<div class="pw-buy"><div class="pw-price"><span>Sekali bayar</span><strong>' + price + '</strong></div>' +
-        '<button class="btn btn-primary btn-big" type="button" id="pwPay">Bayar &amp; buka kartuku</button></div>' +
+        '<div class="pw-buy"><div class="pw-price"><span>Sekali bayar aja</span><strong>' + price + '</strong></div>' +
+        '<button class="btn btn-primary btn-big" type="button" id="pwPay">Buka kartuku sekarang</button></div>' +
         '<p class="pw-methods">QRIS · GoPay · ShopeePay · OVO · DANA · LinkAja · Virtual Account BCA, BNI, BRI, Mandiri, Permata, CIMB</p>' +
-        '<p class="pw-secure">Pembayaran diproses oleh Midtrans, payment gateway berizin Bank Indonesia. Kartu yang kamu pilih tersimpan, jadi aman bila kamu berpindah ke aplikasi e-wallet atau m-banking.</p>';
+        '<p class="pw-secure">Dibayar lewat Midtrans, payment gateway berizin Bank Indonesia. Tenang, kartu pilihanmu nggak bakal hilang walau kamu pindah dulu ke aplikasi e-wallet atau m-banking.</p>';
       box.hidden = false;
       const btn = box.querySelector('#pwPay');
       btn.addEventListener('click', async () => {
