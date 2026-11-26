@@ -77,21 +77,21 @@
   <dialog id="askDialog" class="ask-dialog" aria-labelledby="askTitle">
     <form method="dialog" id="askForm">
       <div class="ask-orb" aria-hidden="true"></div>
-      <h2 id="askTitle">Pertanyaanmu tadi apa?</h2>
-      <p class="ask-sub">Ceritakan pertanyaan yang kamu pikirkan saat memilih kartu. Master Tarot akan membaca kartu-kartumu khusus untuk pertanyaan itu.</p>
+      <h2 id="askTitle">Oke, jujur: tadi nanya apa?</h2>
+      <p class="ask-sub">Tulis pertanyaan yang ada di kepalamu pas milih kartu tadi. Master Tarot bakal baca kartumu khusus buat itu. Aman, nggak ada yang ngintip.</p>
 
-      <label class="field-label" for="questionInput">Tulis pertanyaanmu <span class="opt">(semakin spesifik, semakin nyambung jawabannya)</span></label>
-      <textarea id="questionInput" rows="3" maxlength="300" placeholder="Contoh: Apakah hubunganku dengan dia akan berlanjut ke jenjang serius?"></textarea>
+      <label class="field-label" for="questionInput">Tulis pertanyaanmu <span class="opt">(makin spesifik, makin nembak jawabannya)</span></label>
+      <textarea id="questionInput" rows="3" maxlength="300" placeholder="Contoh: Dia serius nggak sih sama aku?"></textarea>
       <div id="detectHint" class="detect-hint" aria-live="polite"></div>
 
       <fieldset class="topics">
-        <legend class="field-label">Tentang apa?</legend>
+        <legend class="field-label">Soal apa?</legend>
         <div id="topicChips" class="chips"></div>
       </fieldset>
 
       <div class="dialog-actions">
         <button type="button" class="btn btn-ghost" id="askCancel">Nanti dulu</button>
-        <button type="submit" class="btn btn-primary" id="askSubmit" disabled>Sambungkan ✦</button>
+        <button type="submit" class="btn btn-primary" id="askSubmit" disabled>Baca kartuku ✦</button>
       </div>
     </form>
   </dialog>

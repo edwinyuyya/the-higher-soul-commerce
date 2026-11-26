@@ -495,12 +495,12 @@
 
   function renderDetails() {
     const wrap = $('#details');
-    wrap.innerHTML = '<h2 class="sec-title">Makna Kartu-kartumu</h2>' +
-      '<p class="sec-sub">Inilah arti setiap kartu secara umum. Setelah ini, Master Tarot akan membacanya khusus untuk pertanyaanmu.</p>' +
+    wrap.innerHTML = '<h2 class="sec-title">Arti Kartu-kartumu</h2>' +
+      '<p class="sec-sub">Ini arti umum tiap kartu. Bagian serunya nanti: Master Tarot bakal baca semuanya khusus buat pertanyaanmu.</p>' +
       state.picks.map((d, i) => detailHTML(d, E.POSITIONS[i])).join('') +
-      '<div class="ask-inline"><div class="ask-orb" aria-hidden="true"></div><h3>Pertanyaanmu tadi apa?</h3>' +
-      '<p>Tentang cinta, karier, keuangan, atau yang lain? Ceritakan, agar kartu-kartu ini bisa dibaca khusus untukmu.</p>' +
-      '<button class="btn btn-primary" type="button" data-ask>Ceritakan pertanyaanku ✦</button></div>';
+      '<div class="ask-inline"><div class="ask-orb" aria-hidden="true"></div><h3>Oke, jujur: tadi nanya apa?</h3>' +
+      '<p>Soal cinta, kerjaan, duit, atau yang lain? Ceritain aja, biar kartunya dibaca khusus buat kamu, bukan ramalan umum.</p>' +
+      '<button class="btn btn-primary" type="button" data-ask>Ceritain pertanyaanku ✦</button></div>';
     wrap.hidden = false;
     wrap.querySelector('[data-ask]').addEventListener('click', openAsk);
   }
@@ -603,16 +603,16 @@
 
     box.innerHTML =
       '<div class="r-head"><span class="r-topic">' + r.topicIcon + ' ' + r.topicLabel + '</span>' +
-      '<h2>Bacaan Master Tarot</h2><p class="r-intro">' + r.intro + '</p></div>' +
+      '<h2>Kata Master Tarot</h2><p class="r-intro">' + r.intro + '</p></div>' +
 
       (r.answer.text ? '<div class="panel answer">' + (r.answer.quote ? '<p class="q-quote">“' + E.escapeHtml(r.answer.quote) + '”</p>' : '') +
         '<h3>' + r.answer.title + '</h3><p class="big">' + r.answer.text + '</p></div>' : '') +
 
-      '<div class="panel master" id="masterPanel" hidden><h3>✦ Pesan Pribadi Master Tarot</h3>' +
+      '<div class="panel master" id="masterPanel" hidden><h3>✦ Pesan Khusus Buat Kamu</h3>' +
       '<div class="master-text" id="masterText"></div><p class="master-note" id="masterNote"></p></div>' +
 
       '<div class="panel essence tone-' + r.verdict.tone + '">' +
-      '<h3>Jawaban Singkat</h3>' +
+      '<h3>Versi Singkatnya</h3>' +
       '<div class="r-tone">' + r.verdict.label + '</div>' +
       '<div class="meter" aria-hidden="true"><div class="meter-bar"><div class="meter-dot" style="left:50%"></div></div>' +
       '<div class="meter-legend"><span>Masa ujian</span><span>Seimbang</span><span>Sangat mendukung</span></div></div>' +
@@ -624,15 +624,15 @@
       '<p class="sec-sub">Setiap kartu dibaca untuk menjawab: ' + r.focus + '.</p>' +
       posHTML +
 
-      '<div class="panel"><h3>Benang Merah</h3><p>' + r.flow + '</p></div>' +
+      '<div class="panel"><h3>Benang Merahnya</h3><p>' + r.flow + '</p></div>' +
 
-      '<div class="panel"><h3>Pola &amp; Sinyal yang Terbaca</h3><ul class="patterns">' +
+      '<div class="panel"><h3>Kode-kode yang Keliatan</h3><ul class="patterns">' +
       r.patterns.map((p) => '<li><span class="pt">' + p.title + '</span>' + p.text + '</li>').join('') + '</ul></div>' +
 
-      '<div class="panel"><h3>Langkah yang Bisa Kamu Ambil</h3><ol class="steps">' +
+      '<div class="panel"><h3>Terus, Kamu Harus Ngapain?</h3><ol class="steps">' +
       r.steps.map((s) => '<li>' + s + '</li>').join('') + '</ol></div>' +
 
-      '<div class="panel"><h3>Untuk Direnungkan</h3><ul class="reflect">' +
+      '<div class="panel"><h3>Renungin Malam Ini</h3><ul class="reflect">' +
       r.reflections.map((s) => '<li>' + s + '</li>').join('') + '</ul></div>' +
 
       (window.Numerology ? window.Numerology.html() : '') +

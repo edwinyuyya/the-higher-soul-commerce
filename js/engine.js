@@ -12,99 +12,99 @@
       label: 'Cinta & Hubungan', icon: '♡', noun: 'kisah cintamu', primarySuit: 'cups',
       words: ['cinta', 'pacar', 'pacaran', 'gebetan', 'pasangan', 'jodoh', 'nikah', 'menikah', 'pernikahan', 'suami', 'istri', 'mantan', 'crush', 'hubungan', 'perasaan', 'kekasih', 'ldr', 'tunangan', 'lamaran nikah', 'selingkuh', 'putus', 'balikan', 'naksir', 'sayang', 'romantis', 'kencan', 'pdkt', 'lajang', 'jomblo', 'single', 'suka sama', 'dia suka', 'cowok', 'cewek', 'move on', 'patah hati'],
       frames: {
-        lalu: 'Apa yang membentuk kisah cintamu hingga sekarang — pengalaman, luka, atau pola lama yang masih terbawa.',
-        kini: 'Inti dari situasi hatimu saat ini.',
-        depan: 'Ke mana hubungan atau perasaan ini bergerak bila energinya terus berjalan.',
-        kunci: 'Pesan kunci yang membuka jalan cintamu.'
+        lalu: 'Yang bikin kisah cintamu jadi kayak sekarang: pengalaman, luka, atau pola lama yang masih kamu bawa-bawa.',
+        kini: 'Kondisi hatimu yang sebenarnya, sekarang.',
+        depan: 'Ke mana hubungan atau perasaan ini bakal jalan kalau nggak ada yang berubah.',
+        kunci: 'Kunci yang ngebuka jalan cintamu.'
       },
-      revHint: 'Dalam urusan hati, ini sering menandakan perasaan atau hambatan yang belum diakui dengan jujur.',
+      revHint: 'Di urusan hati, ini sering tanda ada perasaan atau hambatan yang belum kamu akui jujur-jujuran.',
       actions: {
-        open: ['Ungkapkan perasaanmu dengan jujur dan hangat — jangan menunggu dia menebak.', 'Ciptakan momen berkualitas: waktu berdua tanpa gawai, obrolan dari hati ke hati.', 'Tetap jadi dirimu sendiri; daya tarik terbesarmu adalah ketulusan.'],
-        hold: ['Beri jeda sebelum mengambil keputusan besar tentang hubungan ini.', 'Perhatikan pola yang berulang — apa yang terus kamu toleransi padahal menyakitkan?', 'Rawat dirimu dulu; cinta yang sehat dimulai dari hati yang tidak kosong.']
+        open: ['Bilang perasaanmu, jujur dan hangat. Jangan nunggu dia nebak-nebak.', 'Bikin waktu berdua yang beneran: HP disimpen, ngobrol dari hati ke hati.', 'Tetap jadi dirimu sendiri. Daya tarik terbesarmu itu ketulusan, bukan pencitraan.'],
+        hold: ['Kasih jeda dulu sebelum ambil keputusan besar soal hubungan ini.', 'Perhatiin pola yang keulang: apa yang terus kamu maklumin padahal nyakitin?', 'Urus dirimu dulu. Cinta yang sehat mulainya dari hati yang nggak kosong.']
       },
-      reflections: ['Apa yang sebenarnya paling kamu butuhkan dari sebuah hubungan?', 'Bagian mana dari dirimu yang masih takut untuk sepenuhnya dicintai?', 'Jika kamu tidak takut kehilangan, apa yang akan kamu katakan atau lakukan?']
+      reflections: ['Jujur deh, sebenarnya kamu butuh apa dari sebuah hubungan?', 'Bagian mana dari dirimu yang masih takut disayang sepenuhnya?', 'Kalau kamu nggak takut kehilangan, apa yang bakal kamu omongin atau lakuin?']
     },
     karir: {
       label: 'Karier & Pekerjaan', icon: '✦', noun: 'perjalanan kariermu', primarySuit: 'wands',
       words: ['kerja', 'kerjaan', 'pekerjaan', 'karir', 'karier', 'kantor', 'bos', 'atasan', 'rekan kerja', 'promosi', 'jabatan', 'lamar kerja', 'melamar', 'interview', 'wawancara', 'resign', 'phk', 'bisnis', 'usaha', 'proyek', 'project', 'klien', 'kuliah', 'sekolah', 'ujian', 'beasiswa', 'skripsi', 'tesis', 'magang', 'cpns', 'kontrak', 'startup', 'freelance', 'pindah kerja', 'naik jabatan', 'lowongan', 'profesi'],
       frames: {
-        lalu: 'Fondasi dan pengalaman kerja yang membawamu ke titik ini.',
-        kini: 'Kondisi nyata pekerjaan atau kariermu saat ini.',
-        depan: 'Arah karier yang sedang terbentuk.',
-        kunci: 'Strategi kunci untuk langkah kariermu berikutnya.'
+        lalu: 'Pengalaman kerja yang bawa kamu sampai titik ini.',
+        kini: 'Kondisi kerjaan atau kariermu yang sebenarnya, sekarang.',
+        depan: 'Arah karier yang lagi kebentuk.',
+        kunci: 'Jurus buat langkah kariermu berikutnya.'
       },
-      revHint: 'Dalam dunia kerja, ini sering berarti ada hambatan, penundaan, atau potensi yang belum kamu pakai sepenuhnya.',
+      revHint: 'Di dunia kerja, ini sering artinya ada hambatan, molor, atau potensi yang belum kamu pakai maksimal.',
       actions: {
-        open: ['Ambil inisiatif: ajukan ide, lamar posisi itu, atau mulai proyekmu sekarang.', 'Tunjukkan karyamu — orang yang tepat perlu melihat kemampuanmu.', 'Bangun jejaring dengan orang-orang yang selangkah di depanmu.'],
-        hold: ['Evaluasi ulang strategimu sebelum mengambil langkah besar.', 'Perkuat keterampilan inti dan dokumentasikan pencapaianmu.', 'Jaga energi — batasi beban kerja yang tidak sejalan dengan tujuanmu.']
+        open: ['Gerak duluan: ajuin ide itu, lamar posisi itu, atau mulai proyekmu sekarang.', 'Pamerin karyamu. Orang yang tepat perlu lihat kemampuanmu, mereka nggak bisa nebak.', 'Deketin orang-orang yang selangkah di depanmu.'],
+        hold: ['Cek ulang strategimu sebelum ambil langkah besar.', 'Asah skill utamamu dan catat semua pencapaianmu.', 'Jaga tenaga. Kurangi kerjaan yang nggak nyambung sama tujuanmu.']
       },
-      reflections: ['Pekerjaan seperti apa yang membuatmu merasa hidup, bukan sekadar sibuk?', 'Apa yang akan kamu kejar jika kamu yakin tidak akan gagal?', 'Keterampilan apa yang sedang diminta semesta untuk kamu asah?']
+      reflections: ['Kerjaan kayak apa yang bikin kamu ngerasa hidup, bukan cuma sibuk?', 'Kalau kamu yakin nggak bakal gagal, apa yang bakal kamu kejar?', 'Skill apa yang lagi "diminta" hidup buat kamu asah?']
     },
     keuangan: {
       label: 'Keuangan & Rezeki', icon: '◈', noun: 'kondisi keuanganmu', primarySuit: 'pentacles',
       words: ['uang', 'keuangan', 'finansial', 'gaji', 'utang', 'hutang', 'cicilan', 'kredit', 'investasi', 'saham', 'kripto', 'crypto', 'tabungan', 'menabung', 'rezeki', 'rejeki', 'modal', 'pinjaman', 'kaya', 'pemasukan', 'penghasilan', 'pendapatan', 'bayar', 'beli rumah', 'aset', 'omzet', 'profit', 'untung', 'rugi', 'dana', 'warisan', 'bonus', 'jualan', 'dagangan'],
       frames: {
-        lalu: 'Kebiasaan dan keputusan finansial yang membentuk kondisimu sekarang.',
-        kini: 'Gambaran keuanganmu saat ini.',
-        depan: 'Arah aliran rezekimu ke depan.',
-        kunci: 'Kunci untuk mengelola dan membuka rezeki.'
+        lalu: 'Kebiasaan dan keputusan duit yang bikin kondisimu kayak sekarang.',
+        kini: 'Kondisi keuanganmu yang sebenarnya, sekarang.',
+        depan: 'Ke mana arah rezekimu.',
+        kunci: 'Kunci buat ngatur dan ngebuka rezeki.'
       },
-      revHint: 'Dalam urusan uang, ini sering menandakan kebocoran, penundaan, atau keputusan yang perlu ditinjau ulang.',
+      revHint: 'Di urusan duit, ini sering tanda ada yang bocor, molor, atau keputusan yang perlu dicek ulang.',
       actions: {
-        open: ['Wujudkan peluang pemasukan yang sudah kamu lihat — mulai dari langkah kecil yang terukur.', 'Alokasikan sebagian hasil untuk tabungan dan dana darurat sebelum dibelanjakan.', 'Investasikan pada keterampilan yang meningkatkan nilai dirimu.'],
-        hold: ['Catat semua pengeluaran selama 30 hari untuk menemukan kebocoran.', 'Tunda pembelian besar dan hindari utang konsumtif baru.', 'Konsultasikan rencana besar dengan orang yang paham keuangan.']
+        open: ['Peluang pemasukan yang udah kamu lihat? Eksekusi, mulai dari langkah kecil yang keukur.', 'Sisihin buat tabungan dan dana darurat duluan, baru belanja.', 'Investasi ke skill yang bikin harga dirimu naik.'],
+        hold: ['Catat semua pengeluaran 30 hari. Kamu bakal kaget bocornya di mana.', 'Tahan dulu belanja besar dan jangan nambah utang konsumtif.', 'Rencana besar? Obrolin dulu sama orang yang paham keuangan.']
       },
-      reflections: ['Apa arti "cukup" bagimu?', 'Keyakinan apa tentang uang yang kamu warisi dari keluargamu?', 'Pengeluaran mana yang benar-benar membuatmu bahagia, dan mana yang hanya pelarian?'],
-      disclaimer: 'Bacaan tarot adalah sarana refleksi, bukan nasihat keuangan profesional. Untuk keputusan investasi atau utang, pertimbangkan saran ahli.'
+      reflections: ['"Cukup" buatmu itu sebenarnya berapa?', 'Keyakinan soal duit apa yang kamu warisin dari keluarga?', 'Pengeluaran mana yang beneran bikin bahagia, dan mana yang cuma pelarian?'],
+      disclaimer: 'Tarot itu buat ngaca, bukan nasihat keuangan profesional. Buat keputusan investasi atau utang, tanya juga ke ahlinya.'
     },
     kesehatan: {
       label: 'Kesehatan & Vitalitas', icon: '❋', noun: 'kesehatan dan vitalitasmu', primarySuit: 'pentacles',
       words: ['sehat', 'kesehatan', 'sakit', 'penyakit', 'operasi', 'diet', 'berat badan', 'olahraga', 'stres', 'stress', 'cemas', 'kecemasan', 'mental', 'tidur', 'insomnia', 'hamil', 'kehamilan', 'pemulihan', 'sembuh', 'dokter', 'rumah sakit', 'badan', 'tubuh', 'capek', 'lelah', 'burnout', 'depresi', 'energi', 'imun', 'program hamil'],
       frames: {
-        lalu: 'Pola dan kebiasaan yang memengaruhi kondisi tubuh dan pikiranmu.',
-        kini: 'Keadaan energi dan kesehatanmu saat ini.',
-        depan: 'Arah pemulihan dan vitalitasmu.',
-        kunci: 'Kunci untuk menjaga keseimbangan tubuh dan pikiran.'
+        lalu: 'Kebiasaan yang ngaruh ke badan dan pikiranmu.',
+        kini: 'Kondisi tenaga dan kesehatanmu sekarang.',
+        depan: 'Arah pemulihan dan tenagamu.',
+        kunci: 'Kunci biar badan dan pikiran tetap seimbang.'
       },
-      revHint: 'Untuk kesehatan, ini sering berarti tubuh atau pikiran sedang meminta perhatian lebih — jangan diabaikan.',
+      revHint: 'Soal kesehatan, ini sering artinya badan atau pikiranmu lagi minta diperhatiin. Jangan dicuekin.',
       actions: {
-        open: ['Pertahankan rutinitas yang sudah berjalan baik dan tambahkan satu kebiasaan sehat baru.', 'Bergeraklah setiap hari — jalan pagi di bawah sinar matahari sangat dianjurkan.', 'Rayakan kemajuan kecilmu; tubuh merespons rasa syukur.'],
-        hold: ['Prioritaskan tidur dan istirahat; kurangi begadang dan layar di malam hari.', 'Periksakan keluhan yang mengganggu ke tenaga medis — jangan ditunda.', 'Kelola stres: bernapas dalam, menulis jurnal, atau bicara dengan orang tepercaya.']
+        open: ['Rutinitas yang udah bagus, terusin. Tambah satu kebiasaan sehat baru.', 'Gerak tiap hari. Jalan pagi kena matahari itu murah dan ampuh.', 'Rayain kemajuan kecilmu. Badan ngerespons rasa syukur.'],
+        hold: ['Tidur dulu yang bener. Kurangi begadang dan scroll HP malam-malam.', 'Ada keluhan yang ganggu? Periksain ke tenaga medis, jangan ditunda.', 'Kelola stres: tarik napas dalam, nulis jurnal, atau cerita ke orang yang kamu percaya.']
       },
-      reflections: ['Apa yang sedang coba disampaikan tubuhmu akhir-akhir ini?', 'Kebiasaan kecil apa yang paling berdampak pada energimu?', 'Kapan terakhir kali kamu benar-benar beristirahat tanpa rasa bersalah?'],
-      disclaimer: 'Bacaan tarot bukan diagnosis atau pengganti saran medis. Jika ada keluhan kesehatan, konsultasikan dengan dokter atau tenaga kesehatan profesional.'
+      reflections: ['Badanmu akhir-akhir ini lagi coba ngomong apa?', 'Kebiasaan kecil apa yang paling ngaruh ke tenagamu?', 'Kapan terakhir kamu istirahat beneran tanpa ngerasa bersalah?'],
+      disclaimer: 'Tarot bukan diagnosis dan bukan pengganti dokter. Kalau ada keluhan kesehatan, periksain ke dokter atau tenaga kesehatan, ya.'
     },
     diri: {
       label: 'Diri & Spiritual', icon: '☾', noun: 'perjalanan batinmu', primarySuit: 'cups',
       words: ['diri', 'diriku', 'jati diri', 'spiritual', 'tujuan hidup', 'makna', 'jiwa', 'batin', 'healing', 'berkembang', 'pengembangan diri', 'percaya diri', 'bahagia', 'kebahagiaan', 'takdir', 'panggilan', 'meditasi', 'ibadah', 'karma', 'arah hidup', 'bingung', 'potensi', 'passion', 'insecure', 'self love', 'mencintai diri', 'masa depanku', 'hidupku'],
       frames: {
-        lalu: 'Pelajaran jiwa yang sudah kamu lalui.',
-        kini: 'Tahap perjalanan batinmu saat ini.',
-        depan: 'Versi dirimu yang sedang tumbuh.',
-        kunci: 'Pesan jiwa yang perlu kamu dengar.'
+        lalu: 'Pelajaran hidup yang udah kamu lewatin.',
+        kini: 'Posisi batinmu sekarang.',
+        depan: 'Versi dirimu yang lagi tumbuh.',
+        kunci: 'Pesan yang perlu banget kamu denger.'
       },
-      revHint: 'Dalam perjalanan batin, ini sering menandakan pelajaran yang belum selesai atau bagian diri yang belum diterima.',
+      revHint: 'Di urusan batin, ini sering tanda ada pelajaran yang belum kelar, atau bagian dirimu yang belum kamu terima.',
       actions: {
-        open: ['Luangkan 10 menit setiap hari untuk hening — meditasi, doa, atau sekadar duduk diam.', 'Ikuti rasa ingin tahumu; pelajari hal yang memanggil jiwamu.', 'Ekspresikan dirimu lewat karya — menulis, menggambar, atau bergerak.'],
-        hold: ['Tulis jurnal tentang pola yang terus berulang dalam hidupmu.', 'Maafkan dirimu atas versi lama yang belum tahu apa yang kamu tahu sekarang.', 'Kurangi kebisingan luar — media sosial, opini orang — agar suaramu sendiri terdengar.']
+        open: ['Sisihin 10 menit sehari buat hening: meditasi, doa, atau duduk diam aja.', 'Ikutin rasa penasaranmu. Pelajarin hal yang bikin kamu "nyala".', 'Keluarin isi kepalamu lewat karya: nulis, gambar, atau gerak.'],
+        hold: ['Tulis jurnal soal pola yang terus keulang di hidupmu.', 'Maafin dirimu yang dulu. Dia belum tahu apa yang kamu tahu sekarang.', 'Kurangi berisik dari luar (medsos, omongan orang) biar suaramu sendiri kedengeran.']
       },
-      reflections: ['Siapa dirimu ketika tidak sedang berusaha memenuhi ekspektasi siapa pun?', 'Pelajaran apa yang terus kembali sampai kamu benar-benar memahaminya?', 'Apa yang akan kamu lepaskan jika kamu percaya hidup sedang menuntunmu?']
+      reflections: ['Kamu itu siapa, kalau lagi nggak berusaha nyenengin siapa-siapa?', 'Pelajaran apa yang terus balik lagi sampai kamu beneran ngerti?', 'Kalau kamu percaya hidup lagi nuntun kamu, apa yang bakal kamu lepasin?']
     },
     keluarga: {
       label: 'Keluarga & Pertemanan', icon: '❂', noun: 'hubunganmu dengan keluarga dan sahabat', primarySuit: 'cups',
       words: ['keluarga', 'orang tua', 'orangtua', 'ortu', 'ayah', 'ibu', 'bapak', 'mama', 'papa', 'anak', 'adik', 'kakak', 'saudara', 'mertua', 'teman', 'sahabat', 'pertemanan', 'geng', 'tetangga', 'rumah tangga', 'keponakan', 'sepupu', 'nenek', 'kakek', 'circle', 'bestie', 'rekan'],
       frames: {
-        lalu: 'Sejarah dan dinamika yang membentuk hubunganmu dengan mereka.',
-        kini: 'Suasana hubungan keluarga atau pertemanan saat ini.',
-        depan: 'Arah hubungan ini ke depan.',
-        kunci: 'Kunci untuk merawat ikatan ini.'
+        lalu: 'Sejarah dan drama yang ngebentuk hubunganmu sama mereka.',
+        kini: 'Suasana hubungan keluarga atau pertemananmu sekarang.',
+        depan: 'Arah hubungan ini ke depannya.',
+        kunci: 'Kunci buat ngerawat ikatan ini.'
       },
-      revHint: 'Dalam keluarga dan pertemanan, ini sering berarti ada hal yang tidak terucap atau batasan yang belum jelas.',
+      revHint: 'Di keluarga dan pertemanan, ini sering artinya ada yang nggak keomong, atau batasan yang belum jelas.',
       actions: {
-        open: ['Ambil inisiatif untuk berkumpul atau menghubungi lebih dulu.', 'Ucapkan terima kasih dan apresiasi secara langsung — jangan hanya dipendam.', 'Ciptakan tradisi kecil bersama yang menghangatkan.'],
-        hold: ['Dengarkan untuk memahami, bukan untuk membalas.', 'Pasang batasan yang sehat dengan lembut namun tegas.', 'Beri waktu; tidak semua luka keluarga sembuh dalam satu percakapan.']
+        open: ['Ngajak ketemu atau chat duluan. Nggak usah gengsi.', 'Bilang makasih langsung. Jangan cuma dipendem.', 'Bikin tradisi kecil bareng yang bikin hangat.'],
+        hold: ['Dengerin buat ngerti, bukan buat ngebales.', 'Pasang batasan yang sehat: halus, tapi tegas.', 'Kasih waktu. Luka keluarga nggak sembuh dalam satu obrolan.']
       },
-      reflections: ['Peran apa yang selama ini kamu mainkan dalam keluargamu — dan apakah kamu masih ingin memainkannya?', 'Siapa yang benar-benar ada untukmu, dan sudahkah kamu menunjukkannya kepada mereka?', 'Batasan apa yang perlu kamu buat agar bisa mencintai tanpa kehilangan diri?']
+      reflections: ['Peran apa yang selama ini kamu mainin di keluarga, dan kamu masih mau mainin itu?', 'Siapa yang beneran ada buat kamu, dan udah kamu tunjukin belum kalau kamu sadar?', 'Batasan apa yang perlu kamu pasang biar bisa sayang tanpa kehilangan diri?']
     }
   };
 
@@ -112,7 +112,7 @@
     { key: 'lalu', label: 'Masa Lalu', sub: 'Akar situasi', weight: 0.5 },
     { key: 'kini', label: 'Masa Kini', sub: 'Inti persoalan', weight: 1 },
     { key: 'depan', label: 'Masa Depan', sub: 'Arah energi', weight: 1.3 },
-    { key: 'kunci', label: 'Kartu Kunci', sub: '+1 Pesan penuntun', weight: 0.8 }
+    { key: 'kunci', label: 'Kartu Kunci', sub: '+1 Pesan buat kamu', weight: 0.8 }
   ];
 
   /* ---------------- UTIL ---------------- */
@@ -166,7 +166,7 @@
     if (c.arcana === 'major') {
       const base = c.topics[topic];
       if (!d.reversed) return base;
-      return 'Dalam posisi tegak, kartu ini berarti: “' + base + '” Namun karena muncul terbalik, energinya berbalik arah — ' +
+      return 'Kalau tegak, artinya: “' + base + '” Tapi kartunya keluar terbalik, jadi energinya kebalik: ' +
         lowerFirst(stripRevPrefix(c.rev)) + ' ' + T.revHint;
     }
     const suit = SUITS[c.suit];
@@ -174,35 +174,35 @@
     const lens = suit.lens[topic];
     const rt = rank.topics[topic];
     if (!d.reversed) {
-      return lens + ' ' + rt + ' Inti energinya: ' + c.kwUp.join(', ') + '.';
+      return lens + ' ' + rt + ' Intinya: ' + c.kwUp.join(', ') + '.';
     }
-    return lens + ' Tema dasarnya adalah ' + rank.theme + ' — ' + lowerFirst(rt) + ' Namun karena muncul terbalik, ' + rank.rev + ' ' + c.rev + ' ' + T.revHint;
+    return lens + ' Tema dasarnya ' + rank.theme + ': ' + lowerFirst(rt) + ' Tapi karena keluar terbalik, ' + rank.rev + ' ' + c.rev + ' ' + T.revHint;
   }
 
   function relevance(d, topic) {
     const c = d.card;
     if (c.arcana === 'major') {
-      return { score: topic === 'diri' ? 1 : 0.85, label: 'Arcana Mayor — pesan takdir', level: 'high' };
+      return { score: topic === 'diri' ? 1 : 0.85, label: 'Arcana Mayor: ini pesan besar', level: 'high' };
     }
     const a = SUITS[c.suit].affinity[topic];
-    if (a >= 0.85) return { score: a, label: 'Sangat terhubung dengan topikmu', level: 'high' };
-    if (a >= 0.6) return { score: a, label: 'Terhubung dengan topikmu', level: 'mid' };
-    return { score: a, label: 'Pesan dari sudut lain', level: 'low' };
+    if (a >= 0.85) return { score: a, label: 'Nyambung banget sama pertanyaanmu', level: 'high' };
+    if (a >= 0.6) return { score: a, label: 'Nyambung sama pertanyaanmu', level: 'mid' };
+    return { score: a, label: 'Pesan dari arah yang nggak kamu duga', level: 'low' };
   }
 
   function positionOpening(d, posKey, T) {
     const name = '<b>' + shortName(d) + '</b>';
     switch (posKey) {
-      case 'lalu': return 'Di posisi Masa Lalu, ' + name + ' menunjukkan bahwa ' + T.noun + ' berakar pada ' + kwText(d) + '.';
-      case 'kini': return 'Saat ini, ' + name + ' menempatkan ' + kwText(d) + ' sebagai inti ' + T.noun + '.';
-      case 'depan': return 'Ke depan, ' + name + ' memperlihatkan energi yang bergerak menuju ' + kwText(d) + '.';
-      default: return 'Sebagai Kartu Kunci, ' + name + ' berbisik: “' + keyAdvice(d) + '”';
+      case 'lalu': return 'Di Masa Lalu ada ' + name + '. Artinya ' + T.noun + ' berakar dari ' + kwText(d) + '.';
+      case 'kini': return 'Sekarang, ' + name + ' bilang intinya ' + T.noun + ' itu ' + kwText(d) + '.';
+      case 'depan': return 'Ke depan, ' + name + ' nunjukin energinya lagi jalan ke arah ' + kwText(d) + '.';
+      default: return 'Kartu Kuncimu, ' + name + ', bilang: “' + keyAdvice(d) + '”';
     }
   }
 
   function keyAdvice(d) {
     if (!d.reversed) return d.card.advice;
-    return d.card.advice + ' Namun, bereskan dulu ' + d.card.kwRev[0] + ' yang mungkin menghalangi.';
+    return d.card.advice + ' Tapi beresin dulu ' + d.card.kwRev[0] + ' yang mungkin lagi ngeganjel.';
   }
 
   function lowRelevanceNote(d, topic) {
@@ -210,8 +210,8 @@
     if (c.arcana === 'major') return '';
     const suit = SUITS[c.suit];
     if (suit.affinity[topic] >= 0.6) return '';
-    return 'Menariknya, kartu ini datang dari wilayah ' + suit.domain + ' — bukan wilayah utama ' + TOPICS[topic].label.toLowerCase() +
-      '. Ini isyarat bahwa ' + T_noun(topic) + ' sedang dipengaruhi oleh hal-hal ' + suit.hidden + '.';
+    return 'Nah, ini menarik. Kartu ini datang dari urusan ' + suit.domain + ', bukan urusan ' + TOPICS[topic].label.toLowerCase() +
+      '. Kode keras: ' + T_noun(topic) + ' lagi dipengaruhi hal-hal ' + suit.hidden + '.';
   }
   const T_noun = (topic) => TOPICS[topic].noun;
 
@@ -239,28 +239,28 @@
   /* ---------------- VERDICT ---------------- */
   function verdictFor(score, T) {
     const N = upperFirst(T.noun);
-    if (score >= 1.1) return { tone: 'sangat-positif', label: 'Energi sangat mendukung', yes: 'Ya — energinya sangat mendukung.',
-      text: 'Kartu-kartu yang keluar memancarkan energi yang kuat dan terang untuk ' + T.noun + '. Peluangnya terbuka lebar — selama kamu tetap terlibat aktif dan tidak menunggu saja.' };
-    if (score >= 0.4) return { tone: 'positif', label: 'Cenderung positif', yes: 'Cenderung ya, dengan usaha dan kesabaran.',
-      text: 'Secara keseluruhan, arah ' + T.noun + ' positif. Ada hal yang perlu dirawat, tetapi angin sedang berembus ke arahmu.' };
-    if (score >= -0.3) return { tone: 'netral', label: 'Seimbang — bergantung pada pilihanmu', yes: 'Belum pasti — jawabannya masih dibentuk oleh pilihan dan sikapmu.',
-      text: N + ' sedang berada di persimpangan. Kartu tidak menunjukkan hasil yang sudah pasti — pilihan dan sikapmu sekarang yang akan menjadi penentu.' };
-    if (score >= -1) return { tone: 'tantangan', label: 'Ada tantangan yang perlu dilalui', yes: 'Cenderung belum untuk saat ini — ada yang perlu dibenahi lebih dulu.',
-      text: 'Ada hambatan nyata dalam ' + T.noun + '. Ini bukan berarti gagal, melainkan ada pelajaran yang perlu diselesaikan sebelum jalan terbuka.' };
-    return { tone: 'berat', label: 'Masa ujian & pemulihan', yes: 'Untuk saat ini belum — energinya meminta kamu memulihkan diri atau mengubah arah dulu.',
-      text: 'Kartu menunjukkan masa yang berat untuk ' + T.noun + '. Fokuslah pada pemulihan, kejujuran, dan langkah-langkah kecil — fase ini sedang membentukmu menjadi lebih kuat.' };
+    if (score >= 1.1) return { tone: 'sangat-positif', label: 'Lampu hijau terang', yes: 'Ya. Energinya dukung banget.',
+      text: 'Kartunya terang benderang buat ' + T.noun + '. Peluangnya kebuka lebar, asal kamu ikut gerak, bukan cuma nunggu.' };
+    if (score >= 0.4) return { tone: 'positif', label: 'Cenderung lampu hijau', yes: 'Cenderung ya, asal kamu usaha dan sabar.',
+      text: 'Overall, arah ' + T.noun + ' positif. Ada yang perlu dirawat, tapi anginnya lagi ke arahmu.' };
+    if (score >= -0.3) return { tone: 'netral', label: 'Lampu kuning: tergantung kamu', yes: 'Belum pasti. Jawabannya masih ditentuin pilihan dan sikapmu.',
+      text: N + ' lagi di persimpangan. Kartunya nggak nunjukin hasil yang udah pasti. Yang nentuin justru pilihan dan sikapmu sekarang.' };
+    if (score >= -1) return { tone: 'tantangan', label: 'Lampu kuning ke merah: ada PR', yes: 'Cenderung belum, untuk sekarang. Ada yang perlu dibenerin dulu.',
+      text: 'Ada hambatan nyata di ' + T.noun + '. Bukan berarti gagal, tapi ada PR yang harus kelar dulu sebelum jalannya kebuka.' };
+    return { tone: 'berat', label: 'Lampu merah: waktunya pulih dulu', yes: 'Untuk sekarang belum. Energinya minta kamu pulih atau ganti arah dulu.',
+      text: 'Jujur aja, kartunya nunjukin masa yang berat buat ' + T.noun + '. Fokus ke pulih, jujur sama diri sendiri, dan langkah kecil. Fase ini lagi nempa kamu jadi lebih kuat.' };
   }
 
   function timingFor(d) {
     const c = d.card;
     let t;
-    if (c.arcana === 'major') t = 'terkait momen penting yang tidak bisa dipaksa — terjadi ketika takdir dan kesiapanmu bertemu. Perhatikan pertanda dan titik balik dalam hidupmu.';
-    else if (c.suit === 'wands') t = 'relatif cepat — dalam hitungan hari hingga beberapa minggu (energi api bergerak cepat).';
-    else if (c.suit === 'swords') t = 'cepat, namun bergantung pada keputusan yang kamu ambil — dalam hitungan hari hingga minggu setelah kamu memutuskan.';
-    else if (c.suit === 'cups') t = 'mengikuti kesiapan hati — dalam beberapa minggu hingga beberapa bulan.';
-    else t = 'bertahap — dalam hitungan bulan, bahkan lebih, karena energi tanah tumbuh perlahan namun pasti.';
-    if (d.reversed) t += ' Karena kartunya terbalik, ada kemungkinan tertunda sampai hambatannya dibereskan.';
-    return 'Kartu Masa Depan (' + shortName(d) + ') mengisyaratkan waktunya ' + t;
+    if (c.arcana === 'major') t = 'nyangkut ke momen penting yang nggak bisa dipaksa. Kejadiannya pas takdir dan kesiapanmu ketemu. Perhatiin pertanda dan titik balik di hidupmu.';
+    else if (c.suit === 'wands') t = 'lumayan cepet: hitungan hari sampai beberapa minggu (energi api geraknya cepet).';
+    else if (c.suit === 'swords') t = 'cepet, tapi tergantung keputusanmu: hitungan hari sampai minggu setelah kamu mutusin.';
+    else if (c.suit === 'cups') t = 'ngikutin kesiapan hati: beberapa minggu sampai beberapa bulan.';
+    else t = 'bertahap: hitungan bulan, bisa lebih, karena energi tanah tumbuhnya pelan tapi pasti.';
+    if (d.reversed) t += ' Kartunya terbalik, jadi bisa molor sampai hambatannya kamu beresin.';
+    return 'Kartu Masa Depan (' + shortName(d) + ') ngasih kode waktunya ' + t;
   }
 
   const band = (p) => (p >= 1 ? 'pos' : p <= -1 ? 'neg' : 'mid');
@@ -287,10 +287,10 @@
     /* --- pembuka --- */
     let intro = '';
     if (question) {
-      intro = 'Kamu bertanya: <q>' + escapeHtml(question) + '</q>. Master Tarot menangkap inti pertanyaanmu: <b>' + focus + '</b>' +
-        (sc ? '' : ' (dalam ranah ' + T.label + ')') + '. Setiap kartu di bawah dibaca untuk menjawab hal itu.';
+      intro = 'Pertanyaanmu: <q>' + escapeHtml(question) + '</q>. Yang sebenarnya kamu pengin tahu: <b>' + focus + '</b>' +
+        (sc ? '' : ' (urusan ' + T.label + ')') + '. Semua kartu di bawah dibaca buat jawab itu. Siap?';
     } else {
-      intro = 'Pertanyaanmu berada di ranah <b>' + T.label + '</b>. Master Tarot menyambungkan setiap kartu yang kamu pilih dengan ' + T.noun + '. Tulis pertanyaanmu untuk jawaban yang lebih spesifik.';
+      intro = 'Pertanyaanmu soal <b>' + T.label + '</b>. Semua kartu pilihanmu disambungin ke ' + T.noun + '. Mau jawaban yang lebih nembak? Tulis pertanyaanmu.';
     }
 
     /* --- kalimat penghubung kartu ↔ pertanyaan --- */
@@ -299,18 +299,18 @@
       const k = d.pos.key;
       if (sc && (k === 'kini' || k === 'depan')) return fill(sc[k][b], d);
       if (k === 'lalu') {
-        return 'Akar dari ' + focus + ' ada pada <b>' + kwText(d) + '</b> (' + shortName(d) + '). ' +
-          (b === 'neg' ? 'Pengalaman ini meninggalkan bekas dan masih memengaruhi caramu melihat situasi sekarang.'
-            : b === 'pos' ? 'Ini fondasi yang baik, modal yang bisa kamu andalkan.'
-              : 'Pola inilah yang membentuk situasimu sekarang.');
+        return 'Akar dari ' + focus + ' ada di <b>' + kwText(d) + '</b> (' + shortName(d) + '). ' +
+          (b === 'neg' ? 'Pengalaman ini ninggalin bekas, dan masih ngaruh ke caramu ngeliat situasi sekarang.'
+            : b === 'pos' ? 'Ini modal bagus yang bisa kamu andelin.'
+              : 'Pola inilah yang bikin situasimu kayak sekarang.');
       }
       if (k === 'kunci') {
-        return 'Untuk ' + focus + ', kuncinya: “' + keyAdvice(d) + '”' + (sc ? ' ' + sc.tip : '');
+        return 'Buat ' + focus + ', kuncinya: “' + keyAdvice(d) + '”' + (sc ? ' ' + sc.tip : '');
       }
       // tanpa skenario: kini/depan
-      return (k === 'kini' ? 'Untuk ' + focus + ' saat ini, ' : 'Ke depan, ' + focus + ' ') +
-        (k === 'kini' ? 'yang paling menonjol adalah <b>' + kwText(d) + '</b>.' : 'bergerak menuju <b>' + kwText(d) + '</b>.') +
-        (b === 'pos' ? ' Ini pertanda yang mendukung.' : b === 'neg' ? ' Ini area yang perlu kamu waspadai dan benahi.' : ' Hasilnya masih bisa kamu bentuk.');
+      return (k === 'kini' ? 'Buat ' + focus + ' sekarang, ' : 'Ke depan, ' + focus + ' ') +
+        (k === 'kini' ? 'yang paling kerasa itu <b>' + kwText(d) + '</b>.' : 'jalan ke arah <b>' + kwText(d) + '</b>.') +
+        (b === 'pos' ? ' Ini tanda bagus.' : b === 'neg' ? ' Ini bagian yang perlu kamu waspadai dan benerin.' : ' Hasilnya masih bisa kamu bentuk.');
     }
 
     /* --- per posisi --- */
@@ -343,21 +343,21 @@
     /* --- lintasan --- */
     const diff = pol(D.depan) - pol(D.lalu);
     let trajectory;
-    if (diff >= 1.5) trajectory = 'Lintasan energinya <b>menanjak</b>: dari masa lalu yang lebih berat menuju masa depan yang lebih terang. Kamu sedang keluar dari sebuah fase sulit.';
-    else if (diff <= -1.5) trajectory = 'Lintasan energinya <b>menurun</b>: masa depan meminta kewaspadaan lebih dibanding masa lalu. Ingat, kartu masa depan bukan vonis — ia adalah arah bila tidak ada yang diubah. Kartu Kunci menunjukkan apa yang bisa kamu ubah.';
-    else trajectory = 'Lintasan energinya relatif <b>stabil</b>: pola yang sama cenderung berlanjut. Perubahan besar baru terjadi bila kamu sengaja mengubah cara bertindak.';
+    if (diff >= 1.5) trajectory = 'Arahnya <b>naik</b>: dari masa lalu yang berat ke masa depan yang lebih terang. Kamu lagi keluar dari fase sulit. Tahan sebentar lagi.';
+    else if (diff <= -1.5) trajectory = 'Arahnya <b>turun</b>: masa depan minta kamu lebih waspada daripada dulu. Tapi santai, kartu masa depan itu bukan vonis. Itu arah kalau nggak ada yang diubah, dan Kartu Kunci nunjukin apa yang bisa kamu ubah.';
+    else trajectory = 'Arahnya <b>datar</b>: pola yang sama cenderung keulang. Mau beda? Caramu bertindak yang harus beda dulu.';
 
     /* --- pola --- */
     const patterns = [];
     const majors = all.filter((d) => d.card.arcana === 'major');
     if (majors.length === 0) {
-      patterns.push({ title: 'Tanpa Arcana Mayor', text: 'Tidak ada satu pun Arcana Mayor yang keluar. Artinya ' + T.noun + ' saat ini lebih banyak ditentukan oleh keputusan dan tindakan sehari-harimu — situasinya ada dalam kendalimu.' });
+      patterns.push({ title: 'Nol Arcana Mayor', text: 'Nggak ada satu pun Arcana Mayor. Artinya ' + T.noun + ' sekarang lebih banyak ditentuin sama keputusan dan tindakanmu sehari-hari. Kabar baiknya: kendalinya ada di tanganmu.' });
     } else if (majors.length === 1) {
-      patterns.push({ title: 'Satu Arcana Mayor', text: '<b>' + majors[0].card.nameId + '</b> adalah satu-satunya Arcana Mayor, menjadikannya “jangkar” dari bacaan ini. Pelajaran utama ' + T.noun + ' berpusat pada ' + kwText(majors[0]) + '.' });
+      patterns.push({ title: 'Satu Arcana Mayor', text: '<b>' + majors[0].card.nameId + '</b> satu-satunya Arcana Mayor, jadi dia “bos” di bacaan ini. Pelajaran utama ' + T.noun + ' ada di ' + kwText(majors[0]) + '.' });
     } else if (majors.length === 2) {
-      patterns.push({ title: 'Dua Arcana Mayor', text: 'Dua Arcana Mayor (' + majors.map((d) => d.card.nameId).join(' & ') + ') menandakan bahwa ' + T.noun + ' sedang melibatkan peristiwa penting — bukan sekadar urusan sehari-hari. Ada pelajaran jiwa di baliknya.' });
+      patterns.push({ title: 'Dua Arcana Mayor', text: 'Dua Arcana Mayor (' + majors.map((d) => d.card.nameId).join(' & ') + ') tandanya ' + T.noun + ' lagi nyangkut ke kejadian penting, bukan urusan receh. Ada pelajaran besar di baliknya.' });
     } else {
-      patterns.push({ title: majors.length + ' Arcana Mayor — momen takdir', text: 'Sebanyak ' + majors.length + ' Arcana Mayor muncul. Ini sangat kuat: ' + T.noun + ' sedang berada di titik balik besar yang digerakkan oleh kekuatan di luar kendali biasa. Hadapi dengan sadar; ini adalah babak yang akan kamu kenang.' });
+      patterns.push({ title: majors.length + ' Arcana Mayor: ini momen besar', text: majors.length + ' Arcana Mayor sekaligus. Ini jarang dan kuat banget: ' + T.noun + ' lagi di titik balik besar yang digerakin kekuatan di luar kendali biasa. Hadapi dengan sadar. Ini babak yang bakal kamu inget.' });
     }
 
     const minors = all.filter((d) => d.card.arcana === 'minor');
@@ -368,78 +368,78 @@
       const s = SUITS[dominant];
       const aff = s.affinity[topic];
       if (aff >= 0.8) {
-        patterns.push({ title: 'Dominasi ' + s.nameId + ' (' + s.element + ') — selaras', text: 'Kartu ' + s.nameId + ' mendominasi, dan ini sangat selaras dengan pertanyaanmu tentang ' + T.label.toLowerCase() + '. Kartu-kartu ini menjawab langsung inti persoalanmu: ' + s.hidden + '.' });
+        patterns.push({ title: 'Didominasi ' + s.nameId + ' (' + s.element + '): nyambung', text: 'Kartu ' + s.nameId + ' paling banyak keluar, dan itu nyambung banget sama pertanyaanmu soal ' + T.label.toLowerCase() + '. Kartunya langsung nembak inti masalahmu: ' + s.hidden + '.' });
       } else {
-        patterns.push({ title: 'Dominasi ' + s.nameId + ' (' + s.element + ') — pesan tersembunyi', text: 'Kamu bertanya tentang ' + T.label.toLowerCase() + ', tetapi yang mendominasi justru kartu ' + s.nameId + ' (' + s.domain + '). Ini isyarat penting: kunci persoalanmu mungkin bukan di permukaan, melainkan ' + s.hidden + '.' });
+        patterns.push({ title: 'Didominasi ' + s.nameId + ' (' + s.element + '): plot twist', text: 'Kamu nanya soal ' + T.label.toLowerCase() + ', tapi yang paling banyak keluar malah kartu ' + s.nameId + ' (' + s.domain + '). Kode penting: kunci masalahmu mungkin bukan yang keliatan, tapi ' + s.hidden + '.' });
       }
     } else if (minors.length >= 3) {
-      patterns.push({ title: 'Elemen beragam', text: 'Kartu-kartu Arcana Minor datang dari elemen yang berbeda-beda. ' + upperFirst(T.noun) + ' menuntut keseimbangan di banyak sisi sekaligus — pikiran, perasaan, tindakan, dan hal praktis.' });
+      patterns.push({ title: 'Elemen campur aduk', text: 'Kartu Arcana Minor-mu datang dari elemen yang beda-beda. ' + upperFirst(T.noun) + ' minta kamu seimbang di banyak sisi sekaligus: pikiran, perasaan, tindakan, dan hal praktis.' });
     }
     if (minors.length >= 2 && !suitCount[T.primarySuit]) {
       const ps = SUITS[T.primarySuit];
-      patterns.push({ title: 'Absennya ' + ps.nameId, text: 'Tidak ada kartu ' + ps.nameId + ' (' + ps.domain + ') — padahal itulah elemen utama ' + T.label.toLowerCase() + '. Mungkin saat ini ' + T.noun + ' lebih digerakkan oleh faktor lain daripada ' + ps.domain.split(',')[0] + ' itu sendiri. Perhatikan apakah bagian ini perlu kamu beri ruang lebih.' });
+      patterns.push({ title: 'Kartu ' + ps.nameId + ' absen', text: 'Nggak ada kartu ' + ps.nameId + ' (' + ps.domain + '), padahal itu elemen utama ' + T.label.toLowerCase() + '. Bisa jadi ' + T.noun + ' sekarang lebih digerakin faktor lain, bukan ' + ps.domain.split(',')[0] + ' itu sendiri. Coba cek, bagian ini perlu kamu kasih ruang lebih nggak?' });
     }
 
     const revs = all.filter((d) => d.reversed);
     if (revs.length === 0) {
-      patterns.push({ title: 'Semua kartu tegak', text: 'Tidak ada kartu terbalik — energinya mengalir lancar dan pesannya jelas. Yang dibutuhkan sekarang adalah tindakan, bukan keraguan.' });
+      patterns.push({ title: 'Semua kartu tegak', text: 'Nggak ada yang terbalik. Energinya lancar, pesannya jelas. Yang kamu butuhin sekarang: gerak, bukan ragu.' });
     } else if (revs.length <= 2) {
-      patterns.push({ title: revs.length + ' kartu terbalik', text: 'Kartu terbalik di posisi ' + revs.map((d) => d.pos.label).join(' & ') + ' menunjukkan titik di mana energinya tersendat. Di situlah fokus perbaikanmu.' });
+      patterns.push({ title: revs.length + ' kartu terbalik', text: 'Kartu terbalik di ' + revs.map((d) => d.pos.label).join(' & ') + ' nunjukin di mana energinya mampet. Di situ PR-mu.' });
     } else {
-      patterns.push({ title: 'Banyak kartu terbalik', text: 'Sebagian besar kartu muncul terbalik. Ini masa untuk refleksi ke dalam, bukan aksi besar ke luar. Banyak energi yang tertahan dan perlu dilepaskan dulu.' });
+      patterns.push({ title: 'Banyak kartu terbalik', text: 'Kebanyakan kartunya terbalik. Ini waktunya ngaca ke dalam, bukan aksi besar ke luar. Banyak energi yang ketahan dan perlu dilepas dulu.' });
     }
 
     const courts = all.filter((d) => d.card.court);
     if (courts.length) {
-      patterns.push({ title: 'Kehadiran sosok', text: 'Kartu istana ' + courts.map((d) => '<b>' + d.card.nameId + '</b> (' + RANKS[d.card.rank].person + ')').join(', ') +
-        ' bisa mewakili orang nyata yang berperan dalam ' + T.noun + ' — atau sisi dirimu sendiri yang perlu tampil.' });
+      patterns.push({ title: 'Ada "orang" di bacaanmu', text: 'Kartu istana ' + courts.map((d) => '<b>' + d.card.nameId + '</b> (' + RANKS[d.card.rank].person + ')').join(', ') +
+        ' bisa jadi orang nyata yang punya peran di ' + T.noun + ', atau sisi dirimu sendiri yang perlu keluar.' });
     }
 
     const rankCount = {};
     minors.forEach((d) => { rankCount[d.card.rank] = (rankCount[d.card.rank] || 0) + 1; });
     Object.keys(rankCount).forEach((r) => {
       if (rankCount[r] >= 2) {
-        patterns.push({ title: 'Angka ' + RANKS[r].label + ' berulang', text: 'Kartu ' + RANKS[r].label + ' muncul ' + rankCount[r] + ' kali. Tema ' + RANKS[r].theme + ' sangat kuat dalam ' + T.noun + ' saat ini.' });
+        patterns.push({ title: 'Angka ' + RANKS[r].label + ' keluar berkali-kali', text: 'Kartu ' + RANKS[r].label + ' keluar ' + rankCount[r] + ' kali. Bukan kebetulan: tema ' + RANKS[r].theme + ' lagi kuat banget di ' + T.noun + '.' });
       }
     });
 
-    COMBOS.forEach((c) => { if (c.test(ids)) patterns.push({ title: 'Kombinasi khusus', text: c.text }); });
+    COMBOS.forEach((c) => { if (c.test(ids)) patterns.push({ title: 'Kombinasi langka', text: c.text }); });
 
     /* --- benang merah --- */
-    const flow = 'Untuk ' + focus + ': dari ' + kwText(D.lalu) + ' di masa lalu, kini kamu berada pada ' + kwText(D.kini) + '. Bila energi ini terus berjalan, semuanya' +
-      ' bergerak menuju ' + kwText(D.depan) + '. ' + trajectory + ' Kartu Kunci <b>' + shortName(D.kunci) + '</b> menjadi jembatannya: “' + keyAdvice(D.kunci) + '”';
+    const flow = 'Buat ' + focus + ': dulu ' + kwText(D.lalu) + ', sekarang kamu di ' + kwText(D.kini) + '. Kalau dibiarin jalan terus, semuanya' +
+      ' bakal ngarah ke ' + kwText(D.depan) + '. ' + trajectory + ' Kartu Kunci <b>' + shortName(D.kunci) + '</b> jadi jembatannya: “' + keyAdvice(D.kunci) + '”';
 
     /* --- jawaban sesuai jenis pertanyaan --- */
     const answer = { type: qType, text: '' };
     const vBand = score >= 0.4 ? 'pos' : score >= -0.3 ? 'mid' : 'neg';
     const scAnswer = sc ? fill(sc.answer[vBand], D.depan) : '';
     if (qType === 'yesno') {
-      answer.title = 'Jawaban untuk pertanyaanmu';
+      answer.title = 'Jawaban buat pertanyaanmu';
       const isChoice = /\batau\b/i.test(question);
       const lead = isChoice ? '' : !scAnswer ? verdict.yes
-        : /^ya\b/i.test(scAnswer) ? '' : ({ pos: score >= 1.1 ? 'Ya.' : 'Cenderung ya.', mid: 'Belum pasti.', neg: 'Untuk saat ini, cenderung belum.' })[vBand];
-      answer.text = (lead ? '<b>' + lead + '</b> ' : '') + (scAnswer ? scAnswer + ' ' : '') + (pol(D.depan) >= 1 && score < 0.4 ? 'Meski begitu, kartu Masa Depan menunjukkan arah yang membaik — jangan menyerah terlalu cepat. ' : '') +
-        (pol(D.depan) <= -1 && score >= 0.4 ? 'Namun kartu Masa Depan mengingatkan untuk tetap waspada pada ' + kwText(D.depan, 1) + '. ' : '') +
-        'Tarot tidak menetapkan nasib; ia menunjukkan arah energi saat ini.';
+        : /^ya\b/i.test(scAnswer) ? '' : ({ pos: score >= 1.1 ? 'Ya.' : 'Cenderung ya.', mid: 'Belum pasti.', neg: 'Untuk sekarang, cenderung belum.' })[vBand];
+      answer.text = (lead ? '<b>' + lead + '</b> ' : '') + (scAnswer ? scAnswer + ' ' : '') + (pol(D.depan) >= 1 && score < 0.4 ? 'Tapi kartu Masa Depan nunjukin arah yang membaik. Jangan nyerah kecepetan. ' : '') +
+        (pol(D.depan) <= -1 && score >= 0.4 ? 'Tapi kartu Masa Depan ngingetin buat tetap waspada sama ' + kwText(D.depan, 1) + '. ' : '') +
+        'Tarot nggak nentuin nasib. Dia cuma nunjukin arah energi saat ini. Sisanya, kamu yang pegang setir.';
     } else if (qType === 'kapan') {
-      answer.title = 'Soal waktu';
-      answer.text = (scAnswer ? scAnswer + ' ' : '') + timingFor(D.depan) + ' Waktu dalam tarot selalu lentur — tindakanmu bisa mempercepat atau memperlambatnya.';
+      answer.title = 'Kapan?';
+      answer.text = (scAnswer ? scAnswer + ' ' : '') + timingFor(D.depan) + ' Waktu di tarot itu lentur. Tindakanmu bisa bikin lebih cepet, atau malah molor.';
     } else if (qType === 'siapa') {
-      answer.title = 'Soal “siapa”';
+      answer.title = 'Siapa?';
       answer.text = (scAnswer ? scAnswer + ' ' : '') + (courts.length
-        ? 'Sosok yang dimaksud kemungkinan tercermin dalam ' + courts.map((d) => '<b>' + d.card.nameId + '</b>: ' + RANKS[d.card.rank].person).join('; ') + '.'
-        : 'Tidak ada kartu istana yang muncul, jadi kartu tidak menunjuk sosok tertentu. Fokus bacaan ini ada pada situasi dan pilihanmu sendiri, bukan pada orang lain.');
+        ? 'Sosoknya kemungkinan kecermin di ' + courts.map((d) => '<b>' + d.card.nameId + '</b>: ' + RANKS[d.card.rank].person).join('; ') + '.'
+        : 'Nggak ada kartu istana yang keluar, jadi kartunya nggak nunjuk orang tertentu. Fokus bacaan ini di situasi dan pilihanmu sendiri, bukan orang lain.');
     } else if (qType === 'kenapa') {
-      answer.title = 'Soal “mengapa”';
-      answer.text = (scAnswer ? scAnswer + ' ' : '') + 'Akar persoalannya terlihat pada kartu Masa Lalu (<b>' + shortName(D.lalu) + '</b>: ' + kwText(D.lalu) + ') yang kini terwujud sebagai ' + kwText(D.kini) + ' (<b>' + shortName(D.kini) + '</b>). Dengan kata lain, apa yang kamu alami sekarang adalah kelanjutan dari pola itu — dan bisa diubah mulai dari sekarang.';
+      answer.title = 'Kenapa?';
+      answer.text = (scAnswer ? scAnswer + ' ' : '') + 'Akar masalahnya keliatan di kartu Masa Lalu (<b>' + shortName(D.lalu) + '</b>: ' + kwText(D.lalu) + '), yang sekarang muncul jadi ' + kwText(D.kini) + ' (<b>' + shortName(D.kini) + '</b>). Singkatnya, yang kamu alami sekarang itu lanjutan pola lama. Dan pola bisa diputus, mulai hari ini.';
     } else if (qType === 'bagaimana') {
-      answer.title = 'Soal “bagaimana”';
-      answer.text = (scAnswer ? scAnswer + ' ' : '') + 'Jalan yang ditunjukkan kartu: mulai dari menyadari ' + kwText(D.kini, 1) + ' (Masa Kini), lalu jalankan pesan Kartu Kunci — “' + keyAdvice(D.kunci) + '” — sambil menyiapkan diri untuk ' + kwText(D.depan, 1) + '.';
+      answer.title = 'Terus gimana?';
+      answer.text = (scAnswer ? scAnswer + ' ' : '') + 'Caranya menurut kartu: sadari dulu ' + kwText(D.kini, 1) + ' (Masa Kini), terus jalanin pesan Kartu Kunci, “' + keyAdvice(D.kunci) + '”, sambil siap-siap buat ' + kwText(D.depan, 1) + '.';
     }
 
     if (!answer.text && question) {
-      answer.title = 'Jawaban untuk pertanyaanmu';
-      answer.text = scAnswer || ('Untuk ' + focus + ', kartu menunjukkan: <b>' + verdict.label.toLowerCase() + '</b>. ' + verdict.text);
+      answer.title = 'Jawaban buat pertanyaanmu';
+      answer.text = scAnswer || ('Buat ' + focus + ', kartunya bilang: <b>' + verdict.label.toLowerCase() + '</b>. ' + verdict.text);
     }
     if (answer.text && question) answer.quote = question;
 
@@ -447,15 +447,15 @@
     const steps = [];
     const actions = verdict.tone === 'sangat-positif' || verdict.tone === 'positif' ? T.actions.open : T.actions.hold;
     steps.push(D.kini.reversed
-      ? 'Akui dan bereskan ' + D.kini.card.kwRev[0] + ' yang sedang menghambat ' + T.noun + '.'
-      : 'Manfaatkan energi ' + D.kini.card.kwUp[0] + ' yang sedang hadir dalam ' + T.noun + '.');
+      ? 'Akui dan beresin ' + D.kini.card.kwRev[0] + ' yang lagi ngeganjel ' + T.noun + '.'
+      : 'Manfaatin energi ' + D.kini.card.kwUp[0] + ' yang lagi ada di ' + T.noun + '. Jangan disia-siain.');
     if (sc) steps.push(sc.tip);
     steps.push(actions[0]);
     steps.push(actions[1]);
     if (!sc) steps.push(actions[2]);
 
     /* --- jawaban singkat --- */
-    const essence = 'Untuk ' + focus + ': ' + verdict.label.toLowerCase() + '. Inti pesannya: dari <i>' + kw(D.kini, 1)[0] + '</i> menuju <i>' + kw(D.depan, 1)[0] + '</i>, dengan kunci “' + D.kunci.card.advice + '”';
+    const essence = 'Buat ' + focus + ': ' + verdict.label.toLowerCase() + '. Intinya: dari <i>' + kw(D.kini, 1)[0] + '</i> ke <i>' + kw(D.depan, 1)[0] + '</i>, kuncinya “' + D.kunci.card.advice + '”';
 
     return {
       topic: topic,
