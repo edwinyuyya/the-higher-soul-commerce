@@ -15,14 +15,14 @@ export const PRODUCTS = [
     icon: "☉",
     title: "Life Path",
     price: 29000,
-    body: "Arah hidup dan pelajaran utamamu, dihitung dari tanggal lahir.",
+    body: "Kenapa kamu kayak gini, dan kamu lahir buat apa. Dari tanggal lahir.",
   },
   {
     id: "destiny",
     icon: "✧",
     title: "Destiny Path",
     price: 29000,
-    body: "Bakat bawaan dari nama lengkapmu, dan cara memakainya untuk kerja.",
+    body: "Bakat bawaan dari nama lengkapmu, dan cara bikin bakat itu jadi duit.",
   },
   {
     id: "numerology",
@@ -30,7 +30,7 @@ export const PRODUCTS = [
     title: "Numerologi Lengkap",
     price: 99000,
     includes: ["lifepath", "destiny"],
-    body: "Laporan 10 halaman. Sudah termasuk Life Path dan Destiny Path, ditambah bab kerja dan uang, hubungan, dan tema tahun 2026 per bulan.",
+    body: "10 halaman. Udah termasuk Life Path dan Destiny Path, plus bab kerjaan dan duit, hubungan, dan tema tahun 2026 per bulan.",
   },
   {
     id: "humandesign",
@@ -38,7 +38,7 @@ export const PRODUCTS = [
     title: "Human Design",
     price: 79000,
     needsBirthTime: true,
-    body: "Tipe energimu dan cara terbaikmu mengambil keputusan. Perlu jam dan kota lahir.",
+    body: "Tipe tenagamu dan cara ambil keputusan yang nggak bikin nyesel. Butuh jam dan kota lahir.",
   },
   {
     id: "tarot",
@@ -47,7 +47,7 @@ export const PRODUCTS = [
     price: 29000,
     grantsTarot: true,
     noBirthData: true,
-    body: "Akses pribadi ke pembacaan tarot online. Linknya dikirim lewat WhatsApp.",
+    body: "Satu pertanyaan yang lagi ganjel, dijawab kartu yang kamu kocok sendiri. Link pribadi via WhatsApp.",
   },
 ];
 
@@ -59,7 +59,7 @@ export const BUNDLE = {
   needsBirthTime: true,
   grantsTarot: true,
   includes: ["numerology", "humandesign", "tarot"],
-  body: "Numerologi Lengkap dan Human Design dalam laporan PDF, ditambah akses Tarot Master.",
+  body: "Numerologi Lengkap dan Human Design dalam PDF, plus akses Tarot Master. Semuanya, harga lebih miring.",
 };
 
 // Harga kalau isi paket dibeli satuan, ditampilkan sebagai harga coret.

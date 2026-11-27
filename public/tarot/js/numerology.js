@@ -195,11 +195,11 @@
   function resultHTML(d) {
     const first = esc(d.name.split(/\s+/)[0] || '');
     return '<div class="nr">' +
-      '<p class="nr-hello">Peta angka pribadi' + (first ? ' untuk <b>' + first + '</b>' : '') + '</p>' +
+      '<p class="nr-hello">Nah, ini angka' + (first ? ' <b>' + first + '</b>' : 'mu') + '</p>' +
       readingCard(d.lp, 'lp', lifePathSteps(d.date)) +
       readingCard(d.ds, 'ds', destinySteps(d.name)) +
-      '<div class="nr-combo"><p class="nr-sub">Kalau digabung, artinya…</p><p>' + comboText(d.lp, d.ds) + '</p></div>' +
-      '<p class="promo-tease">Ini baru gambaran singkatnya. Di laporan Paket Lengkap-mu, kombinasi <b>' + d.lp + '</b> dan <b>' + d.ds + '</b> dibahas khusus untuk pekerjaan, cinta, dan keuangan kamu.</p>' +
+      '<div class="nr-combo"><p class="nr-sub">Kalau dua angka ini digabung</p><p>' + comboText(d.lp, d.ds) + '</p></div>' +
+      '<p class="promo-tease">Kena? Ini baru kulitnya. Di laporan Paket Lengkap-mu, kombinasi <b>' + d.lp + '</b> dan <b>' + d.ds + '</b> dibahas khusus buat kerjaan, cinta, dan duitmu.</p>' +
       '</div>';
   }
 
@@ -207,21 +207,21 @@
     return '' +
       '<section class="promo" id="numerologi" aria-labelledby="promoTitle">' +
       '<div class="promo-glow" aria-hidden="true"></div>' +
-      '<p class="promo-eyebrow">Bonus gratis · Numerologi</p>' +
-      '<h3 id="promoTitle">Kartu menjawab pertanyaanmu hari ini.<br><span>Angka kelahiranmu bercerita tentang siapa dirimu.</span></h3>' +
-      '<p>Cukup dengan nama lengkap dan tanggal lahir, kamu bisa tahu dua angka pribadimu:</p>' +
+      '<p class="promo-eyebrow">Gratis · 2 menit · Numerologi</p>' +
+      '<h3 id="promoTitle">Tanggal lahirmu udah ngasih jawabannya.<br><span>Kamu aja yang belum baca.</span></h3>' +
+      '<p>Kerja keras terus tapi rasanya salah jalur? Jatuh cinta ke pola yang sama lagi? Cukup nama lengkap dan tanggal lahir, dua angka ini bakal ngejelasin kenapa.</p>' +
       '<div class="promo-paths">' +
-      '<div><span class="pp-ico" aria-hidden="true">☉</span><b>Angka Jalan Hidup</b><p>Dihitung dari <u>tanggal lahir</u>. Menunjukkan arah dan tujuan hidupmu.</p></div>' +
-      '<div><span class="pp-ico" aria-hidden="true">✧</span><b>Angka Bakat</b><p>Dihitung dari <u>nama lengkap</u>. Menunjukkan kelebihan alami yang kamu bawa.</p></div>' +
+      '<div><span class="pp-ico" aria-hidden="true">☉</span><b>Angka Jalan Hidup</b><p>Dari <u>tanggal lahir</u>. Kamu dilahirkan buat apa, dan kenapa jalan lain terasa berat.</p></div>' +
+      '<div><span class="pp-ico" aria-hidden="true">✧</span><b>Angka Bakat</b><p>Dari <u>nama lengkap</u>. Kemampuan bawaan yang mungkin belum pernah kamu pakai serius.</p></div>' +
       '</div>' +
 
       '<div class="promo-try">' +
-      '<p class="promo-try-title">Hitung angkamu sekarang, gratis</p>' +
+      '<p class="promo-try-title">Cek sekarang, gratis</p>' +
       '<div class="promo-fields">' +
       '<label for="numName">Nama lengkap (sesuai akta lahir)<input id="numName" type="text" autocomplete="name" placeholder="Contoh: Ayu Kartika Sari"></label>' +
       '<label for="numDate">Tanggal lahir<input id="numDate" type="date" min="1900-01-01" max="2030-12-31"></label>' +
       '</div>' +
-      '<button class="btn btn-primary promo-calc" type="button" id="numCalc">✦ Lihat angkaku</button>' +
+      '<button class="btn btn-primary promo-calc" type="button" id="numCalc">✦ Hitung angkaku</button>' +
       '</div>' +
       '<div class="promo-result" id="numResult" hidden aria-live="polite"></div>' +
 
@@ -241,7 +241,7 @@
       if (!lp || !ds) {
         if (show) {
           out.hidden = false;
-          out.innerHTML = '<p class="promo-warn">Isi nama lengkap dan tanggal lahir dulu, ya.</p>';
+          out.innerHTML = '<p class="promo-warn">Eits, nama lengkap sama tanggal lahirnya diisi dulu, ya.</p>';
         }
         return null;
       }
