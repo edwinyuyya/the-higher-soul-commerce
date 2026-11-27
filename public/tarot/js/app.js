@@ -140,7 +140,7 @@
   const ORACLE_LINES = {
     shuffle: 'Tenangkan hatimu… biarkan kartu mendengar pertanyaanmu.',
     spread: 'Lihatlah. Kartu-kartu ini sudah menunggumu.',
-    pick: ['Pilih kartu pertama — akar dari pertanyaanmu.', 'Sekarang kartu untuk saat ini.', 'Satu lagi, untuk apa yang akan datang.', 'Terakhir, Kartu Kunci. Biarkan tanganmu memilih.'],
+    pick: ['Pilih kartu pertama, akar dari pertanyaanmu.', 'Sekarang kartu untuk saat ini.', 'Satu lagi, untuk apa yang akan datang.', 'Terakhir, Kartu Kunci. Biarkan tanganmu memilih.'],
     done: 'Bagus. Mari kita lihat apa yang mereka katakan…'
   };
   function showOracle(phase) {
@@ -322,7 +322,7 @@
     if (state.picks.length < 3) {
       setStatus('Pilih ' + (3 - state.picks.length) + ' kartu lagi', 'Kartu berikutnya untuk ' + E.POSITIONS[state.picks.length].label + '. Biarkan tanganmu mengikuti rasa.');
     } else if (state.picks.length === 3) {
-      setStatus('Sekarang pilih +1 Kartu Kunci', 'Satu kartu terakhir — pesan penuntun yang menjadi kunci dari bacaanmu.');
+      setStatus('Sekarang pilih +1 Kartu Kunci', 'Satu kartu terakhir, pesan penuntun yang menjadi kunci dari bacaanmu.');
     } else {
       finishPicking(run);
     }
@@ -392,21 +392,21 @@
     return new Promise((resolve) => {
       const box = $('#paywall');
       const price = window.Payment ? window.Payment.rupiah(15000) : 'Rp 15.000';
-      setStatus('Kartumu sudah terpilih', 'Empat kartu menunggu untuk dibuka.');
+      setStatus('Kartumu udah kepilih', 'Empat kartu nunggu dibuka. Jawabannya udah ada di situ.');
       box.innerHTML =
         '<div class="pw-cards" aria-hidden="true"><i></i><i></i><i></i><i></i></div>' +
-        '<h2>Buka bacaan kartumu</h2>' +
-        '<p class="pw-lead">Master Tarot siap membuka keempat kartumu dan menjawab pertanyaan yang kamu simpan dalam hati.</p>' +
+        '<h2>Kartunya udah kamu pilih. Berani buka?</h2>' +
+        '<p class="pw-lead">Harganya kurang dari segelas kopi kekinian. Bedanya, yang ini bikin kamu mikir semalaman.</p>' +
         '<ul class="pw-list">' +
-        '<li>Makna lengkap 4 kartu yang kamu pilih, tegak maupun terbalik</li>' +
-        '<li>Jawaban Master Tarot yang disambungkan langsung dengan pertanyaanmu</li>' +
-        '<li>Benang merah masa lalu, kini, dan masa depan, plus langkah yang bisa kamu ambil</li>' +
-        '<li>Boleh bertanya topik lain dengan kartu yang sama, tanpa biaya tambahan</li>' +
+        '<li>Arti 4 kartu pilihanmu, termasuk yang keluar terbalik (biasanya justru yang paling jujur)</li>' +
+        '<li>Jawaban Master Tarot yang nyambung langsung ke pertanyaanmu, bukan ramalan umum</li>' +
+        '<li>Benang merah dulu, sekarang, nanti, plus langkah konkret yang bisa kamu ambil</li>' +
+        '<li>Mau tanya topik lain pakai kartu yang sama? Boleh, nggak bayar lagi</li>' +
         '</ul>' +
-        '<div class="pw-buy"><div class="pw-price"><span>Sekali bayar</span><strong>' + price + '</strong></div>' +
-        '<button class="btn btn-primary btn-big" type="button" id="pwPay">Bayar &amp; buka kartuku</button></div>' +
+        '<div class="pw-buy"><div class="pw-price"><span>Sekali bayar aja</span><strong>' + price + '</strong></div>' +
+        '<button class="btn btn-primary btn-big" type="button" id="pwPay">Buka kartuku sekarang</button></div>' +
         '<p class="pw-methods">QRIS · GoPay · ShopeePay · OVO · DANA · LinkAja · Virtual Account BCA, BNI, BRI, Mandiri, Permata, CIMB</p>' +
-        '<p class="pw-secure">Pembayaran diproses oleh Midtrans, payment gateway berizin Bank Indonesia. Kartu yang kamu pilih tersimpan, jadi aman bila kamu berpindah ke aplikasi e-wallet atau m-banking.</p>';
+        '<p class="pw-secure">Dibayar lewat Midtrans, payment gateway berizin Bank Indonesia. Tenang, kartu pilihanmu nggak bakal hilang walau kamu pindah dulu ke aplikasi e-wallet atau m-banking.</p>';
       box.hidden = false;
       const btn = box.querySelector('#pwPay');
       btn.addEventListener('click', async () => {
@@ -485,7 +485,7 @@
       '<div class="meta">' + meta.map((m) => '<span class="badge">' + m + '</span>').join('') +
       '<span class="badge ' + (d.reversed ? 'rev' : 'up') + '">' + (d.reversed ? '↓ Terbalik' : '↑ Tegak') + '</span></div>' +
       '<div class="kw">' + nowKw.map((k) => '<span>' + k + '</span>').join('') + '</div>' +
-      '<h4>Makna ' + (d.reversed ? 'terbalik' : 'tegak') + ' — posisi kartumu</h4><p>' + (d.reversed ? c.rev : c.up) + '</p>' +
+      '<h4>Makna ' + (d.reversed ? 'terbalik' : 'tegak') + ', posisi kartumu</h4><p>' + (d.reversed ? c.rev : c.up) + '</p>' +
       extra +
       '<h4>Pesan sebagai nasihat</h4><p class="advice">“' + c.advice + '”</p>' +
       '<details><summary>Lihat juga makna ' + (d.reversed ? 'tegak' : 'terbalik') + '</summary><p>' + (d.reversed ? c.up : c.rev) + '</p>' +
@@ -495,12 +495,12 @@
 
   function renderDetails() {
     const wrap = $('#details');
-    wrap.innerHTML = '<h2 class="sec-title">Makna Kartu-kartumu</h2>' +
-      '<p class="sec-sub">Inilah arti setiap kartu secara umum. Setelah ini, Master Tarot akan membacanya khusus untuk pertanyaanmu.</p>' +
+    wrap.innerHTML = '<h2 class="sec-title">Arti Kartu-kartumu</h2>' +
+      '<p class="sec-sub">Ini arti umum tiap kartu. Bagian serunya nanti: Master Tarot bakal baca semuanya khusus buat pertanyaanmu.</p>' +
       state.picks.map((d, i) => detailHTML(d, E.POSITIONS[i])).join('') +
-      '<div class="ask-inline"><div class="ask-orb" aria-hidden="true"></div><h3>Pertanyaanmu tadi apa?</h3>' +
-      '<p>Tentang cinta, karier, keuangan, atau yang lain? Ceritakan, agar kartu-kartu ini bisa dibaca khusus untukmu.</p>' +
-      '<button class="btn btn-primary" type="button" data-ask>Ceritakan pertanyaanku ✦</button></div>';
+      '<div class="ask-inline"><div class="ask-orb" aria-hidden="true"></div><h3>Oke, jujur: tadi nanya apa?</h3>' +
+      '<p>Soal cinta, kerjaan, duit, atau yang lain? Ceritain aja, biar kartunya dibaca khusus buat kamu, bukan ramalan umum.</p>' +
+      '<button class="btn btn-primary" type="button" data-ask>Ceritain pertanyaanku ✦</button></div>';
     wrap.hidden = false;
     wrap.querySelector('[data-ask]').addEventListener('click', openAsk);
   }
@@ -603,16 +603,16 @@
 
     box.innerHTML =
       '<div class="r-head"><span class="r-topic">' + r.topicIcon + ' ' + r.topicLabel + '</span>' +
-      '<h2>Bacaan Master Tarot</h2><p class="r-intro">' + r.intro + '</p></div>' +
+      '<h2>Kata Master Tarot</h2><p class="r-intro">' + r.intro + '</p></div>' +
 
       (r.answer.text ? '<div class="panel answer">' + (r.answer.quote ? '<p class="q-quote">“' + E.escapeHtml(r.answer.quote) + '”</p>' : '') +
         '<h3>' + r.answer.title + '</h3><p class="big">' + r.answer.text + '</p></div>' : '') +
 
-      '<div class="panel master" id="masterPanel" hidden><h3>✦ Pesan Pribadi Master Tarot</h3>' +
+      '<div class="panel master" id="masterPanel" hidden><h3>✦ Pesan Khusus Buat Kamu</h3>' +
       '<div class="master-text" id="masterText"></div><p class="master-note" id="masterNote"></p></div>' +
 
       '<div class="panel essence tone-' + r.verdict.tone + '">' +
-      '<h3>Jawaban Singkat</h3>' +
+      '<h3>Versi Singkatnya</h3>' +
       '<div class="r-tone">' + r.verdict.label + '</div>' +
       '<div class="meter" aria-hidden="true"><div class="meter-bar"><div class="meter-dot" style="left:50%"></div></div>' +
       '<div class="meter-legend"><span>Masa ujian</span><span>Seimbang</span><span>Sangat mendukung</span></div></div>' +
@@ -624,21 +624,21 @@
       '<p class="sec-sub">Setiap kartu dibaca untuk menjawab: ' + r.focus + '.</p>' +
       posHTML +
 
-      '<div class="panel"><h3>Benang Merah</h3><p>' + r.flow + '</p></div>' +
+      '<div class="panel"><h3>Benang Merahnya</h3><p>' + r.flow + '</p></div>' +
 
-      '<div class="panel"><h3>Pola &amp; Sinyal yang Terbaca</h3><ul class="patterns">' +
+      '<div class="panel"><h3>Kode-kode yang Keliatan</h3><ul class="patterns">' +
       r.patterns.map((p) => '<li><span class="pt">' + p.title + '</span>' + p.text + '</li>').join('') + '</ul></div>' +
 
-      '<div class="panel"><h3>Langkah yang Bisa Kamu Ambil</h3><ol class="steps">' +
+      '<div class="panel"><h3>Terus, Kamu Harus Ngapain?</h3><ol class="steps">' +
       r.steps.map((s) => '<li>' + s + '</li>').join('') + '</ol></div>' +
 
-      '<div class="panel"><h3>Untuk Direnungkan</h3><ul class="reflect">' +
+      '<div class="panel"><h3>Renungin Malam Ini</h3><ul class="reflect">' +
       r.reflections.map((s) => '<li>' + s + '</li>').join('') + '</ul></div>' +
 
       (window.Numerology ? window.Numerology.html() : '') +
 
       (r.disclaimer ? '<p class="disclaimer">⚠︎ ' + r.disclaimer + '</p>' : '') +
-      '<p class="disclaimer">Tarot adalah cermin untuk refleksi diri — keputusan akhir tetap ada di tanganmu.</p>' +
+      '<p class="disclaimer">Tarot adalah cermin untuk refleksi diri, keputusan akhir tetap ada di tanganmu.</p>' +
 
       '<div class="r-actions">' +
       '<button class="btn" type="button" data-act="topic">↺ Tanya topik lain (kartu sama)</button>' +
@@ -676,7 +676,7 @@
     const cards = state.picks.map((d, i) => {
       const c = d.card;
       const p = E.POSITIONS[i];
-      return (i + 1) + '. ' + p.label + ' (' + p.sub + ') — ' + c.nameId + ' / ' + c.name + ', ' + (d.reversed ? 'TERBALIK' : 'tegak') +
+      return (i + 1) + '. ' + p.label + ' (' + p.sub + '), ' + c.nameId + ' / ' + c.name + ', ' + (d.reversed ? 'TERBALIK' : 'tegak') +
         '. Kata kunci: ' + (d.reversed ? c.kwRev : c.kwUp).join(', ') + '. Makna umum: ' + (d.reversed ? c.rev : c.up);
     }).join('\n');
     return [
@@ -748,15 +748,15 @@
   function copyReading(r) {
     const strip = (h) => { const d = document.createElement('div'); d.innerHTML = h; return d.textContent; };
     const lines = [];
-    lines.push('HIGHER SOUL TAROT — ' + r.topicLabel);
+    lines.push('HIGHER SOUL TAROT, ' + r.topicLabel);
     if (r.question) lines.push('Pertanyaan: ' + r.question);
     lines.push('');
-    state.picks.forEach((d, i) => lines.push(E.POSITIONS[i].label + ': ' + d.card.nameId + ' (' + d.card.name + ')' + (d.reversed ? ' — terbalik' : '')));
+    state.picks.forEach((d, i) => lines.push(E.POSITIONS[i].label + ': ' + d.card.nameId + ' (' + d.card.name + ')' + (d.reversed ? ', terbalik' : '')));
     const mt = document.getElementById('masterText');
     if (mt && !document.getElementById('masterPanel').hidden && mt.textContent.trim()) lines.push('', 'Pesan Master Tarot:', mt.innerText.trim());
     lines.push('', 'Jawaban singkat: ' + r.verdict.label, strip(r.verdict.text));
     if (r.answer.text) lines.push('', r.answer.title + ': ' + strip(r.answer.text));
-    r.positions.forEach((p) => lines.push('', '— ' + p.label + ' —', strip(p.link), strip(p.opening), strip(p.text)));
+    r.positions.forEach((p) => lines.push('', ',  ' + p.label + ' , ', strip(p.link), strip(p.opening), strip(p.text)));
     lines.push('', 'Benang merah: ' + strip(r.flow));
     lines.push('', 'Langkah:', ...r.steps.map((s, i) => (i + 1) + '. ' + strip(s)));
     const text = lines.join('\n');
@@ -828,7 +828,7 @@
     updateCounter();
     markNextSlot();
     showOracle('pick');
-    setStatus('Pilih 3 kartu', 'Ikuti intuisimu. Kartu pertama untuk Masa Lalu, kedua Masa Kini, ketiga Masa Depan — lalu +1 Kartu Kunci.');
+    setStatus('Pilih 3 kartu', 'Ikuti intuisimu. Kartu pertama untuk Masa Lalu, kedua Masa Kini, ketiga Masa Depan, lalu +1 Kartu Kunci.');
   }
 
   function goHome() {
@@ -873,7 +873,7 @@
     let done = null;
     try { done = await window.Payment.resume(); } catch (e) { done = null; }
     const sess = sessionStore.get();
-    if (done && done.product === 'numerology') {
+    if (done && done.product && done.product !== 'tarot') {
       if (window.Numerology && window.Numerology.showPaid) window.Numerology.showPaid(done.orderId, toast);
       return;
     }

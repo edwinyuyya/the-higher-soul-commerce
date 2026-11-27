@@ -128,23 +128,23 @@ function build(o) {
     [c.py, 'Tahun Pribadi ' + c.year, 'Tema hidupmu tahun ini', 'tanggal, bulan, dan tahun ' + c.year, YEARS[c.py].theme]
   ];
   pages.push(page(
-    chapter('Ringkasan', 'Peta angkamu', 'Halo, ' + first + '. Laporan ini dihitung dari nama lengkap dan tanggal lahirmu. Ada enam angka penting yang membentuk dirimu. Setiap angka dibahas satu per satu di halaman berikutnya, dengan bahasa sehari-hari.') +
+    chapter('Ringkasan', 'Peta angkamu', 'Halo, ' + first + '. Siap-siap ngerasa "kok tahu sih". Laporan ini dihitung dari nama lengkap dan tanggal lahirmu. Ada enam angka yang ngebentuk dirimu, dan semuanya dibahas satu-satu di halaman berikutnya, tanpa bahasa ribet.') +
     '<div class="grid6">' + grid.map(([n, t, s, from, title]) =>
       '<div class="g">' + medal(n, 's') + '<div><b>' + t + '</b><span class="g-title">' + (title || NUMBERS[n].title) + '</span><small>' + s + '. Dari ' + from + '.</small></div></div>').join('') + '</div>' +
-    '<div class="callout"><p class="callout-t">Kalimat tentang dirimu</p><p>Kamu <b>' + LP.title + '</b>, orang yang biasanya ' + LP.short + '. Bakat bawaanmu: ' + DS.short + '. Di dalam hati, kamu ' + SU.soul.replace(/^Jauh di dalam hati, kamu /, '').replace(/\.$/, '') + '.</p></div>' +
-    '<p class="note">Cara membaca: angka 1–9 adalah angka dasar. Angka 11, 22, dan 33 disebut <b>Angka Master</b>, angka istimewa dengan energi yang lebih kuat.</p>',
+    '<div class="callout"><p class="callout-t">Kamu dalam satu kalimat</p><p>Kamu <b>' + LP.title + '</b>, orang yang biasanya ' + LP.short + '. Bakat bawaanmu: ' + DS.short + '. Di dalam hati, kamu ' + SU.soul.replace(/^Jauh di dalam hati, kamu /, '').replace(/\.$/, '') + '.</p></div>' +
+    '<p class="note">Cara bacanya: angka 1 sampai 9 itu angka dasar. Angka 11, 22, dan 33 disebut <b>Angka Master</b>, angka istimewa yang energinya lebih kuat.</p>',
     pn++));
 
   /* 3. Jalan hidup */
   const s = c.lpSteps;
   pages.push(page(
-    '<div class="hero">' + medal(c.lp, 'l') + '<div>' + chapter('Bab 1 · Angka jalan hidup', LP.title) + '<p class="hero-sub">Angka terpenting dalam numerologi. Menunjukkan arah, tujuan, dan pelajaran utama hidupmu.</p></div></div>' +
+    '<div class="hero">' + medal(c.lp, 'l') + '<div>' + chapter('Bab 1 · Angka jalan hidup', LP.title) + '<p class="hero-sub">Angka paling penting di numerologi. Ini jawaban dari "sebenarnya aku hidup buat apa sih".</p></div></div>' +
     LP.about.map((p) => '<p class="lead">' + p + '</p>').join('') +
     '<div class="two">' +
-    '<div class="box good"><p class="box-t">Kelebihanmu</p>' + list(LP.strengths, 'ticks') + '</div>' +
-    '<div class="box warn"><p class="box-t">Yang perlu kamu jaga</p>' + list(LP.challenges, 'dots') + '</div>' +
+    '<div class="box good"><p class="box-t">Senjatamu</p>' + list(LP.strengths, 'ticks') + '</div>' +
+    '<div class="box warn"><p class="box-t">Yang sering jadi bumerang</p>' + list(LP.challenges, 'dots') + '</div>' +
     '</div>' +
-    '<div class="calc"><p class="box-t">Cara menghitungnya</p><table>' +
+    '<div class="calc"><p class="box-t">Biar nggak dibilang asal: cara hitungnya</p><table>' +
     '<tr><td>Tanggal ' + c.d + '</td><td>' + (String(c.d).length > 1 ? String(c.d).split('').join(' + ') + ' = ' : '') + arrow(chain(sumDigits(c.d))) + '</td></tr>' +
     '<tr><td>Bulan ' + String(c.mo).padStart(2, '0') + '</td><td>' + (String(c.mo).length > 1 ? String(c.mo).split('').join(' + ') + ' = ' : '') + arrow(chain(sumDigits(c.mo))) + '</td></tr>' +
     '<tr><td>Tahun ' + c.y + '</td><td>' + String(c.y).split('').join(' + ') + ' = ' + arrow(s.yChain) + '</td></tr>' +
@@ -154,25 +154,25 @@ function build(o) {
 
   /* 4. Bakat + gabungan */
   const combo = c.lp === c.ds
-    ? 'Angka Jalan Hidup dan Angka Bakatmu sama, yaitu <b>' + c.lp + '</b>. Ini cukup jarang. Artinya tujuan hidupmu dan bakat alamimu searah, jadi kamu akan cepat berkembang kalau berani menjadi dirimu sendiri.'
-    : 'Arah hidupmu sebagai <b>' + LP.title + '</b>: ' + LP.short + '. Bekalmu untuk sampai ke sana datang dari <b>' + DS.title + '</b>, yaitu ' + DS.short + '. ' +
-      'Kamu akan paling bahagia dan berhasil saat memakai bakat ' + c.ds + ' (' + DS.strengths.slice(0, 2).join(', ').toLowerCase() + ') untuk menjalani jalan hidup ' + c.lp + ' (' + LP.strengths.slice(0, 2).join(', ').toLowerCase() + ').';
+    ? 'Angka Jalan Hidup dan Angka Bakatmu sama persis, yaitu <b>' + c.lp + '</b>. Ini cukup jarang. Artinya tujuan hidupmu dan bakat alamimu searah, jadi kamu akan cepat berkembang kalau berani menjadi dirimu sendiri.'
+    : 'Arah hidupmu sebagai <b>' + LP.title + '</b>: ' + LP.short + '. Bekal paling ampuhmu buat sampai ke sana datang dari <b>' + DS.title + '</b>, yaitu ' + DS.short + '. ' +
+      'Rumusnya simpel: kamu paling bahagia dan paling berhasil pas pakai bakat ' + c.ds + ' (' + DS.strengths.slice(0, 2).join(', ').toLowerCase() + ') untuk menjalani jalan hidup ' + c.lp + ' (' + LP.strengths.slice(0, 2).join(', ').toLowerCase() + ').';
   pages.push(page(
-    '<div class="hero">' + medal(c.ds, 'l') + '<div>' + chapter('Bab 2 · Angka bakat', DS.title) + '<p class="hero-sub">Dihitung dari semua huruf nama lengkapmu. Menunjukkan kelebihan alami yang kamu bawa sejak lahir.</p></div></div>' +
-    '<p class="lead">' + DS.about[0].replace(/Ini adalah Angka Master.*$/, '') + '</p>' +
-    '<p class="label">Bakat alamimu</p><ul class="chips">' + DS.strengths.map((x) => '<li>' + x + '</li>').join('') + '</ul>' +
+    '<div class="hero">' + medal(c.ds, 'l') + '<div>' + chapter('Bab 2 · Angka bakat', DS.title) + '<p class="hero-sub">Dihitung dari semua huruf nama lengkapmu. Ini bakat bawaan yang kadang malah kamu anggap biasa aja.</p></div></div>' +
+    '<p class="lead">' + DS.about[0].replace(/Ini (adalah )?Angka Master.*$/, '') + '</p>' +
+    '<p class="label">Bakat bawaanmu</p><ul class="chips">' + DS.strengths.map((x) => '<li>' + x + '</li>').join('') + '</ul>' +
     '<div class="two">' +
     '<div class="box good"><p class="box-t">Bakat ini paling terlihat saat…</p><p>' + DS.career.style + '</p></div>' +
     '<div class="box warn"><p class="box-t">Sisi lain bakat ini</p>' + list(DS.challenges, 'dots') + '</div>' +
     '</div>' +
-    '<p class="small">Cara hitung: setiap huruf diubah menjadi angka (A=1, B=2, … I=9, lalu J=1 lagi). ' + c.letterCount + ' huruf dari namamu dijumlah: <b>' + arrow(c.dsChain) + '</b>.</p>' +
+    '<p class="small">Biar nggak dibilang asal, ini cara hitungnya: tiap huruf diubah jadi angka (A=1, B=2, sampai I=9, lalu J=1 lagi). ' + c.letterCount + ' huruf dari namamu dijumlah: <b>' + arrow(c.dsChain) + '</b>.</p>' +
     '<div class="combo"><p class="kicker">Kalau digabung</p><h3>Jalan Hidup ' + c.lp + ' + Bakat ' + c.ds + '</h3><p>' + combo + '</p></div>',
     pn++));
 
   /* 5. Isi hati, kesan pertama, hari lahir */
   const trio = (n, t, sub, text) => '<div class="trio">' + medal(n, 's') + '<div><p class="kicker">' + t + '</p><h3>' + NUMBERS[n].title + '</h3><p class="small muted">' + sub + '</p><p>' + text + '</p></div></div>';
   let gap = '';
-  if (c.soul !== c.persona) gap = '<div class="callout"><p class="callout-t">Yang menarik</p><p>Orang yang baru kenal melihatmu sebagai orang angka ' + c.persona + ', yang biasanya ' + PE.short + '. Padahal isi hatimu angka ' + c.soul + ', yang ingin ' + SU.short + '. Wajar kalau kadang kamu merasa “orang belum benar-benar mengenalku”. Orang-orang terdekatlah yang melihat dirimu yang sebenarnya.</p></div>';
+  if (c.soul !== c.persona) gap = '<div class="callout"><p class="callout-t">Plot twist</p><p>Orang yang baru kenal ngeliat kamu sebagai orang angka ' + c.persona + ', yang biasanya ' + PE.short + '. Padahal isi hatimu itu angka ' + c.soul + ', yang ingin ' + SU.short + '. Pantes kamu sering ngerasa “orang belum beneran kenal aku”. Cuma orang terdekat yang lihat dirimu yang asli.</p></div>';
   pages.push(page(
     chapter('Bab 3 · Di balik nama dan tanggalmu', 'Isi hati, kesan pertama, dan hari lahir') +
     trio(c.soul, 'Angka Isi Hati', 'Dari huruf hidup (A, I, U, E, O) namamu: ' + arrow(c.soulChain), SU.soul) +
@@ -184,17 +184,17 @@ function build(o) {
   /* 6. Karier & rezeki */
   const fields = [...new Set([...LP.career.fields.slice(0, 4), ...DS.career.fields.slice(0, 4)])].slice(0, 8);
   pages.push(page(
-    chapter('Bab 4 · Kerja dan rezeki', 'Pekerjaan yang cocok untukmu', 'Pekerjaan yang paling memuaskan biasanya cocok dengan jalan hidupmu (angka ' + c.lp + ') dan memakai bakat alamimu (angka ' + c.ds + ').') +
-    '<p class="label">Bidang yang paling cocok</p><ol class="fields">' + fields.map((f) => '<li>' + f + '</li>').join('') + '</ol>' +
+    chapter('Bab 4 · Kerja dan rezeki', 'Kerjaan yang bikin kamu hidup', 'Capek kerja itu wajar. Capek karena salah jalur itu beda cerita. Kerjaan yang paling bikin puas biasanya cocok sama jalan hidupmu (angka ' + c.lp + ') dan pakai bakat bawaanmu (angka ' + c.ds + ').') +
+    '<p class="label">Jalur yang paling kamu banget</p><ol class="fields">' + fields.map((f) => '<li>' + f + '</li>').join('') + '</ol>' +
     '<div class="two">' +
     '<div class="box"><p class="box-t">Gaya kerjamu</p><p>' + LP.career.style + '</p></div>' +
-    '<div class="box"><p class="box-t">Soal uang</p><p>' + LP.career.money + '</p></div>' +
+    '<div class="box"><p class="box-t">Soal duit</p><p>' + LP.career.money + '</p></div>' +
     '</div>' +
-    '<div class="callout"><p class="callout-t">Dorongan dari isi hatimu (angka ' + c.soul + ')</p><p>' + SU.soul + ' Pilih pekerjaan yang juga memenuhi keinginan ini, supaya kamu tidak hanya sibuk tapi juga puas.</p></div>' +
-    '<p class="label">Langkah praktis</p>' + list([
-      'Tulis 3 hal yang paling sering orang minta bantuanmu. Itu petunjuk bakat yang bisa menghasilkan uang.',
+    '<div class="callout"><p class="callout-t">Dorongan dari isi hatimu (angka ' + c.soul + ')</p><p>' + SU.soul + ' Pilih kerjaan yang juga ngisi keinginan ini, biar kamu nggak cuma sibuk, tapi juga puas.</p></div>' +
+    '<p class="label">Mulai dari sini</p>' + list([
+      'Tulis 3 hal yang paling sering orang minta tolong ke kamu. Itu bocoran bakat yang bisa jadi duit.',
       DS.career.money,
-      'Kalau sedang merasa buntu, kembali pada kelebihanmu: ' + LP.strengths.slice(0, 3).join(', ').toLowerCase() + '.'
+      'Lagi buntu? Balik lagi ke senjatamu: ' + LP.strengths.slice(0, 3).join(', ').toLowerCase() + '.'
     ], 'ticks'),
     pn++));
 
@@ -205,52 +205,52 @@ function build(o) {
     '<p>' + DS.love.pattern + '</p>' +
     '<div class="two">' +
     '<div class="box good"><p class="box-t">Yang kamu butuhkan dari pasangan</p><p>' + LP.love.needs + ' ' + SU.love.needs + '</p></div>' +
-    '<div class="box warn"><p class="box-t">Pola yang sering terulang</p><p>' + LP.challenges[0] + '. ' + SU.challenges[0] + '. Kalau dibiarkan, pola ini membuat hubungan terasa berat sebelah.</p></div>' +
+    '<div class="box warn"><p class="box-t">Pola yang sering terulang</p><p>' + LP.challenges[0] + '. ' + SU.challenges[0] + '. Kalau dibiarin, hubunganmu bakal terus kerasa berat sebelah.</p></div>' +
     '</div>' +
-    '<p class="label">Angka jalan hidup pasangan yang paling cocok</p>' +
+    '<p class="label">Angka jalan hidup yang paling klik sama kamu</p>' +
     '<div class="match">' + LP.match.map((n) => '<div>' + medal(n, 'xs') + '<span>' + NUMBERS[n].title + '<small>' + NUMBERS[n].short + '</small></span></div>').join('') + '</div>' +
-    '<p class="small muted">Angka lain tetap bisa cocok. Angka-angka ini hanya yang paling mudah “nyambung” denganmu secara alami.</p>' +
-    '<div class="callout"><p class="callout-t">Saran untuk hubunganmu</p><p>' + LP.love.advice + ' ' + DS.love.advice + '</p></div>',
+    '<p class="small muted">Angka lain tetap bisa jodoh kok. Ini cuma yang paling gampang nyambung sama kamu.</p>' +
+    '<div class="callout"><p class="callout-t">Saran jujur buat hubunganmu</p><p>' + LP.love.advice + ' ' + DS.love.advice + '</p></div>',
     pn++));
 
   /* 8. Tahun pribadi */
   const Y = YEARS[c.py], YN = YEARS[c.pyNext];
   pages.push(page(
-    '<div class="hero">' + medal(c.py, 'l') + '<div>' + chapter('Bab 6 · Arah tahun ' + c.year, 'Tahun Pribadi ' + c.py + ': ' + Y.theme) + '<p class="hero-sub">Hidup berjalan dalam siklus 9 tahun. Tahun Pribadi menunjukkan “musim” yang sedang kamu jalani. Tahun pribadimu berganti setiap hari ulang tahun.</p></div></div>' +
+    '<div class="hero">' + medal(c.py, 'l') + '<div>' + chapter('Bab 6 · Arah tahun ' + c.year, 'Tahun Pribadi ' + c.py + ': ' + Y.theme) + '<p class="hero-sub">Hidup jalan dalam siklus 9 tahun. Tahun Pribadi nunjukin “musim” yang lagi kamu jalani: waktunya gas, atau waktunya rem. Gantinya tiap hari ulang tahun.</p></div></div>' +
     '<p class="lead">' + Y.text + '</p>' +
     '<div class="two">' +
-    '<div class="box good"><p class="box-t">Lakukan</p>' + list(Y.do, 'ticks') + '</div>' +
-    '<div class="box warn"><p class="box-t">Hindari</p><p>' + Y.avoid + '</p></div>' +
+    '<div class="box good"><p class="box-t">Gas</p>' + list(Y.do, 'ticks') + '</div>' +
+    '<div class="box warn"><p class="box-t">Rem</p><p>' + Y.avoid + '</p></div>' +
     '</div>' +
-    '<p class="label">Tema setiap bulan di tahun ' + c.year + '</p>' +
+    '<p class="label">Bocoran tiap bulan di tahun ' + c.year + '</p>' +
     '<div class="months">' + c.months.map((m, i) => '<div><b>' + BLN[i] + '</b><span>' + m + '</span><small>' + YEARS[m].theme + '</small></div>').join('') + '</div>' +
-    '<div class="callout"><p class="callout-t">Mengintip tahun ' + (c.year + 1) + ': Tahun Pribadi ' + c.pyNext + ' (' + YN.theme + ')</p><p>' + YN.text + '</p></div>',
+    '<div class="callout"><p class="callout-t">Ngintip tahun ' + (c.year + 1) + ': Tahun Pribadi ' + c.pyNext + ' (' + YN.theme + ')</p><p>' + YN.text + '</p></div>',
     pn++));
 
   /* 9. Bonus: zodiak & weton */
   pages.push(page(
-    chapter('Tambahan', 'Zodiak dan weton', 'Sebagai pelengkap, berikut gambaran dari dua tradisi lain. Keduanya memakai tanggal lahirmu dengan cara yang berbeda.') +
+    chapter('Tambahan', 'Zodiak dan weton', 'Bonus buat kamu: dua tradisi lain yang juga baca tanggal lahirmu, dengan cara yang beda.') +
     '<div class="two">' +
     '<div class="box"><p class="box-t">Zodiak</p><h3 class="big">' + z[0] + '</h3><p>Orang ' + z[0] + ' dikenal ' + z[3] + '.</p>' +
-    (o.time || o.city ? '<p class="small muted">Jam lahir (' + esc(o.time || '-') + ') dan kota (' + esc(o.city || '-') + ') dipakai untuk peta astrologi lengkap (ascendant dan posisi planet). Peta lengkap itu tidak termasuk dalam laporan numerologi ini.</p>' : '') + '</div>' +
+    (o.time || o.city ? '<p class="small muted">Jam lahir (' + esc(o.time || '-') + ') dan kota (' + esc(o.city || '-') + ') dipakai buat peta astrologi lengkap (ascendant dan posisi planet). Itu cerita lain, nggak masuk laporan numerologi ini.</p>' : '') + '</div>' +
     '<div class="box"><p class="box-t">Weton Jawa</p><h3 class="big">' + w.hari + ' ' + w.pasaran + '</h3><p>Neptu: ' + w.hari + ' (' + w.nh + ') + ' + w.pasaran + ' (' + w.np + ') = <b>' + w.neptu + '</b>.</p><p class="small muted">Neptu dipakai dalam tradisi Jawa, misalnya untuk menghitung kecocokan atau memilih hari baik.' + (o.time && Number(String(o.time).split(/[:.]/)[0]) >= 18 ? ' Karena lahir setelah magrib, sebagian tradisi menghitung weton dari hari berikutnya.' : '') + '</p></div>' +
     '</div>' +
-    '<div class="callout"><p class="callout-t">Benang merah</p><p>Numerologimu menunjukkan <b>' + LP.title + '</b> dengan bakat <b>' + DS.title + '</b>. Zodiak ' + z[0] + ' (' + z[3].split(', ')[0] + ') menambah warna pada gambaran itu.</p></div>',
+    '<div class="callout"><p class="callout-t">Benang merah</p><p>Numerologimu menunjukkan <b>' + LP.title + '</b> dengan bakat <b>' + DS.title + '</b>. Zodiak ' + z[0] + ' (' + z[3].split(', ')[0] + ') nambah warna di gambaran itu.</p></div>',
     pn++));
 
   /* 10. Penutup */
   pages.push(page(
     chapter('Penutup', 'Pesan untuk ' + first) +
-    '<p class="lead">Semua angka ini bercerita tentang satu hal: kamu sudah membawa bekal yang cukup sejak lahir. Tugasmu mengenali bekal itu, lalu memakainya dengan sadar.</p>' +
-    '<p class="label">Lima hal untuk diingat</p><ol class="fields five">' +
-    '<li><b>Kelebihan utamamu</b> adalah ' + LP.strengths.slice(0, 2).join(' dan ').toLowerCase() + '. Pakai setiap hari.</li>' +
-    '<li>Kemampuanmu untuk ' + DS.short + ' layak dihargai, termasuk dengan uang.</li>' +
-    '<li><b>Jaga diri</b> dari kebiasaan ' + LP.challenges[0].toLowerCase() + '.</li>' +
-    '<li><b>Dengarkan isi hatimu:</b> ' + SU.soul.replace(/^Jauh di dalam hati, /, '') + '</li>' +
-    '<li><b>Tahun ini</b> adalah tahun ' + Y.theme.toLowerCase() + '. ' + Y.do[0] + '.</li>' +
+    '<p class="lead">Semua angka ini ngomongin satu hal: bekalmu udah lengkap dari lahir. Tugasmu kenalin bekal itu, terus pakai. Sekarang, jangan nanti.</p>' +
+    '<p class="label">Tempel di kepala</p><ol class="fields five">' +
+    '<li><b>Senjata utamamu</b>: ' + LP.strengths.slice(0, 2).join(' dan ').toLowerCase() + '. Pakai tiap hari, jangan disimpen.</li>' +
+    '<li>Kemampuanmu untuk ' + DS.short + ' layak dibayar. Beneran dibayar, jangan cuma "makasih ya".</li>' +
+    '<li><b>Waspadai</b> kebiasaan ' + LP.challenges[0].toLowerCase() + '.</li>' +
+    '<li><b>Jujur sama isi hatimu:</b> ' + SU.soul.replace(/^Jauh di dalam hati, /, '') + '</li>' +
+    '<li><b>Tahun ini</b> tahun ' + Y.theme.toLowerCase() + '. ' + Y.do[0] + '.</li>' +
     '</ol>' +
     '<div class="affirm"><p class="kicker">Afirmasi pribadimu</p><p>“Aku orang yang ' + LP.short + '. Aku memakai ' + DS.strengths[0].toLowerCase() + ' untuk kebaikan diriku dan orang-orang yang kusayangi.”</p></div>' +
-    '<p class="small muted center">Laporan ini untuk bercermin. Untuk urusan kesehatan, keuangan, atau hukum, tetap tanyakan ke ahlinya. Keputusan akhir ada di tanganmu.</p>',
+    '<p class="small muted center">Laporan ini buat ngaca. Buat urusan kesehatan, keuangan, atau hukum, tetap tanya ke ahlinya. Yang mutusin tetap kamu.</p>',
     pn++));
 
   return { html: shell(pages.join(''), o.name), c };
